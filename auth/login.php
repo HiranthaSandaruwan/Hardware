@@ -8,15 +8,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $username = trim($_POST['username'] ?? '');
   $password = trim($_POST['password'] ?? '');
 
-  $stmt = $mysqli->prepare('SELECT user_id,username,password,role,status FROM users WHERE username=? LIMIT 1');
+  $stmt = $mysqli->prepare('SELECT user_id,username,password,role,status,is_disabled FROM users WHERE username=? LIMIT 1');
   $stmt->bind_param('s', $username);
   $stmt->execute();
   $res = $stmt->get_result();
 
   if ($row = $res->fetch_assoc()) {
     if ($row['password'] === $password) { // plain text per spec
-      if ($row['status'] !== 'approved') {
-        $err = 'Account not approved yet';
+      if ($row['is_disabled']) {
+        $err = 'Account disabled by admin';
+      } elseif ($row['status'] !== 'approved') {
+        $err = 'Account pending approval';
       } else {
         $_SESSION['user'] = [
           'id'       => $row['user_id'],
@@ -26,9 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($row['role'] === 'admin') {
           header('Location: ../admin/index.php');
         } elseif ($row['role'] === 'technician') {
-          header('Location: ../technician/index.php');
+          header('Location: ../technician/dashboard.php');
         } else {
-          header('Location: ../user/dashboard.php');
+          header('Location: ../customer/dashboard.php');
         }
         exit;
       }
