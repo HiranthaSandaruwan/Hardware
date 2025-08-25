@@ -1,14 +1,19 @@
-<?php $u=current_user(); $role=$u['role']??null; $base=$BASE_URL; ?>
+<?php
+$u    = current_user();
+$role = $u['role'] ?? null;
+$base = $BASE_URL;
+?>
 <nav class="sidebar">
   <h2>Tracker</h2>
   <a href="<?= $base ?>/index.php">Home</a>
-  <?php if($u): ?>
-    <?php if($role==='admin'): ?>
+
+  <?php if ($u): ?>
+    <?php if ($role === 'admin'): ?>
       <a href="<?= $base ?>/admin/index.php">Admin Dashboard</a>
       <a href="<?= $base ?>/admin/users.php">Users</a>
       <a href="<?= $base ?>/admin/requests.php">Requests</a>
       <a href="<?= $base ?>/admin/reports.php">Reports</a>
-    <?php elseif($role==='technician'): ?>
+    <?php elseif ($role === 'technician'): ?>
       <a href="<?= $base ?>/technician/index.php">Tech Dashboard</a>
       <a href="<?= $base ?>/technician/requests.php">My Requests</a>
     <?php else: ?>
