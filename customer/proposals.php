@@ -2,14 +2,30 @@
 $uid=current_user()['id'];
 if(isset($_GET['accept'])){
   $pid=(int)$_GET['accept'];
-  // fetch proposal details
-  $p=$mysqli->query("SELECT * FROM appointment_proposals ap JOIN requests r ON ap.request_id=r.request_id WHERE ap.proposal_id=$pid AND r.user_id=$uid AND ap.status='Waiting'")->fetch_assoc();
-  if($p){
-    $slotIndex=(int)($_GET['slot']??1); $chosen=$p['slot'.$slotIndex];
+  $slotIndex=(int)($_GET['slot']??1); if($slotIndex<1||$slotIndex>3) $slotIndex=1;
+  // fetch only required fields with distinct aliasing to avoid name collision
+  $stmt=$mysqli->prepare("SELECT ap.request_id, ap.technician_id AS proposal_technician_id, ap.slot1, ap.slot2, ap.slot3 FROM appointment_proposals ap JOIN requests r ON ap.request_id=r.request_id WHERE ap.proposal_id=? AND r.user_id=? AND ap.status='Waiting' LIMIT 1");
+  $stmt->bind_param('ii',$pid,$uid);$stmt->execute();
+  $res=$stmt->get_result();
+  if($p=$res->fetch_assoc()){
+    $chosen=$p['slot'.$slotIndex];
     if($chosen){
-      $mysqli->query("INSERT INTO appointments(request_id,technician_id,chosen_slot) VALUES(".$p['request_id'].",".$p['technician_id'].",'".$mysqli->real_escape_string($chosen)."')");
-      $mysqli->query("UPDATE appointment_proposals SET status='Accepted' WHERE proposal_id=$pid");
-      $mysqli->query("UPDATE appointment_proposals SET status='Rejected' WHERE request_id=".$p['request_id']." AND proposal_id<>$pid AND status='Waiting'");
+      // insert appointment
+      $ins=$mysqli->prepare('INSERT INTO appointments(request_id,technician_id,chosen_slot) VALUES(?,?,?)');
+      $ins->bind_param('iis',$p['request_id'],$p['proposal_technician_id'],$chosen);
+      if($ins->execute()){
+        // mark accepted proposal
+        $upd=$mysqli->prepare("UPDATE appointment_proposals SET status='Accepted' WHERE proposal_id=?");
+        $upd->bind_param('i',$pid);$upd->execute();
+        // reject other waiting proposals for same request
+        $rej=$mysqli->prepare("UPDATE appointment_proposals SET status='Rejected' WHERE request_id=? AND proposal_id<>? AND status='Waiting'");
+        $rej->bind_param('ii',$p['request_id'],$pid);$rej->execute();
+        // update request core fields for quick reference (optional)
+        $reqUpd=$mysqli->prepare('UPDATE requests SET technician_id=?, tech_assigned=?, appointment_time=? WHERE request_id=?');
+        $tid=$p['proposal_technician_id'];
+        $reqUpd->bind_param('iisi',$tid,$tid,$chosen,$p['request_id']);
+        $reqUpd->execute();
+      }
     }
   }
   header('Location: proposals.php'); exit;

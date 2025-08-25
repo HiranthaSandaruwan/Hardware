@@ -28,7 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($row['role'] === 'admin') {
           header('Location: ../admin/index.php');
         } elseif ($row['role'] === 'technician') {
-          header('Location: ../technician/dashboard.php');
+          // dashboard file is index.php in technician directory
+          header('Location: ../technician/index.php');
         } else {
           header('Location: ../customer/dashboard.php');
         }
