@@ -21,9 +21,10 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
       $stmt2->bind_param('ssss',$username,$password,$role,$status);
       if($stmt2->execute()){
         $uid=$stmt2->insert_id;
-        $stmt3=$mysqli->prepare('INSERT INTO technician_profile(technician_id,full_name,phone,email,specialization,experience_years,availability_notes) VALUES(?,?,?,?,?,?,?)');
-        $stmt3->bind_param('issssiss',$uid,$full_name,$phone,$email,$specialization,$experience,$availability);
-        $stmt3->execute();
+  $stmt3=$mysqli->prepare('INSERT INTO technician_profile(technician_id,full_name,phone,email,specialization,experience_years,availability_notes) VALUES(?,?,?,?,?,?,?)');
+  // Types: i (id), s (full_name), s (phone), s (email), s (specialization), i (experience_years), s (availability_notes)
+  $stmt3->bind_param('issssis',$uid,$full_name,$phone,$email,$specialization,$experience,$availability);
+  $stmt3->execute();
         $ok='Registered. Await admin approval.';
       } else $err='Insert failed';
     }
