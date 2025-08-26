@@ -9,11 +9,28 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
   } else {
     $stmt=$mysqli->prepare('INSERT INTO repair_updates(request_id,technician_id,status,note,created_at) VALUES(?,?,?,?,NOW())');
     $stmt->bind_param('iiss',$rid,$tid,$status,$note);
-    $stmt->execute();
-    $msg='Status updated';
+    if($stmt->execute()){
+      // Map repair update status to request.state transitions
+      $newState = $status;
+      if($status==='Pending') $newState='Device Received'; // after device received
+      if($status==='In Progress') $newState='In Progress';
+      if($status==='Completed') $newState='Completed';
+      if($status==='Cannot Fix') $newState='Cannot Fix';
+      if($status==='On Hold') $newState='On Hold';
+      $mysqli->query("UPDATE requests SET state='".$mysqli->real_escape_string($newState)."', updated_at=NOW() WHERE request_id=$rid");
+      // If moved to a final/completed style state, go straight to Completed Work list so technician sees it there
+      if(in_array($newState,['Completed','Cannot Fix','Returned'])){
+        header('Location: completed.php?just=1');
+      } else {
+        header('Location: index.php?status_updated=1');
+      }
+      exit;
+    } else {
+      $msg='Insert failed';
+    }
   }
 }
-$my=$mysqli->query("SELECT request_id FROM appointments WHERE technician_id=$tid AND device_received=1 ORDER BY created_at DESC");
+$my=$mysqli->query("SELECT a.request_id FROM appointments a JOIN requests r ON r.request_id=a.request_id WHERE a.technician_id=$tid AND r.state NOT IN('Completed','Cannot Fix','Returned') ORDER BY a.created_at DESC");
 ?>
 <?php include __DIR__.'/../partials/header.php'; ?>
 <h1>Update Repair Status</h1>

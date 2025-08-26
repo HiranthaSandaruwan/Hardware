@@ -22,8 +22,11 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
         $stmt3=$mysqli->prepare('INSERT INTO customer_profile(customer_id,full_name,phone,email,address) VALUES(?,?,?,?,?)');
         $stmt3->bind_param('issss',$uid,$full_name,$phone,$email,$address);
         $stmt3->execute();
-        $ok='Registered. Await admin approval.';
-      } else $err='Insert failed';
+        header('Location: login.php?registered=1');
+        exit;
+      } else {
+        $err='Insert failed';
+      }
     }
   }
 }

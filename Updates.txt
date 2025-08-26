@@ -1,195 +1,132 @@
+I want to do a little change in the current system after registration Customer can sent new request and admin has to approve it to appear it to the technicians I want to change that part and remove all every thing that useless with that method new method is after the registration Customer can send new request for a appointment and then the technicians can see those appointments. Admin interaction is of limit on that part so admin don't have to approve or anything to do there so remove that part also from our existing system. 
+In the Customer means user Customer can request for a appointment and those request can assign by the technicians So we can remove proposal Panel from the user.
 
-1) End-to-end flow (simple + exact)
-A. Registration & Login (Users + Technicians)
+Technician Interface Their should be a dashboard, Appointment panel to assign customer requests, their they can assign a pending request and send customer a request with available time slot. these should be done with in a same page. then after that customer accept the appointment there should be a another panel to like Accepted Appointment they technician can update all the states regarding the repair process even payment feed backs are shows in that page receipt every thing I said.
 
-    Landing → choose “Register as Customer” or “Register as Technician.”
 
-    Show two different forms:
+Scenario,
+I'm a customer I go to the site and register after the approval of the admin I login to the system I can see my dashboard in that dashboard. I can  send new request regarding my problem. then the technician can it under a pending Appointment panel to assign customer request. their technician send the available time slot. now the customer can see that request in the dashboard and customer will choice the time slot and update send to the technician. now technician can see that upcoming appointment and once technician received the device can update the status to received and then if the device still pending for repair, Repair in Progress, Done or else can't fix add necessary statuses) user can see these in their own tracker  and if it's fixed then they can update the status as Completed and if competed in the tracking panel their will be a URL to go to a different panel to see the receipt. and the technicians can fill a form to create the receipt after completed the work when they updated the status to complete they can go to different panel to fill that receipt that send back to he customer. And customer can pay their online or cash (cash mean when getting the device form the technician) (science we're not able to use payment gate way kind a things do not use them just show a option for a online payment or cash like I said ) then the customer will update that payment and technician can see it in the same panel that updated the completed status and after if customer paid online shows to the technician that paid other wise show other method. after the customer received their device technician will updated it and then that part is over a summary of that will goes to another panel and also same for the customer their will be a another panel for completed once. after all of this Admin can see the final summary or report in a different panel in their dashboard. else, a customer fail to pay or fill to reach out get their device after completed the repair technician can put it onhold and customer will see it in the tracking panel if the late it can be change after customer paid it or get their item form the technician. else, a customer fail to bring the device to the technician after accept the appointment for that certain date then the technician can reject it. and customer will see the status of that as rejected and will have to request a appointment again. Both technician and customer can give feedback to both sides and technician can rate the customer relation in the completing process customer can give feed back in their completed panel. Admin can see these rating in a separate panel (it would be more clear if we show customers and technicians separately in separate pages) Admin Admin have authority to remove access both customers and admins if needed! I would like if we arrange separate folders for admin customer technician for they pages it will be more clear in the editing process we may have to update the our database including all and using simple pure MySQL CSS JS PHP HTML to understand anyone
+use the same panel for tacking purposes of each sides 
+ChatGPT said:
 
-        Customer form: full name, phone, email, address (free text), username, password.
+bro got it — we’ll remove admin approval for requests and keep admin approval for registrations only. below is the clean, simple plan you can paste into Copilot and use to modify your current project (pure PHP/MySQL/JS/HTML/CSS; still keep default uoc/uoc user per spec)
+. it’s fully aligned with our previous README approach (plain passwords, simple validation)
 
-        Technician form: full name, phone, email, specialization/skills (short text), experience (years), availability notes, username, password.
+.
+v2 flow (no admin approval for requests)
+roles
 
-    On submit → create account with status='pending'. Login is blocked until admin approves.
+    Admin: approve/reject registrations only; manage users (disable), view reports/summary, see feedback lists.
 
-    Admin approves or rejects each new account.
+    Customer (User): register → wait for admin approval → login → create appointment request → view & accept a technician’s proposed slot → track statuses → pay (record only) → feedback.
 
-    Only approved accounts can log in; others get “Account pending approval.”
+    Technician: see all pending customer requests immediately → on the same page assign request and propose up to 3 time slots → see Accepted Appointments panel → mark Device Received / No-Show → update repair status → create receipt → see payment status → mark Returned → leave feedback.
 
-    Spec rule: include default ordinary user uoc/uoc.
+states (simple)
 
-B. Appointment lifecycle (Customer → Admin → Technician → Customer)
+    request lifecycle: New (customer) → Assigned (tech proposed slots) → Scheduled (customer accepted) → Device Received → In Progress → Completed → Returned
 
-    Customer submits Appointment Request (device type, model, serial, category, description, preferred date/time (optional)).
-    → Request starts as status='Pending'.
+    side paths: Cannot Fix, On Hold, No-Show, Rejected (didn’t bring device).
 
-    Admin reviews each request → Approve/Reject.
+what to change in codebase
+remove
 
-        Only approved requests become visible to all technicians.
+    any admin approval step for requests (buttons, columns, pages).
 
-    Technician opens Approved Requests list, reads the issue, and proposes 1–3 time slots (simple datetime fields).
+    customer proposal panel (user doesn’t propose; only technicians do).
 
-        This creates Appointment Proposals linked to the request.
+    any visibility filter that hides new requests from technicians until admin approves.
 
-    Customer views Proposed Slots → Accept/Reject one.
+keep
 
-        On Accept, we create a final Appointment with that slot and lock the others.
+    admin approval for registrations (login allowed only if status='approved').
 
-    Technician sees Accepted Appointments in a separate panel:
+    spec pages: Login, Home/Dashboard, Admin, Features, Help; default user uoc/uoc
 
-        Buttons: “Device Received” / “No-Show (Reject)”.
+.
 
-    Once Device Received, the request tracking starts. Technician can update repair status:
+plain text passwords / simple validation as in your current README
 
-        Pending → In Progress → Completed (or Cannot Fix / On Hold).
+    .
 
-    On Completed, technician fills a Receipt form (items/notes/amount).
+add / modify (pages)
 
-        Customer sees Payment options: Online (just a recorded choice, no gateway) or Cash when pickup.
-
-        Customer marks payment done (method + date).
-
-        Technician sees payment status in the same panel.
-
-    After pickup, technician marks Returned and the record moves to Completed lists (both sides).
-
-    Edge cases:
-
-        If customer delays payment or pickup → set On Hold (customer sees this on tracking panel).
-
-        If customer accepted a slot but never brought the device → technician marks No-Show (Rejected). Customer must request a new appointment.
-
-C. Feedback/Ratings (both sides)
-
-    After completion, Customer can rate the technician and leave a comment.
-
-    Technician can rate the customer relationship and comment.
-
-    Admin can view feedback in separate pages for technicians and customers.
-
-D. Admin powers
-
-    Approve/Reject registrations and requests.
-
-    Disable (remove access) any account (customer or technician).
-
-    View reports/summary by status/date/technician/customer.
-
-    Must keep default user uoc/uoc per spec.
-
-2) What to ADD / REMOVE / KEEP
-ADD (missing features you asked for)
-
-    Two separate registration forms + a simple role selection page before forms.
-
-    Account status field with hard login block until approved.
-
-    Technician role across DB, login checks, and menus.
-
-    Appointment proposals (multi-slot) from technician; customer acceptance flow.
-
-    Accepted Appointments panel (tech) with Device Received / No-Show buttons.
-
-    Simple status tracker for each device: Pending, In Progress, Completed, Cannot Fix, On Hold.
-
-    Receipt creation (tech) after completion; Payment record (choice: online/cash) by customer (no gateway).
-
-    Pickup/Returned flag by technician.
-
-    Feedback pages (both directions); Admin view of feedback.
-
-    Disable account toggle for admin (soft lock).
-
-REMOVE (to keep it simple & per rules)
-
-    Any login allowed before admin approval.
-
-    Any shared/mixed registration form that doesn’t collect role-specific fields.
-
-    Any external libraries, UI frameworks, or API calls (Bootstrap, jQuery, payment gateways, etc.).
-
-Any advanced security features that contradict your course brief (hashing/CSRF/etc.) if your lecturer forbids them (keep a clear note that this is educational only).
-KEEP (still valid per spec/README)
-
-    Pure stack: PHP + MySQL + HTML + CSS + vanilla JS.
-
-Default ordinary user uoc/uoc.
-
-Admin dashboard, Help, Features, Reports pages.
-3) Folder layout (split by role, like you asked)
-
-/assets
-  /css/style.css
-  /js/app.js
-
-/auth
-  choose_role.php           # links to /auth/register_customer.php or /auth/register_technician.php
+/auth/
+  choose_role.php
   register_customer.php
   register_technician.php
-  login.php
-  logout.php
+  login.php, logout.php
 
-/admin
-  index.php                 # widgets: pending users, pending requests
-  users_pending.php         # approve/reject
-  users_manage.php          # disable/enable
-  requests_pending.php      # approve/reject requests
-  reports.php               # simple tables (counts per status/tech)
+/customer/
+  dashboard.php                # shows: New Request form + My Requests + Proposals to Accept + Tracker + Completed
+  request_new.php              # (or keep inline in dashboard) inserts into requests
+  accept_slot.php              # POST: accept one slot (creates appointment)
+  payments.php                 # mark Online/Cash; set paid flag
+  feedback.php                 # rate technician after completion
+
+/technician/
+  dashboard.php
+  assign_and_propose.php       # SINGLE PAGE:
+                               #   left: unassigned NEW requests
+                               #   right: propose up to 3 time slots + assign to self
+  accepted_appointments.php    # after customer accepts; manage:
+                               #   Device Received / No-Show
+                               #   Status updates (Pending/In Progress/Completed/Cannot Fix/On Hold)
+                               #   Create receipt (simple form)
+                               #   See payment record
+                               #   Mark Returned
+  feedback.php
+
+/admin/
+  index.php
+  users_pending.php            # approve/reject registrations
+  users_manage.php             # disable/enable accounts
+  reports.php                  # counts & summaries
   feedback_customers.php
   feedback_technicians.php
 
-/customer
-  dashboard.php
-  request_new.php
-  my_requests.php           # list + status
-  proposals.php             # accept/reject slot
-  payments.php              # mark online/cash (record only)
-  completed.php             # list; view receipt
-  feedback.php              # rate technician
+database changes (minimal + pure MySQL)
+if you already have the earlier schema I proposed, run these ALTERs to switch to v2
 
-/technician
-  dashboard.php
-  approved_requests.php     # propose up to 3 slots
-  proposals_sent.php        # waiting for customer choice
-  accepted_appointments.php # device received / no-show
-  update_status.php         # pending/in-progress/completed/cannot-fix/on-hold
-  receipt_create.php        # after completed
-  completed.php             # history
-  feedback.php              # rate customer
+-- 1) REQUESTS: remove admin gate; track assignment + simple state
+ALTER TABLE requests
+  DROP COLUMN admin_status,                -- remove admin approval for requests
+  ADD COLUMN assigned_to INT NULL AFTER user_id,   -- technician_id (who proposed/handles)
+  ADD COLUMN state ENUM('New','Assigned','Scheduled','Device Received','In Progress','Completed','Returned','Cannot Fix','On Hold','No-Show','Rejected') NOT NULL DEFAULT 'New' AFTER description,
+  ADD CONSTRAINT fk_requests_assigned_to FOREIGN KEY (assigned_to) REFERENCES users(user_id);
 
-/partials
-  header.php
-  nav.php
-  footer.php
+-- 2) APPOINTMENT PROPOSALS: keep (created by TECH only), customer accepts ONE
+-- if you already have table, ensure structure matches:
+-- proposal links to request + technician; 1..3 slots; status per proposal
+-- (no change needed if you used same design earlier)
 
-config.php
-db.php
-database.sql
-index.php
-features.php
-help.php
+-- 3) APPOINTMENTS: final chosen slot after customer accepts
+-- (unchanged if you already have it)
 
-4) Database (simple & pure MySQL)
+-- 4) optional: add 'returned_at' for clarity
+ALTER TABLE appointments
+  ADD COLUMN returned_at DATETIME NULL AFTER no_show;
 
-    This extends the schema in your previous README to support your new flow (technician role, approvals, multi-slot proposals, payments, feedback).
+-- 5) REPAIR UPDATES / RECEIPTS / PAYMENTS / FEEDBACK remain as before
+-- If missing, create exactly as defined previously (simple columns, no triggers).
 
--- USERS + ROLE-SPECIFIC PROFILES
+if you don’t have my earlier tables yet, create the core v2 set quickly
+
 CREATE TABLE users (
   user_id INT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(50) UNIQUE NOT NULL,
-  password VARCHAR(255) NOT NULL,          -- plain text (educational, not for production)
+  password VARCHAR(255) NOT NULL,
   role ENUM('admin','user','technician') NOT NULL DEFAULT 'user',
   status ENUM('pending','approved','rejected') NOT NULL DEFAULT 'pending',
   is_disabled TINYINT(1) NOT NULL DEFAULT 0,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- required by spec (default ordinary user)
-INSERT INTO users (username, password, role, status) VALUES ('uoc','uoc','user','approved'); -- :contentReference[oaicite:10]{index=10}
-INSERT INTO users (username, password, role, status) VALUES ('admin','admin','admin','approved');
+INSERT INTO users (username,password,role,status) VALUES ('uoc','uoc','user','approved');  -- required by spec:contentReference[oaicite:4]{index=4}
+INSERT INTO users (username,password,role,status) VALUES ('admin','admin','admin','approved');
 
 CREATE TABLE customer_profile (
-  customer_id INT PRIMARY KEY,           -- = users.user_id
+  customer_id INT PRIMARY KEY,
   full_name VARCHAR(120) NOT NULL,
   phone VARCHAR(20) NOT NULL,
   email VARCHAR(120),
@@ -198,7 +135,7 @@ CREATE TABLE customer_profile (
 );
 
 CREATE TABLE technician_profile (
-  technician_id INT PRIMARY KEY,         -- = users.user_id
+  technician_id INT PRIMARY KEY,
   full_name VARCHAR(120) NOT NULL,
   phone VARCHAR(20) NOT NULL,
   email VARCHAR(120),
@@ -208,23 +145,22 @@ CREATE TABLE technician_profile (
   FOREIGN KEY (technician_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
--- REQUESTS
 CREATE TABLE requests (
   request_id INT AUTO_INCREMENT PRIMARY KEY,
-  user_id INT NOT NULL,                  -- customer
+  user_id INT NOT NULL,                           -- customer
+  assigned_to INT NULL,                           -- technician_id (set when tech proposes)
   device_type VARCHAR(60) NOT NULL,
   model VARCHAR(60),
   serial_no VARCHAR(60),
   category ENUM('Hardware','Software','Other') NOT NULL,
   description TEXT NOT NULL,
-  admin_status ENUM('Pending','Approved','Rejected') DEFAULT 'Pending',
-  tech_assigned INT NULL,                -- optional: if you want admin to assign; else keep NULL
+  state ENUM('New','Assigned','Scheduled','Device Received','In Progress','Completed','Returned','Cannot Fix','On Hold','No-Show','Rejected') NOT NULL DEFAULT 'New',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NULL,
-  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+  FOREIGN KEY (assigned_to) REFERENCES users(user_id)
 );
 
--- TECHNICIAN PROPOSES 1..3 TIME SLOTS PER REQUEST
 CREATE TABLE appointment_proposals (
   proposal_id INT AUTO_INCREMENT PRIMARY KEY,
   request_id INT NOT NULL,
@@ -235,23 +171,22 @@ CREATE TABLE appointment_proposals (
   status ENUM('Waiting','Accepted','Rejected') DEFAULT 'Waiting',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE,
-  FOREIGN KEY (technician_id) REFERENCES users(user_id) ON DELETE CASCADE
+  FOREIGN KEY (technician_id) REFERENCES users(user_id)
 );
 
--- CUSTOMER ACCEPTS ONE SLOT → FINAL APPOINTMENT
 CREATE TABLE appointments (
   appointment_id INT AUTO_INCREMENT PRIMARY KEY,
   request_id INT NOT NULL,
   technician_id INT NOT NULL,
   chosen_slot DATETIME NOT NULL,
-  device_received TINYINT(1) DEFAULT 0,        -- technician marks when customer brings device
-  no_show TINYINT(1) DEFAULT 0,                -- if customer didn't bring
+  device_received TINYINT(1) DEFAULT 0,
+  no_show TINYINT(1) DEFAULT 0,
+  returned_at DATETIME NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE,
-  FOREIGN KEY (technician_id) REFERENCES users(user_id) ON DELETE CASCADE
+  FOREIGN KEY (technician_id) REFERENCES users(user_id)
 );
 
--- REPAIR STATUS PROGRESSION
 CREATE TABLE repair_updates (
   update_id INT AUTO_INCREMENT PRIMARY KEY,
   request_id INT NOT NULL,
@@ -260,22 +195,20 @@ CREATE TABLE repair_updates (
   note VARCHAR(255),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE,
-  FOREIGN KEY (technician_id) REFERENCES users(user_id) ON DELETE CASCADE
+  FOREIGN KEY (technician_id) REFERENCES users(user_id)
 );
 
--- RECEIPT (AFTER COMPLETED)
 CREATE TABLE receipts (
   receipt_id INT AUTO_INCREMENT PRIMARY KEY,
   request_id INT NOT NULL,
   technician_id INT NOT NULL,
-  items TEXT,                        -- simple text list to keep it easy
+  items TEXT,
   total_amount DECIMAL(10,2) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE,
-  FOREIGN KEY (technician_id) REFERENCES users(user_id) ON DELETE CASCADE
+  FOREIGN KEY (technician_id) REFERENCES users(user_id)
 );
 
--- PAYMENT RECORD (NO GATEWAY; JUST A RECORD)
 CREATE TABLE payments (
   payment_id INT AUTO_INCREMENT PRIMARY KEY,
   receipt_id INT NOT NULL,
@@ -285,14 +218,13 @@ CREATE TABLE payments (
   FOREIGN KEY (receipt_id) REFERENCES receipts(receipt_id) ON DELETE CASCADE
 );
 
--- FEEDBACK BOTH WAYS
 CREATE TABLE feedback (
   feedback_id INT AUTO_INCREMENT PRIMARY KEY,
   request_id INT NOT NULL,
   from_user INT NOT NULL,
   to_user INT NOT NULL,
   role_view ENUM('customer_to_technician','technician_to_customer') NOT NULL,
-  rating TINYINT NOT NULL,            -- 1..5
+  rating TINYINT NOT NULL,
   comment TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE,
@@ -300,61 +232,68 @@ CREATE TABLE feedback (
   FOREIGN KEY (to_user) REFERENCES users(user_id)
 );
 
-    Keep it simple: no triggers, no views, no stored procedures. All actions are done with plain PHP + mysqli.
+minimal controller logic (copy-paste guards)
 
-5) Minimal page responsibilities (so coding stays simple)
+    login gate: SELECT * FROM users WHERE username=? AND password=? AND status='approved' AND is_disabled=0
 
-    /auth/choose_role.php → two big buttons → customer/technician forms.
+    technician page guard: $_SESSION['role']==='technician'
 
-    /auth/register_customer.php → insert into users (role=user, status='pending') + customer_profile.
+    admin page guard: $_SESSION['role']==='admin'
 
-    /auth/register_technician.php → insert into users (role=technician, status='pending') + technician_profile.
+    customer new request: insert into requests with state='New'
 
-    /auth/login.php → only allow where status='approved' and is_disabled=0; else show “pending/disabled.”
+    tech assign + propose (same page):
 
-    /customer/request_new.php → insert row in requests (admin_status='Pending').
+        set requests.assigned_to = $_SESSION['user_id']; requests.state='Assigned'
 
-    /admin/requests_pending.php → set admin_status to Approved/Rejected.
+        insert into appointment_proposals with up to 3 slots
 
-    /technician/approved_requests.php → create appointment_proposals (up to 3 slots).
+    customer accept slot:
 
-    /customer/proposals.php → for each Waiting proposal, accept one → insert appointments, set proposal Accepted, others Rejected.
+        insert into appointments (chosen_slot)
 
-    /technician/accepted_appointments.php → mark device_received=1 or no_show=1.
+        update proposal status='Accepted' (others Rejected)
 
-    /technician/update_status.php → insert into repair_updates.
+        update requests.state='Scheduled'
 
-    /technician/receipt_create.php → create receipts (+ default payments row with Pending).
+    device received: set appointments.device_received=1; requests.state='Device Received'
 
-    /customer/payments.php → set method + status='Paid' + paid_at=NOW() (record only).
+    status updates: insert into repair_updates; if Completed → allow receipt_create
 
-    /technician/completed.php → mark Returned (optional: add a returned_at in appointments if you want).
+    receipt: insert into receipts; create payments row (Pending)
 
-    /customer/completed.php → view receipt & leave feedback.
+    customer marks payment: update payments with method, status='Paid', paid_at=NOW()
 
-    /technician/feedback.php → leave feedback for the customer.
+    return device: set appointments.returned_at=NOW(); requests.state='Returned'
 
-    /admin/users_pending.php → approve/reject accounts.
+    edge: No-Show → set appointments.no_show=1; requests.state='No-Show'
 
-    /admin/users_manage.php → toggle is_disabled.
+    on hold: insert update status='On Hold' (customer sees in tracker)
 
-    /admin/reports.php → simple counts by day/status/technician (just SELECT + GROUP BY).
+UI placement (no frameworks, very simple)
 
-6) Tiny server-side rules you should enforce (copy-paste checks)
+    Customer dashboard:
 
-    Block login unless: status='approved' AND is_disabled=0.
+        “New Request” form
 
-    Technician pages: role=='technician'. Admin pages: role=='admin'.
+        “Proposed Slots” list (Accept button)
 
-    Only admin-approved requests are visible to technicians.
+        “My Tracker” (current status timeline)
 
-    Only one accepted appointment per request.
+        “Completed” (view receipt, leave feedback)
 
-    Device Received required before allowing In Progress/Completed.
+        “Payments” (mark Online/Cash)
 
-    Receipt allowed only after a Completed status exists.
+    Technician assign_and_propose.php (single page):
 
-    Payment just records a choice and date (no gateway).
+        Left table: Unassigned “New” requests (filter where state='New')
 
-    Feedback allowed only after Receipt exists (or after Completed, your choice).
+        On click row: small form (slot1/slot2/slot3) + Assign to me + Propose → POST
 
+        Below: My proposals waiting (for info)
+
+    Technician accepted_appointments.php:
+
+        Cards/rows with: chosen_slot, Device Received / No-Show, Status select, Create Receipt, Payment status, Mark Returned, Feedback link
+
+    Admin: keep only registrations approval + reports + disable/enable users + feedback views.

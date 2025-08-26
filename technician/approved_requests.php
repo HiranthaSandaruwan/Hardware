@@ -4,16 +4,18 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
   $rid=(int)$_POST['request_id'];
   $slot1=$_POST['slot1'];$slot2=$_POST['slot2']?:null;$slot3=$_POST['slot3']?:null;
   if($slot1){
+    // assign request to this technician if still New
+    $mysqli->query("UPDATE requests SET assigned_to=$tid, state='Assigned', updated_at=NOW() WHERE request_id=$rid AND state='New'");
     $stmt=$mysqli->prepare('INSERT INTO appointment_proposals(request_id,technician_id,slot1,slot2,slot3,created_at) VALUES(?,?,?,?,?,NOW())');
     $stmt->bind_param('iisss',$rid,$tid,$slot1,$slot2,$slot3);
     $stmt->execute();
-    $msg='Proposal sent';
+    $msg='Slots proposed';
   }
 }
-$approved=$mysqli->query("SELECT request_id,device_type,category FROM requests WHERE admin_status='Approved' ORDER BY created_at DESC LIMIT 30");
+$approved=$mysqli->query("SELECT request_id,device_type,category FROM requests WHERE state='New' ORDER BY created_at DESC LIMIT 30");
 ?>
 <?php include __DIR__.'/../partials/header.php'; ?>
-<h1>Approved Requests (Propose Slots)</h1>
+<h1>Requests (Assign & Propose Slots)</h1>
 <?php if($msg): ?><div class="success"><?= htmlspecialchars($msg) ?></div><?php endif; ?>
 <table class="table"><tr><th>ID</th><th>Device</th><th>Category</th><th>Propose</th></tr>
 <?php while($r=$approved->fetch_assoc()): ?>

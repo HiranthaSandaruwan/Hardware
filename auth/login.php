@@ -3,6 +3,10 @@ require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../db.php';
 
 $err = '';
+$info='';
+if(isset($_GET['registered'])){
+  $info='Registration submitted. Wait for admin approval before logging in.';
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $username = trim($_POST['username'] ?? '');
@@ -45,6 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <?php include __DIR__ . '/../partials/header.php'; ?>
 <h1>Login</h1>
+<?php if ($info): ?>
+  <div class="success"><?= htmlspecialchars($info) ?></div>
+<?php endif; ?>
 <?php if ($err): ?>
   <div class="error"><?= htmlspecialchars($err) ?></div>
 <?php endif; ?>

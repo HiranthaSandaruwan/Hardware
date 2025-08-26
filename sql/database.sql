@@ -52,6 +52,8 @@ CREATE TABLE requests (
   serial_no VARCHAR(100) DEFAULT NULL,
   category ENUM('Hardware','Software','Other') NOT NULL,
   description TEXT NOT NULL,
+  state ENUM('New','Assigned','Scheduled','Device Received','In Progress','Completed','Returned','Cannot Fix','On Hold','No-Show','Rejected') NOT NULL DEFAULT 'New',
+  assigned_to INT NULL,
   status ENUM('Pending','Approved','In Progress','Completed','Rejected') NOT NULL DEFAULT 'Pending',
   admin_status ENUM('Pending','Approved','Rejected') DEFAULT 'Pending',
   technician_id INT NULL,
@@ -61,7 +63,8 @@ CREATE TABLE requests (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
   FOREIGN KEY (technician_id) REFERENCES users(user_id) ON DELETE SET NULL,
-  FOREIGN KEY (tech_assigned) REFERENCES users(user_id) ON DELETE SET NULL
+  FOREIGN KEY (tech_assigned) REFERENCES users(user_id) ON DELETE SET NULL,
+  FOREIGN KEY (assigned_to) REFERENCES users(user_id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE comments (
@@ -94,6 +97,7 @@ CREATE TABLE appointments (
   chosen_slot DATETIME NOT NULL,
   device_received TINYINT(1) DEFAULT 0,
   no_show TINYINT(1) DEFAULT 0,
+  returned_at DATETIME NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE,
   FOREIGN KEY (technician_id) REFERENCES users(user_id) ON DELETE CASCADE

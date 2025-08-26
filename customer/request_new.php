@@ -8,9 +8,12 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
   $description=trim($_POST['description']??'');
   if($device_type===''||$description==='') $err='Required fields missing';
   else {
-    $stmt=$mysqli->prepare('INSERT INTO requests(user_id,device_type,model,serial_no,category,description,admin_status,created_at) VALUES(?,?,?,?,?,?,"Pending",NOW())');
-    $stmt->bind_param('isssss',$uid,$device_type,$model,$serial_no,$category,$description);
-    if($stmt->execute()) $ok='Request submitted'; else $err='Insert failed';
+  $stmt=$mysqli->prepare('INSERT INTO requests(user_id,device_type,model,serial_no,category,description,state,created_at) VALUES(?,?,?,?,?,?,"New",NOW())');
+  $stmt->bind_param('isssss',$uid,$device_type,$model,$serial_no,$category,$description);
+    if($stmt->execute()) {
+      header('Location: dashboard.php?created=1');
+      exit;
+    } else $err='Insert failed';
   }
 }
 ?>

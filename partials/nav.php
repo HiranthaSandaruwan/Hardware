@@ -14,13 +14,13 @@ $base = $BASE_URL;
       <a href="<?= $base ?>/admin/index.php">Admin Dashboard</a>
       <a href="<?= $base ?>/admin/users_pending.php">Pending Users</a>
       <a href="<?= $base ?>/admin/users_manage.php">Manage Users</a>
-      <a href="<?= $base ?>/admin/requests_pending.php">Pending Requests</a>
+  <!-- Removed request approval (v2 flow) -->
       <a href="<?= $base ?>/admin/reports.php">Reports</a>
       <a href="<?= $base ?>/admin/feedback_customers.php">Customer Feedback</a>
       <a href="<?= $base ?>/admin/feedback_technicians.php">Technician Feedback</a>
     <?php elseif ($role === 'technician'): ?>
       <a href="<?= $base ?>/technician/dashboard.php">Tech Dashboard</a>
-      <a href="<?= $base ?>/technician/approved_requests.php">Approved Requests</a>
+  <a href="<?= $base ?>/technician/approved_requests.php">Requests</a>
       <a href="<?= $base ?>/technician/proposals_sent.php">Proposals Sent</a>
       <a href="<?= $base ?>/technician/accepted_appointments.php">Accepted Appointments</a>
       <a href="<?= $base ?>/technician/update_status.php">Update Status</a>

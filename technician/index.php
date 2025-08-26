@@ -7,6 +7,9 @@ $uid      = current_user()['id'];
 $assigned = $mysqli->query("SELECT r.request_id,r.device_type,r.status,r.appointment_time FROM requests r WHERE r.technician_id=$uid ORDER BY r.updated_at DESC LIMIT 10");
 ?>
 <?php include __DIR__ . '/../partials/header.php'; ?>
+<?php if(isset($_GET['status_updated'])): ?>
+<div class="success">Status updated.</div>
+<?php endif; ?>
 <h1>Technician Dashboard</h1>
 <h2>Recent Assigned Requests</h2>
 <table class="table">
