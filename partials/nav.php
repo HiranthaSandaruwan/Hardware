@@ -15,9 +15,7 @@ $base = $BASE_URL;
       <a href="<?= $base ?>/admin/users_pending.php">Pending Users</a>
       <a href="<?= $base ?>/admin/users_manage.php">Manage Users</a>
   <!-- Removed request approval (v2 flow) -->
-      <a href="<?= $base ?>/admin/reports.php">Reports</a>
-      <a href="<?= $base ?>/admin/feedback_customers.php">Customer Feedback</a>
-      <a href="<?= $base ?>/admin/feedback_technicians.php">Technician Feedback</a>
+  <!-- Reports & feedback links moved into Admin Dashboard -->
     <?php elseif ($role === 'technician'): ?>
       <a href="<?= $base ?>/technician/dashboard.php">Tech Dashboard</a>
   <a href="<?= $base ?>/technician/approved_requests.php">Requests</a>
