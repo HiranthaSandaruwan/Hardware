@@ -9,7 +9,18 @@ foreach (['users'] as $tbl) {
   $r = $mysqli->query("SELECT COUNT(*) c FROM $tbl");
   $counts[$tbl] = $r->fetch_assoc()['c'];
 }
-?
+?>
+<?php include __DIR__ . '/../partials/header.php'; ?>
+<h1>Admin Dashboard</h1>
+<div class="flex">
+  <div class="card">
+    <h3>Total Users</h3>
+    <p><strong><?= $counts['users'] ?? 0 ?></strong></p>
+    <p><a href="users_pending.php">Pending</a> · <a href="users_manage.php">Manage</a></p>
+  </div>
+  <div class="card">
+    <h3>Reports</h3>
+    <p>View activity & metrics.</p>
     <p><a href="reports.php">Open Reports</a></p>
   </div>
   <div class="card">
