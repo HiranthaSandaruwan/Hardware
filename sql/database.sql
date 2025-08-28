@@ -1,4 +1,7 @@
 -- Full rebuild schema (drop then create) for Hardware Repair Request Tracker
+ create database repair_tracker;
+ use repair_tracker;
+
 
 SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS feedback;
