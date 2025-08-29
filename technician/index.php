@@ -3,8 +3,21 @@ require_once __DIR__ . '/../config.php';
 require_role('technician');
 require_once __DIR__ . '/../db.php';
 
-$uid      = current_user()['id'];
-$assigned = $mysqli->query("SELECT r.request_id,r.device_type,r.status,r.appointment_time FROM requests r WHERE r.technician_id=$uid ORDER BY r.updated_at DESC LIMIT 10");
+// NOTE: Legacy columns (status, technician_id, appointment_time) have been superseded by
+// state + assigned_to + appointments table. This dashboard was still querying the old
+// fields, so everything appeared 'Pending'. We now query the canonical state and latest
+// scheduled appointment slot.
+$uid = current_user()['id'];
+$assigned = $mysqli->query(
+  "SELECT r.request_id, r.device_type, r.state, 
+	  (SELECT a.chosen_slot FROM appointments a 
+	     WHERE a.request_id = r.request_id 
+	     ORDER BY a.created_at DESC LIMIT 1) AS chosen_slot
+     FROM requests r
+     WHERE r.assigned_to = $uid
+     ORDER BY r.updated_at DESC
+     LIMIT 10"
+);
 ?>
 <?php include __DIR__ . '/../partials/header.php'; ?>
 <?php if(isset($_GET['status_updated'])): ?>
@@ -13,15 +26,15 @@ $assigned = $mysqli->query("SELECT r.request_id,r.device_type,r.status,r.appoint
 <h1>Technician Dashboard</h1>
 <h2>Recent Assigned Requests</h2>
 <table class="table">
-	<tr><th>ID</th><th>Device</th><th>Status</th><th>Appointment</th></tr>
+	<tr><th>ID</th><th>Device</th><th>State</th><th>Appointment</th></tr>
 	<?php while ($row = $assigned->fetch_assoc()): ?>
 		<tr>
 			<td><?= $row['request_id'] ?></td>
 			<td><?= htmlspecialchars($row['device_type']) ?></td>
-			<td><?= $row['status'] ?></td>
-			<td><?= $row['appointment_time'] ?></td>
+			<td><?= htmlspecialchars($row['state']) ?></td>
+			<td><?= $row['chosen_slot'] ?: '-' ?></td>
 		</tr>
 	<?php endwhile; ?>
 </table>
-<p><a href="requests.php" class="btn">Manage Assigned Requests</a></p>
+<p><a href="accepted_appointments.php" class="btn">Manage Appointments / Updates</a> <a href="completed.php" class="btn outline">Completed Work</a></p>
 <?php include __DIR__ . '/../partials/footer.php'; ?>

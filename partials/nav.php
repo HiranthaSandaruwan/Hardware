@@ -26,10 +26,8 @@ $base = $BASE_URL;
       <a href="<?= $base ?>/customer/dashboard.php">Customer Dashboard</a>
       <a href="<?= $base ?>/customer/request_new.php">New Request</a>
       <a href="<?= $base ?>/customer/my_requests.php">My Requests</a>
-      <a href="<?= $base ?>/customer/proposals.php">Proposals</a>
-      <a href="<?= $base ?>/customer/payments.php">Payments</a>
-      <a href="<?= $base ?>/customer/completed.php">Completed</a>
-      <a href="<?= $base ?>/customer/feedback.php">Feedback</a>
+  <a href="<?= $base ?>/customer/proposals.php">Proposals</a>
+  <a href="<?= $base ?>/customer/completed.php">Completed</a>
     <?php endif; ?>
     <a href="<?= $base ?>/auth/logout.php">Logout</a>
   <?php else: ?>
