@@ -20,11 +20,8 @@ $base = $BASE_URL;
       <a href="<?= $base ?>/technician/dashboard.php">Tech Dashboard</a>
   <a href="<?= $base ?>/technician/approved_requests.php">Requests</a>
       <a href="<?= $base ?>/technician/proposals_sent.php">Proposals Sent</a>
-      <a href="<?= $base ?>/technician/accepted_appointments.php">Accepted Appointments</a>
-      <a href="<?= $base ?>/technician/update_status.php">Update Status</a>
-      <a href="<?= $base ?>/technician/receipt_create.php">Create Receipt</a>
-      <a href="<?= $base ?>/technician/completed.php">Completed</a>
-      <a href="<?= $base ?>/technician/feedback.php">Feedback</a>
+  <a href="<?= $base ?>/technician/accepted_appointments.php">Accepted Appointments</a>
+  <a href="<?= $base ?>/technician/completed.php">Completed</a>
     <?php else: ?>
       <a href="<?= $base ?>/customer/dashboard.php">Customer Dashboard</a>
       <a href="<?= $base ?>/customer/request_new.php">New Request</a>
