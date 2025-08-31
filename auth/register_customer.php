@@ -13,7 +13,8 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     $stmt->bind_param('s',$username);$stmt->execute();$stmt->store_result();
     if($stmt->num_rows>0){$err='Username taken';}
     else {
-      $status='pending';
+  // Customers are auto-approved (no manual admin approval needed)
+  $status='approved';
       $role='user';
       $stmt2=$mysqli->prepare('INSERT INTO users(username,password,role,status,created_at) VALUES(?,?,?,?,NOW())');
       $stmt2->bind_param('ssss',$username,$password,$role,$status);
@@ -22,7 +23,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
         $stmt3=$mysqli->prepare('INSERT INTO customer_profile(customer_id,full_name,phone,email,address) VALUES(?,?,?,?,?)');
         $stmt3->bind_param('issss',$uid,$full_name,$phone,$email,$address);
         $stmt3->execute();
-        header('Location: login.php?registered=1');
+  header('Location: login.php?registered=1&type=customer');
         exit;
       } else {
         $err='Insert failed';
