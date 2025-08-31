@@ -5,7 +5,11 @@ require_once __DIR__ . '/../db.php';
 $err = '';
 $info='';
 if(isset($_GET['registered'])){
-  $info='Registration submitted. Wait for admin approval before logging in.';
+  if(($_GET['type'] ?? '')==='technician'){
+    $info='Technician registration submitted. Wait for admin approval before logging in.';
+  } else {
+    $info='Registration successful. You can log in now.';
+  }
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -21,8 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($row['password'] === $password) { // plain text per spec
       if ($row['is_disabled']) {
         $err = 'Account disabled by admin';
-      } elseif ($row['status'] !== 'approved') {
-        $err = 'Account pending approval';
+      } elseif ($row['role']==='technician' && $row['status'] !== 'approved') {
+        $err = 'Technician account pending approval';
       } else {
         $_SESSION['user'] = [
           'id'       => $row['user_id'],
