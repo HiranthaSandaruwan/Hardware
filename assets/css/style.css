@@ -248,6 +248,23 @@ footer {
     margin-bottom: .3rem
 }
 
+/* Dashboard / admin enhancements */
+.big-num { font-size:1.55rem; font-weight:700; line-height:1.1; }
+.role-badge { display:inline-block; padding:.15rem .45rem; border-radius:.5rem; font-size:.65rem; font-weight:600; background:#e5e9ef; color:#123; text-transform:capitalize; }
+.role-technician { background:#e5f1ff; color:#054b91; }
+.role-user { background:#f1f5ff; color:#314b7d; }
+.role-admin { background:#ffe7cc; color:#8a5200; }
+.status-text { font-size:.65rem; font-weight:600; text-transform:capitalize; }
+.status-pending { color:#8a6d00; }
+.status-approved { color:#067a36; }
+.status-rejected { color:#b50000; }
+.status-paid { color:#067a36; }
+.tabs .tab-link { padding:.35rem .7rem; border:1px solid #c5d0d9; border-radius:.4rem; background:#fff; font-size:.7rem; font-weight:600; text-decoration:none; }
+.tabs .tab-link.active { background:#0a6ecb; color:#fff; border-color:#0a6ecb; }
+.table.mini th, .table.mini td { font-size:.68rem; padding:.35rem .4rem; }
+.stat-card { position:relative; overflow:hidden; }
+.stat-card:after { content:""; position:absolute; right:-15px; top:-15px; width:70px; height:70px; background:radial-gradient(circle at center,#0a6ecb15,#0a6ecb00 70%); border-radius:50%; }
+
 small {
     color: #65707c
 }
