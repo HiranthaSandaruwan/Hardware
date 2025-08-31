@@ -132,6 +132,8 @@ CREATE TABLE payments (
   method ENUM('Online','Cash') DEFAULT 'Cash',
   status ENUM('Pending','Paid') DEFAULT 'Pending',
   paid_at DATETIME NULL,
+  customer_confirmed TINYINT(1) DEFAULT 0,
+  confirmed_at DATETIME NULL,
   FOREIGN KEY (receipt_id) REFERENCES receipts(receipt_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
