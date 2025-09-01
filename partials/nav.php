@@ -14,20 +14,20 @@ $base = $BASE_URL;
       <a href="<?= $base ?>/admin/index.php">Admin Dashboard</a>
       <a href="<?= $base ?>/admin/users_pending.php">Pending Users</a>
       <a href="<?= $base ?>/admin/users_manage.php">Manage Users</a>
-  <!-- Removed request approval (v2 flow) -->
-  <!-- Reports & feedback links moved into Admin Dashboard -->
+      <!-- Removed request approval (v2 flow) -->
+      <!-- Reports & feedback links moved into Admin Dashboard -->
     <?php elseif ($role === 'technician'): ?>
       <a href="<?= $base ?>/technician/dashboard.php">Tech Dashboard</a>
-  <a href="<?= $base ?>/technician/approved_requests.php">Requests</a>
+      <a href="<?= $base ?>/technician/approved_requests.php">Requests</a>
       <a href="<?= $base ?>/technician/proposals_sent.php">Proposals Sent</a>
-  <a href="<?= $base ?>/technician/accepted_appointments.php">Accepted Appointments</a>
-  <a href="<?= $base ?>/technician/completed.php">Completed</a>
+      <a href="<?= $base ?>/technician/accepted_appointments.php">Accepted Appointments</a>
+      <a href="<?= $base ?>/technician/completed.php">Completed</a>
     <?php else: ?>
       <a href="<?= $base ?>/customer/dashboard.php">Customer Dashboard</a>
       <a href="<?= $base ?>/customer/request_new.php">New Request</a>
       <a href="<?= $base ?>/customer/my_requests.php">My Requests</a>
-  <a href="<?= $base ?>/customer/proposals.php">Proposals</a>
-  <a href="<?= $base ?>/customer/completed.php">Completed</a>
+      <a href="<?= $base ?>/customer/proposals.php">Proposals</a>
+      <a href="<?= $base ?>/customer/completed.php">Completed</a>
     <?php endif; ?>
     <a href="<?= $base ?>/auth/logout.php">Logout</a>
   <?php else: ?>

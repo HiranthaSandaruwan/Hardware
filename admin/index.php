@@ -45,13 +45,18 @@ $latestPayments = $mysqli->query("SELECT p.payment_id,p.method,p.status,p.paid_a
     <div class="activity-block" style="flex:1 1 18rem;min-width:16rem;">
       <h3 style="font-size:.85rem;margin:.2rem 0 .4rem;">Recent Registrations</h3>
       <table class="table mini">
-        <tr><th>User</th><th>Role</th><th>Status</th><th>Date</th></tr>
-        <?php while($u=$latestUsers->fetch_assoc()): ?>
+        <tr>
+          <th>User</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Date</th>
+        </tr>
+        <?php while ($u = $latestUsers->fetch_assoc()): ?>
           <tr>
             <td><?= htmlspecialchars($u['username']) ?></td>
             <td><span class="role-badge role-<?= $u['role'] ?>"><?= $u['role'] ?></span></td>
             <td><span class="status-text status-<?= $u['status'] ?>"><?= $u['status'] ?></span></td>
-            <td><?= substr($u['created_at'],0,10) ?></td>
+            <td><?= substr($u['created_at'], 0, 10) ?></td>
           </tr>
         <?php endwhile; ?>
       </table>
@@ -59,13 +64,18 @@ $latestPayments = $mysqli->query("SELECT p.payment_id,p.method,p.status,p.paid_a
     <div class="activity-block" style="flex:1 1 20rem;min-width:18rem;">
       <h3 style="font-size:.85rem;margin:.2rem 0 .4rem;">Latest Requests</h3>
       <table class="table mini">
-        <tr><th>ID</th><th>Customer</th><th>Device</th><th>State</th></tr>
-        <?php while($r=$latestRequests->fetch_assoc()): ?>
+        <tr>
+          <th>ID</th>
+          <th>Customer</th>
+          <th>Device</th>
+          <th>State</th>
+        </tr>
+        <?php while ($r = $latestRequests->fetch_assoc()): ?>
           <tr>
             <td>#<?= $r['request_id'] ?></td>
             <td><?= htmlspecialchars($r['username']) ?></td>
             <td><?= htmlspecialchars($r['device_type']) ?></td>
-            <td><span class="status-text status-<?= str_replace(' ','-',$r['state']) ?>"><?= $r['state'] ?></span></td>
+            <td><span class="status-text status-<?= str_replace(' ', '-', $r['state']) ?>"><?= $r['state'] ?></span></td>
           </tr>
         <?php endwhile; ?>
       </table>
@@ -73,8 +83,14 @@ $latestPayments = $mysqli->query("SELECT p.payment_id,p.method,p.status,p.paid_a
     <div class="activity-block" style="flex:1 1 20rem;min-width:18rem;">
       <h3 style="font-size:.85rem;margin:.2rem 0 .4rem;">Recent Payments</h3>
       <table class="table mini">
-        <tr><th>Req</th><th>Cust</th><th>Tech</th><th>Method</th><th>Status</th></tr>
-        <?php while($p=$latestPayments->fetch_assoc()): ?>
+        <tr>
+          <th>Req</th>
+          <th>Cust</th>
+          <th>Tech</th>
+          <th>Method</th>
+          <th>Status</th>
+        </tr>
+        <?php while ($p = $latestPayments->fetch_assoc()): ?>
           <tr>
             <td>#<?= $p['request_id'] ?></td>
             <td><?= htmlspecialchars($p['cust']) ?></td>

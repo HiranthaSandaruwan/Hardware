@@ -9,7 +9,7 @@ require_once __DIR__ . '/../db.php';
 // scheduled appointment slot.
 $uid = current_user()['id'];
 $assigned = $mysqli->query(
-  "SELECT r.request_id, r.device_type, r.state, 
+	"SELECT r.request_id, r.device_type, r.state, 
 	  (SELECT a.chosen_slot FROM appointments a 
 	     WHERE a.request_id = r.request_id 
 	     ORDER BY a.created_at DESC LIMIT 1) AS chosen_slot
@@ -20,13 +20,18 @@ $assigned = $mysqli->query(
 );
 ?>
 <?php include __DIR__ . '/../partials/header.php'; ?>
-<?php if(isset($_GET['status_updated'])): ?>
-<div class="success">Status updated.</div>
+<?php if (isset($_GET['status_updated'])): ?>
+	<div class="success">Status updated.</div>
 <?php endif; ?>
 <h1>Technician Dashboard</h1>
 <h2>Recent Assigned Requests</h2>
 <table class="table">
-	<tr><th>ID</th><th>Device</th><th>State</th><th>Appointment</th></tr>
+	<tr>
+		<th>ID</th>
+		<th>Device</th>
+		<th>State</th>
+		<th>Appointment</th>
+	</tr>
 	<?php while ($row = $assigned->fetch_assoc()): ?>
 		<tr>
 			<td><?= $row['request_id'] ?></td>

@@ -10,7 +10,14 @@ $res = $mysqli->query("SELECT r.request_id,u.username,r.device_type,r.category,r
 <h1>All Requests (Read‑Only)</h1>
 <p>State-driven flow active. Approval/rejection controls removed.</p>
 <table class="table">
-  <tr><th>ID</th><th>User</th><th>Device</th><th>Category</th><th>State</th><th>Created</th></tr>
+  <tr>
+    <th>ID</th>
+    <th>User</th>
+    <th>Device</th>
+    <th>Category</th>
+    <th>State</th>
+    <th>Created</th>
+  </tr>
   <?php while ($row = $res->fetch_assoc()): ?>
     <tr>
       <td><?= $row['request_id'] ?></td>

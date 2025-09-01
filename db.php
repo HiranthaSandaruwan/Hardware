@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Database connection bootstrap.
  * Plain mysqli (logic unchanged); includes minimal auto-migration for payment confirmation fields.
@@ -34,4 +35,3 @@ try {
 } catch (Throwable $e) {
     // Silent fail; non-critical.
 }
-?>

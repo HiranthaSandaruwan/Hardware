@@ -12,7 +12,12 @@ $res = $mysqli->query("SELECT r.request_id,r.device_type,r.state, (SELECT a.chos
 <h1>Requests (Legacy View)</h1>
 <p>This page is read-only now. Use <a href="accepted_appointments.php">Accepted Appointments</a> for live updates and <a href="completed.php">Completed Work</a> for final actions.</p>
 <table class="table">
-  <tr><th>ID</th><th>Device</th><th>State</th><th>Appointment</th></tr>
+  <tr>
+    <th>ID</th>
+    <th>Device</th>
+    <th>State</th>
+    <th>Appointment</th>
+  </tr>
   <?php while ($row = $res->fetch_assoc()): ?>
     <tr>
       <td><?= $row['request_id'] ?></td>
