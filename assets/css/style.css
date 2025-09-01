@@ -6,14 +6,16 @@
 }
 
 html {
-    font-size: 15px; /* Slightly smaller base to compact overall scale */
+    font-size: 15px;
+    /* Slightly smaller base to compact overall scale */
 }
 
 body {
     background: #f5f7fa;
     color: #222;
     line-height: 1.45;
-    font-size: .9rem; /* Slightly reduced */
+    font-size: .9rem;
+    /* Slightly reduced */
 }
 
 a {
@@ -26,8 +28,10 @@ a:hover {
 }
 
 .container {
-    max-width: 60rem; /* 960px */
-    margin: 1.5rem auto; /* Reduced vertical space */
+    max-width: 60rem;
+    /* 960px */
+    margin: 1.5rem auto;
+    /* Reduced vertical space */
     padding: 0 1rem;
 }
 
@@ -36,9 +40,12 @@ a:hover {
 }
 
 form {
-    max-width: 23.75rem; /* 380px */
-    margin: 1.25rem auto; /* Reduced */
-    padding: 1.05rem; /* Reduced */
+    max-width: 23.75rem;
+    /* 380px */
+    margin: 1.25rem auto;
+    /* Reduced */
+    padding: 1.05rem;
+    /* Reduced */
     background: #fff;
     border: 1px solid #dfe3e8;
     border-radius: .45rem;
@@ -46,13 +53,15 @@ form {
 }
 
 form h1 {
-    font-size: 1.3rem; /* Slightly smaller */
+    font-size: 1.3rem;
+    /* Slightly smaller */
     margin-bottom: .6rem;
 }
 
 label {
     display: block;
-    margin: .5rem 0 .2rem; /* Tighter */
+    margin: .5rem 0 .2rem;
+    /* Tighter */
     font-weight: 600
 }
 
@@ -60,7 +69,8 @@ input,
 select,
 textarea {
     width: 100%;
-    padding: .5rem .6rem; /* Reduced */
+    padding: .5rem .6rem;
+    /* Reduced */
     border: 1px solid #b9c2cc;
     border-radius: .275rem;
     font-size: .85rem;
@@ -79,7 +89,8 @@ button,
     background: #0a6ecb;
     color: #fff;
     border: none;
-    padding: .5rem .9rem; /* Reduced */
+    padding: .5rem .9rem;
+    /* Reduced */
     border-radius: .28rem;
     font-size: .82rem;
     font-weight: 600;
@@ -125,13 +136,15 @@ button:hover,
 .table {
     width: 100%;
     border-collapse: collapse;
-    margin: .9rem 0; /* Reduced */
+    margin: .9rem 0;
+    /* Reduced */
     background: #fff
 }
 
 .table th,
 .table td {
-    padding: .5rem .55rem; /* Reduced */
+    padding: .5rem .55rem;
+    /* Reduced */
     border: 1px solid #d6dde3;
     font-size: .82rem;
     text-align: left
@@ -179,13 +192,16 @@ nav.sidebar {
     left: 0;
     top: 0;
     bottom: 0;
-    width: 11.25rem; /* Narrower */
+    width: 11.25rem;
+    /* Narrower */
     background: #12202e;
     color: #fff;
-    padding: .9rem; /* Reduced */
+    padding: .9rem;
+    /* Reduced */
     display: flex;
     flex-direction: column;
-    gap: .4rem; /* Reduced gap */
+    gap: .4rem;
+    /* Reduced gap */
 }
 
 nav.sidebar h2 {
@@ -196,7 +212,8 @@ nav.sidebar h2 {
 
 nav.sidebar a {
     color: #fff;
-    padding: .45rem .55rem; /* Slightly tighter */
+    padding: .45rem .55rem;
+    /* Slightly tighter */
     border-radius: .25rem;
     font-size: .8rem;
     background: transparent
@@ -208,12 +225,15 @@ nav.sidebar a:hover {
 }
 
 main.with-sidebar {
-    margin-left: 12.4rem; /* Match reduced sidebar */
-    padding: 1.25rem 1.25rem 2.5rem; /* Reduced */
+    margin-left: 12.4rem;
+    /* Match reduced sidebar */
+    padding: 1.25rem 1.25rem 2.5rem;
+    /* Reduced */
 }
 
 footer {
-    margin: 1.75rem 0 1rem; /* Reduced top spacing */
+    margin: 1.75rem 0 1rem;
+    /* Reduced top spacing */
     text-align: center;
     color: #666;
     font-size: .75rem;
@@ -230,7 +250,8 @@ footer {
 
 .flex {
     display: flex;
-    gap: .625rem; /* Reduced gap */
+    gap: .625rem;
+    /* Reduced gap */
     flex-wrap: wrap
 }
 
@@ -238,7 +259,8 @@ footer {
     background: #fff;
     border: 1px solid #dfe3e8;
     border-radius: .45rem;
-    padding: .75rem; /* Reduced */
+    padding: .75rem;
+    /* Reduced */
     flex: 1 1 12.5rem;
     min-width: 12.5rem
 }
@@ -246,6 +268,99 @@ footer {
 .card h3 {
     font-size: .9rem;
     margin-bottom: .3rem
+}
+
+/* Dashboard / admin enhancements */
+.big-num {
+    font-size: 1.55rem;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.role-badge {
+    display: inline-block;
+    padding: .15rem .45rem;
+    border-radius: .5rem;
+    font-size: .65rem;
+    font-weight: 600;
+    background: #e5e9ef;
+    color: #123;
+    text-transform: capitalize;
+}
+
+.role-technician {
+    background: #e5f1ff;
+    color: #054b91;
+}
+
+.role-user {
+    background: #f1f5ff;
+    color: #314b7d;
+}
+
+.role-admin {
+    background: #ffe7cc;
+    color: #8a5200;
+}
+
+.status-text {
+    font-size: .65rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.status-pending {
+    color: #8a6d00;
+}
+
+.status-approved {
+    color: #067a36;
+}
+
+.status-rejected {
+    color: #b50000;
+}
+
+.status-paid {
+    color: #067a36;
+}
+
+.tabs .tab-link {
+    padding: .35rem .7rem;
+    border: 1px solid #c5d0d9;
+    border-radius: .4rem;
+    background: #fff;
+    font-size: .7rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.tabs .tab-link.active {
+    background: #0a6ecb;
+    color: #fff;
+    border-color: #0a6ecb;
+}
+
+.table.mini th,
+.table.mini td {
+    font-size: .68rem;
+    padding: .35rem .4rem;
+}
+
+.stat-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card:after {
+    content: "";
+    position: absolute;
+    right: -15px;
+    top: -15px;
+    width: 70px;
+    height: 70px;
+    background: radial-gradient(circle at center, #0a6ecb15, #0a6ecb00 70%);
+    border-radius: 50%;
 }
 
 small {

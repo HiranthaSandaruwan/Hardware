@@ -1,19 +1,7 @@
-CREATE DATABASE repair_tracker;
-USE repair_tracker;
+-- Hardware Repair Tracker schema (clean install)
 
-SET FOREIGN_KEY_CHECKS=0;
-DROP TABLE IF EXISTS feedback;
-DROP TABLE IF EXISTS payments;
-DROP TABLE IF EXISTS receipts;
-DROP TABLE IF EXISTS repair_updates;
-DROP TABLE IF EXISTS appointments;
-DROP TABLE IF EXISTS appointment_proposals;
-DROP TABLE IF EXISTS technician_profile;
-DROP TABLE IF EXISTS customer_profile;
-DROP TABLE IF EXISTS comments;
-DROP TABLE IF EXISTS requests;
-DROP TABLE IF EXISTS users;
-SET FOREIGN_KEY_CHECKS=1;
+CREATE DATABASE IF NOT EXISTS repair_tracker CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE repair_tracker;
 
 CREATE TABLE users (
   user_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -31,7 +19,7 @@ CREATE TABLE customer_profile (
   phone VARCHAR(20) NOT NULL,
   email VARCHAR(120),
   address TEXT,
-  FOREIGN KEY (customer_id) REFERENCES users(user_id) ON DELETE CASCADE
+  CONSTRAINT fk_customer_profile_user FOREIGN KEY (customer_id) REFERENCES users(user_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE technician_profile (
@@ -42,7 +30,7 @@ CREATE TABLE technician_profile (
   specialization VARCHAR(120),
   experience_years INT DEFAULT 0,
   availability_notes VARCHAR(255),
-  FOREIGN KEY (technician_id) REFERENCES users(user_id) ON DELETE CASCADE
+  CONSTRAINT fk_tech_profile_user FOREIGN KEY (technician_id) REFERENCES users(user_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE requests (
@@ -62,10 +50,10 @@ CREATE TABLE requests (
   appointment_time DATETIME NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-  FOREIGN KEY (technician_id) REFERENCES users(user_id) ON DELETE SET NULL,
-  FOREIGN KEY (tech_assigned) REFERENCES users(user_id) ON DELETE SET NULL,
-  FOREIGN KEY (assigned_to) REFERENCES users(user_id) ON DELETE SET NULL
+  CONSTRAINT fk_requests_user FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+  CONSTRAINT fk_requests_technician FOREIGN KEY (technician_id) REFERENCES users(user_id) ON DELETE SET NULL,
+  CONSTRAINT fk_requests_tech_assigned FOREIGN KEY (tech_assigned) REFERENCES users(user_id) ON DELETE SET NULL,
+  CONSTRAINT fk_requests_assigned_to FOREIGN KEY (assigned_to) REFERENCES users(user_id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE comments (
@@ -74,8 +62,8 @@ CREATE TABLE comments (
   user_id INT NOT NULL,
   comment_text TEXT NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE,
-  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+  CONSTRAINT fk_comments_request FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE,
+  CONSTRAINT fk_comments_user FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE appointment_proposals (
@@ -87,8 +75,8 @@ CREATE TABLE appointment_proposals (
   slot3 DATETIME NULL,
   status ENUM('Waiting','Accepted','Rejected') DEFAULT 'Waiting',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE,
-  FOREIGN KEY (technician_id) REFERENCES users(user_id) ON DELETE CASCADE
+  CONSTRAINT fk_proposals_request FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE,
+  CONSTRAINT fk_proposals_technician FOREIGN KEY (technician_id) REFERENCES users(user_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE appointments (
@@ -100,8 +88,8 @@ CREATE TABLE appointments (
   no_show TINYINT(1) DEFAULT 0,
   returned_at DATETIME NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE,
-  FOREIGN KEY (technician_id) REFERENCES users(user_id) ON DELETE CASCADE
+  CONSTRAINT fk_appointments_request FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE,
+  CONSTRAINT fk_appointments_technician FOREIGN KEY (technician_id) REFERENCES users(user_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE repair_updates (
@@ -111,8 +99,8 @@ CREATE TABLE repair_updates (
   status ENUM('Pending','In Progress','Completed','Cannot Fix','On Hold') NOT NULL,
   note VARCHAR(255),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE,
-  FOREIGN KEY (technician_id) REFERENCES users(user_id) ON DELETE CASCADE
+  CONSTRAINT fk_updates_request FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE,
+  CONSTRAINT fk_updates_technician FOREIGN KEY (technician_id) REFERENCES users(user_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE receipts (
@@ -122,8 +110,8 @@ CREATE TABLE receipts (
   items TEXT,
   total_amount DECIMAL(10,2) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE,
-  FOREIGN KEY (technician_id) REFERENCES users(user_id) ON DELETE CASCADE
+  CONSTRAINT fk_receipts_request FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE,
+  CONSTRAINT fk_receipts_technician FOREIGN KEY (technician_id) REFERENCES users(user_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE payments (
@@ -134,7 +122,7 @@ CREATE TABLE payments (
   paid_at DATETIME NULL,
   customer_confirmed TINYINT(1) DEFAULT 0,
   confirmed_at DATETIME NULL,
-  FOREIGN KEY (receipt_id) REFERENCES receipts(receipt_id) ON DELETE CASCADE
+  CONSTRAINT fk_payments_receipt FOREIGN KEY (receipt_id) REFERENCES receipts(receipt_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE feedback (
@@ -146,14 +134,12 @@ CREATE TABLE feedback (
   rating TINYINT NOT NULL,
   comment TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE,
-  FOREIGN KEY (from_user) REFERENCES users(user_id),
-  FOREIGN KEY (to_user) REFERENCES users(user_id)
+  CONSTRAINT fk_feedback_request FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE,
+  CONSTRAINT fk_feedback_from FOREIGN KEY (from_user) REFERENCES users(user_id),
+  CONSTRAINT fk_feedback_to FOREIGN KEY (to_user) REFERENCES users(user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Seed data
-INSERT INTO users(username,password,role,status,is_disabled) VALUES
- ('admin','admin','admin','approved',0);
+INSERT INTO users (username, password, role, status, is_disabled) VALUES ('admin','admin','admin','approved',0);
 
--- No sample customer/technician or requests seeded (clean start with only admin)
+-- End
 
