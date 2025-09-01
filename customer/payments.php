@@ -18,7 +18,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $rid    = (int)$_POST['receipt_id'];
   $method = $_POST['method'] === 'Online' ? 'Online' : 'Cash';
   if ($hasConfirmCol) {
-    $mysqli->query("UPDATE payments p JOIN receipts r ON p.receipt_id=r.receipt_id JOIN requests rq ON r.request_id=rq.request_id SET p.method='$method', p.customer_confirmed=1, p.confirmed_at=NOW() WHERE p.receipt_id=$rid AND rq.user_id=$uid");
+    
+    $mysqli->query("UPDATE payments p JOIN receipts r ON p.receipt_id=r.receipt_id 
+    JOIN requests rq ON r.request_id=rq.request_id 
+    SET p.method='$method', p.customer_confirmed=1, p.confirmed_at=NOW() 
+    WHERE p.receipt_id=$rid 
+    AND rq.user_id=$uid");
+
   } else {
     // Legacy: update only method
     $mysqli->query("UPDATE payments p JOIN receipts r ON p.receipt_id=r.receipt_id JOIN requests rq ON r.request_id=rq.request_id SET p.method='$method' WHERE p.receipt_id=$rid AND rq.user_id=$uid");
