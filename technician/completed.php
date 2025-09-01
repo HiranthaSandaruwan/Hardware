@@ -1,31 +1,70 @@
-<?php require_once __DIR__.'/../config.php'; require_role('technician'); require_once __DIR__.'/../db.php';
-$tid=current_user()['id'];
-$msgReceipt='';$msgFeedback='';$msgPay='';
+<?php
+/** Technician completed work list; create receipt, mark paid, give feedback (logic unchanged). */
+require_once __DIR__.'/../config.php';
+require_role('technician');
+require_once __DIR__.'/../db.php';
+
+$tid = current_user()['id'];
+$msgReceipt='';
+$msgFeedback='';
+$msgPay='';
+
+// Create receipt
 if(isset($_POST['action']) && $_POST['action']==='create_receipt'){
-	$rid=(int)$_POST['request_id'];$items=trim($_POST['items']??'');$amount=(float)$_POST['amount'];
-	$ok=$mysqli->query("SELECT 1 FROM repair_updates WHERE request_id=$rid AND status='Completed' LIMIT 1")->num_rows;
-	if(!$ok){ $msgReceipt='Complete the repair first'; }
-	else if($mysqli->query("SELECT 1 FROM receipts WHERE request_id=$rid LIMIT 1")->num_rows){ $msgReceipt='Receipt already exists'; }
-	else { $stmt=$mysqli->prepare('INSERT INTO receipts(request_id,technician_id,items,total_amount,created_at) VALUES(?,?,?,?,NOW())'); $stmt->bind_param('iisd',$rid,$tid,$items,$amount);$stmt->execute(); $ridNew=$mysqli->insert_id; $mysqli->query("INSERT INTO payments(receipt_id,method,status) VALUES($ridNew,'Cash','Pending')"); $msgReceipt='Receipt created'; }
+	$rid   = (int)$_POST['request_id'];
+	$items = trim($_POST['items']??'');
+	$amount= (float)$_POST['amount'];
+	$ok    = $mysqli->query("SELECT 1 FROM repair_updates WHERE request_id=$rid AND status='Completed' LIMIT 1")->num_rows;
+	if(!$ok){
+		$msgReceipt='Complete the repair first';
+	} elseif ($mysqli->query("SELECT 1 FROM receipts WHERE request_id=$rid LIMIT 1")->num_rows){
+		$msgReceipt='Receipt already exists';
+	} else {
+		$stmt=$mysqli->prepare('INSERT INTO receipts(request_id,technician_id,items,total_amount,created_at) VALUES(?,?,?,?,NOW())');
+		$stmt->bind_param('iisd',$rid,$tid,$items,$amount);
+		$stmt->execute();
+		$ridNew=$mysqli->insert_id;
+		$mysqli->query("INSERT INTO payments(receipt_id,method,status) VALUES($ridNew,'Cash','Pending')");
+		$msgReceipt='Receipt created';
+	}
 }
+
+// Mark payment as paid
 if(isset($_POST['action']) && $_POST['action']==='tech_mark_paid'){
 	$rid=(int)$_POST['request_id'];
-	// Technician finalizes payment: mark Paid without changing chosen method
 	$mysqli->query("UPDATE payments p JOIN receipts rc ON p.receipt_id=rc.receipt_id SET p.status='Paid', p.paid_at=NOW() WHERE rc.request_id=$rid AND rc.technician_id=$tid");
 	$msgPay='Payment marked as Paid';
 }
+
+// Feedback technician -> customer
 if(isset($_POST['action']) && $_POST['action']==='feedback_tech_to_customer'){
-	$rid=(int)$_POST['request_id'];$rating=(int)$_POST['rating'];$comment=trim($_POST['comment']??'');
+	$rid=(int)$_POST['request_id'];
+	$rating=(int)$_POST['rating'];
+	$comment=trim($_POST['comment']??'');
 	$ok=$mysqli->query("SELECT rq.user_id FROM receipts rc JOIN requests rq ON rc.request_id=rq.request_id WHERE rc.request_id=$rid AND rc.technician_id=$tid LIMIT 1")->fetch_assoc();
-	if($ok){ if(!$mysqli->query("SELECT 1 FROM feedback WHERE request_id=$rid AND from_user=$tid AND role_view='technician_to_customer' LIMIT 1")->num_rows){ $cust=$ok['user_id']; $stmt=$mysqli->prepare('INSERT INTO feedback(request_id,from_user,to_user,role_view,rating,comment,created_at) VALUES(?,?,?,?,?,?,NOW())'); $role_view='technician_to_customer'; $stmt->bind_param('iiisis',$rid,$tid,$cust,$role_view,$rating,$comment);$stmt->execute(); $msgFeedback='Feedback submitted'; } else { $msgFeedback='Already submitted feedback'; } }
+	if($ok){
+		if(!$mysqli->query("SELECT 1 FROM feedback WHERE request_id=$rid AND from_user=$tid AND role_view='technician_to_customer' LIMIT 1")->num_rows){
+			$cust=$ok['user_id'];
+			$stmt=$mysqli->prepare('INSERT INTO feedback(request_id,from_user,to_user,role_view,rating,comment,created_at) VALUES(?,?,?,?,?,?,NOW())');
+			$role_view='technician_to_customer';
+			$stmt->bind_param('iiisis',$rid,$tid,$cust,$role_view,$rating,$comment);
+			$stmt->execute();
+			$msgFeedback='Feedback submitted';
+		} else {
+			$msgFeedback='Already submitted feedback';
+		}
+	}
 }
-// Detect if new confirmation columns exist (customer_confirmed)
+
+// Detect customer confirmation columns
 $hasConfirmCol=false;
 if($colRes=$mysqli->query("SHOW COLUMNS FROM payments LIKE 'customer_confirmed'")){
 	$hasConfirmCol = $colRes->num_rows>0;
 }
+
 $selectCols = "r.request_id,r.state,rc.receipt_id,rc.total_amount,p.method,p.status,p.paid_at" . ($hasConfirmCol?",p.customer_confirmed":"");
 $list=$mysqli->query("SELECT $selectCols FROM requests r LEFT JOIN receipts rc ON rc.request_id=r.request_id AND rc.technician_id=$tid LEFT JOIN payments p ON p.receipt_id=rc.receipt_id WHERE r.assigned_to=$tid AND r.state IN('Completed','Cannot Fix','Returned') ORDER BY r.updated_at DESC");
+
 include __DIR__.'/../partials/header.php'; ?>
 <h1>Completed Work</h1>
 <?php if(isset($_GET['just'])): ?><div class="success">Status updated & moved here.</div><?php endif; ?>

@@ -1,23 +1,33 @@
-<?php require_once __DIR__.'/../config.php'; require_role('user'); require_once __DIR__.'/../db.php';
-$uid=current_user()['id'];
-// Detect new confirmation columns (customer_confirmed)
-$hasConfirmCol=false;
-if($colRes=$mysqli->query("SHOW COLUMNS FROM payments LIKE 'customer_confirmed'")){
-  $hasConfirmCol = $colRes->num_rows>0;
+<?php
+/** Customer payments page: choose method then technician marks paid (logic unchanged). */
+require_once __DIR__.'/../config.php';
+require_role('user');
+require_once __DIR__.'/../db.php';
+
+$uid = current_user()['id'];
+
+// Detect confirmation fields (backward compatible)
+$hasConfirmCol = false;
+if($colRes = $mysqli->query("SHOW COLUMNS FROM payments LIKE 'customer_confirmed'")){
+  $hasConfirmCol = $colRes->num_rows > 0;
 }
+
+// Handle method confirmation
 if($_SERVER['REQUEST_METHOD']==='POST'){
-  $rid=(int)$_POST['receipt_id'];
-  $method=$_POST['method']==='Online'?'Online':'Cash';
+  $rid    = (int)$_POST['receipt_id'];
+  $method = $_POST['method']==='Online' ? 'Online' : 'Cash';
   if($hasConfirmCol){
     $mysqli->query("UPDATE payments p JOIN receipts r ON p.receipt_id=r.receipt_id JOIN requests rq ON r.request_id=rq.request_id SET p.method='$method', p.customer_confirmed=1, p.confirmed_at=NOW() WHERE p.receipt_id=$rid AND rq.user_id=$uid");
   } else {
-    // Legacy schema: just update method (no confirm flags available)
+    // Legacy: update only method
     $mysqli->query("UPDATE payments p JOIN receipts r ON p.receipt_id=r.receipt_id JOIN requests rq ON r.request_id=rq.request_id SET p.method='$method' WHERE p.receipt_id=$rid AND rq.user_id=$uid");
   }
-  header('Location: payments.php'); exit;
+  header('Location: payments.php');
+  exit;
 }
+
 $selectCols = "p.payment_id,r.receipt_id,r.request_id,r.total_amount,p.method,p.status,p.paid_at" . ($hasConfirmCol?",p.customer_confirmed,p.confirmed_at":"");
-$pending=$mysqli->query("SELECT $selectCols FROM payments p JOIN receipts r ON p.receipt_id=r.receipt_id JOIN requests rq ON r.request_id=rq.request_id WHERE rq.user_id=$uid ORDER BY r.receipt_id DESC");
+$pending = $mysqli->query("SELECT $selectCols FROM payments p JOIN receipts r ON p.receipt_id=r.receipt_id JOIN requests rq ON r.request_id=rq.request_id WHERE rq.user_id=$uid ORDER BY r.receipt_id DESC");
 ?>
 <?php include __DIR__.'/../partials/header.php'; ?>
 <h1>Payments</h1>
