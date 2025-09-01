@@ -22,12 +22,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($stmt->num_rows > 0) {
       $err = 'Username taken';
     } else {
-      $status = 'pending';
+  // Auto-approve normal users; technicians require admin approval
+  $status = ($role === 'technician') ? 'pending' : 'approved';
       $now    = date('Y-m-d H:i:s');
       $stmt2  = $mysqli->prepare('INSERT INTO users(username,password,role,status,created_at) VALUES(?,?,?,?,?)');
       $stmt2->bind_param('sssss', $username, $password, $role, $status, $now);
       if ($stmt2->execute()) {
-        $ok = 'Registered. Await admin approval.';
+        if($role==='technician'){
+          $ok = 'Technician registration submitted. Await admin approval.';
+        } else {
+          $ok = 'Customer registered. You can now log in.';
+        }
       } else {
         $err = 'Insert failed';
       }

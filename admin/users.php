@@ -18,19 +18,33 @@ if (isset($_GET['delete'])) {
 	exit;
 }
 
-$pending = $mysqli->query("SELECT user_id,username,role,created_at FROM users WHERE status='pending' ORDER BY created_at ASC");
+$pending = $mysqli->query("SELECT u.user_id,u.username,u.role,u.created_at,tp.full_name,tp.phone,tp.email,tp.specialization,tp.experience_years FROM users u LEFT JOIN technician_profile tp ON tp.technician_id=u.user_id WHERE u.status='pending' AND u.role='technician' ORDER BY u.created_at ASC");
 $all     = $mysqli->query("SELECT user_id,username,role,status,created_at FROM users ORDER BY created_at DESC");
 ?>
 <?php include __DIR__ . '/../partials/header.php'; ?>
 <h1>User Management</h1>
 <h2>Pending Approvals</h2>
 <table class="table">
-	<tr><th>ID</th><th>Username</th><th>Role</th><th>Created</th><th>Action</th></tr>
+	<tr>
+		<th>ID</th>
+		<th>Username</th>
+		<th>Name</th>
+		<th>Phone</th>
+		<th>Email</th>
+		<th>Specialization</th>
+		<th>Exp(Y)</th>
+		<th>Created</th>
+		<th>Action</th>
+	</tr>
 	<?php while ($row = $pending->fetch_assoc()): ?>
 		<tr>
 			<td><?= $row['user_id'] ?></td>
 			<td><?= htmlspecialchars($row['username']) ?></td>
-			<td><?= $row['role'] ?></td>
+			<td><?= htmlspecialchars($row['full_name'] ?? '') ?></td>
+			<td><?= htmlspecialchars($row['phone'] ?? '') ?></td>
+			<td><?= htmlspecialchars($row['email'] ?? '') ?></td>
+			<td><?= htmlspecialchars($row['specialization'] ?? '') ?></td>
+			<td><?= (int)($row['experience_years'] ?? 0) ?></td>
 			<td><?= $row['created_at'] ?></td>
 			<td><a class="btn" href="?approve=<?= $row['user_id'] ?>">Approve</a></td>
 		</tr>
@@ -39,7 +53,14 @@ $all     = $mysqli->query("SELECT user_id,username,role,status,created_at FROM u
 
 <h2>All Users</h2>
 <table class="table">
-	<tr><th>ID</th><th>Username</th><th>Role</th><th>Status</th><th>Created</th><th>Delete</th></tr>
+	<tr>
+		<th>ID</th>
+		<th>Username</th>
+		<th>Role</th>
+		<th>Status</th>
+		<th>Created</th>
+		<th>Delete</th>
+	</tr>
 	<?php while ($row = $all->fetch_assoc()): ?>
 		<tr>
 			<td><?= $row['user_id'] ?></td>

@@ -4,11 +4,13 @@ $user = current_user();
 ?>
 <!doctype html>
 <html lang="en">
+
 <head>
 	<meta charset="utf-8">
 	<title>Welcome - <?= htmlspecialchars($APP_NAME) ?></title>
 	<link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
 	<div class="container center">
 		<h1><?= htmlspecialchars($APP_NAME) ?></h1>
@@ -31,4 +33,5 @@ $user = current_user();
 		<?php endif; ?>
 	</div>
 </body>
+
 </html>
