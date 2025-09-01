@@ -1,6 +1,5 @@
 -- Hardware Repair Tracker schema (clean install)
 
-SET FOREIGN_KEY_CHECKS=1;
 CREATE DATABASE IF NOT EXISTS repair_tracker CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE repair_tracker;
 
