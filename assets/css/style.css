@@ -278,10 +278,21 @@ nav.sidebar a:hover {
 }
 
 main.with-sidebar {
-    margin-left: 12.4rem;
-    /* Match reduced sidebar */
-    padding: 1.25rem 1.25rem 2.5rem;
-    /* Reduced */
+    margin-left: 13rem;
+    padding: 2rem;
+}
+
+/* Help page specific styles */
+main.with-sidebar ol {
+    margin-left: 2rem;
+    margin-top: 1.5rem;
+    list-style-position: outside;
+}
+
+main.with-sidebar ol li {
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    line-height: 1.6;
 }
 
 footer {
