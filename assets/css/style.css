@@ -5,11 +5,17 @@
     padding: 0
 }
 
+html {
+    font-size: 15px;
+    /* Slightly smaller base to compact overall scale */
+}
+
 body {
     background: #f5f7fa;
     color: #222;
-    line-height: 1.4;
-    font-size: 15px
+    line-height: 1.45;
+    font-size: .9rem;
+    /* Slightly reduced */
 }
 
 a {
@@ -22,9 +28,11 @@ a:hover {
 }
 
 .container {
-    max-width: 960px;
-    margin: 40px auto;
-    padding: 0 20px
+    max-width: 60rem;
+    /* 960px */
+    margin: 1.5rem auto;
+    /* Reduced vertical space */
+    padding: 0 1rem;
 }
 
 .center {
@@ -32,23 +40,28 @@ a:hover {
 }
 
 form {
-    max-width: 380px;
-    margin: 30px auto;
-    padding: 24px;
+    max-width: 23.75rem;
+    /* 380px */
+    margin: 1.25rem auto;
+    /* Reduced */
+    padding: 1.05rem;
+    /* Reduced */
     background: #fff;
     border: 1px solid #dfe3e8;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, .04)
+    border-radius: .45rem;
+    box-shadow: 0 .1rem .2rem rgba(0, 0, 0, .035)
 }
 
 form h1 {
-    font-size: 22px;
-    margin-bottom: 12px
+    font-size: 1.3rem;
+    /* Slightly smaller */
+    margin-bottom: .6rem;
 }
 
 label {
     display: block;
-    margin: 10px 0 4px;
+    margin: .5rem 0 .2rem;
+    /* Tighter */
     font-weight: 600
 }
 
@@ -56,17 +69,18 @@ input,
 select,
 textarea {
     width: 100%;
-    padding: 10px 12px;
+    padding: .5rem .6rem;
+    /* Reduced */
     border: 1px solid #b9c2cc;
-    border-radius: 5px;
-    font-size: 14px;
+    border-radius: .275rem;
+    font-size: .85rem;
     background: #fff
 }
 
 input:focus,
 select:focus,
 textarea:focus {
-    outline: 2px solid #0a6ecb33
+    outline: .125rem solid #0a6ecb33
 }
 
 button,
@@ -75,12 +89,13 @@ button,
     background: #0a6ecb;
     color: #fff;
     border: none;
-    padding: 10px 18px;
-    border-radius: 5px;
-    font-size: 14px;
+    padding: .5rem .9rem;
+    /* Reduced */
+    border-radius: .28rem;
+    font-size: .82rem;
     font-weight: 600;
     cursor: pointer;
-    margin: 6px 4px 0
+    margin: .3rem .2rem 0;
 }
 
 .btn.outline {
@@ -103,33 +118,35 @@ button:hover,
 .error {
     background: #ffe8e8;
     color: #b50000;
-    padding: 8px 10px;
-    border-radius: 5px;
-    margin: 8px 0;
-    font-size: 13px
+    padding: .5rem .625rem;
+    border-radius: .3125rem;
+    margin: .5rem 0;
+    font-size: .8125rem
 }
 
 .success {
     background: #e4f9ed;
     color: #067a36;
-    padding: 8px 10px;
-    border-radius: 5px;
-    margin: 8px 0;
-    font-size: 13px
+    padding: .5rem .625rem;
+    border-radius: .3125rem;
+    margin: .5rem 0;
+    font-size: .8125rem
 }
 
 .table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
+    margin: .9rem 0;
+    /* Reduced */
     background: #fff
 }
 
 .table th,
 .table td {
-    padding: 10px 12px;
+    padding: .5rem .55rem;
+    /* Reduced */
     border: 1px solid #d6dde3;
-    font-size: 14px;
+    font-size: .82rem;
     text-align: left
 }
 
@@ -139,9 +156,9 @@ button:hover,
 }
 
 .status-tag {
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
+    padding: .25rem .5rem;
+    border-radius: .75rem;
+    font-size: .75rem;
     display: inline-block
 }
 
@@ -175,27 +192,40 @@ nav.sidebar {
     left: 0;
     top: 0;
     bottom: 0;
-    width: 200px;
+    width: 11.25rem;
+    /* Narrower */
     background: #12202e;
     color: #fff;
-    padding: 18px;
+    padding: .9rem;
+    /* Reduced */
     display: flex;
     flex-direction: column;
-    gap: 8px
+    gap: .4rem;
+    /* Reduced gap */
 }
 
 nav.sidebar h2 {
-    font-size: 16px;
-    margin-bottom: 8px;
+    font-size: .95rem;
+    margin-bottom: .45rem;
     font-weight: 600
 }
 
 nav.sidebar a {
     color: #fff;
-    padding: 8px 10px;
-    border-radius: 4px;
-    font-size: 14px;
+    padding: .45rem .55rem;
+    /* Slightly tighter */
+    border-radius: .25rem;
+    font-size:1rem;
     background: transparent
+}
+
+/* Push logout to bottom */
+nav.sidebar a.logout-bottom {
+    margin-top: auto;
+    background: #0d1a26;
+}
+nav.sidebar a.logout-bottom:hover {
+    background: #1e3952;
 }
 
 nav.sidebar a.active,
@@ -204,48 +234,217 @@ nav.sidebar a:hover {
 }
 
 main.with-sidebar {
-    margin-left: 220px;
-    padding: 30px 30px 60px
+    margin-left: 12.4rem;
+    /* Match reduced sidebar */
+    padding: 1.25rem 1.25rem 2.5rem;
+    /* Reduced */
 }
 
 footer {
-    margin: 40px 0 20px;
+    margin: 1.75rem 0 1rem;
+    /* Reduced top spacing */
     text-align: center;
     color: #666;
-    font-size: 13px
+    font-size: .75rem;
 }
 
 .badge {
     background: #0a6ecb;
     color: #fff;
     border-radius: 999px;
-    padding: 2px 8px;
-    font-size: 11px;
+    padding: .125rem .5rem;
+    font-size: .6875rem;
     font-weight: 600
 }
 
 .flex {
     display: flex;
-    gap: 14px;
+    gap: .625rem;
+    /* Reduced gap */
     flex-wrap: wrap
 }
 
 .card {
     background: #fff;
     border: 1px solid #dfe3e8;
-    border-radius: 8px;
-    padding: 16px;
-    flex: 1 1 200px;
-    min-width: 200px
+    border-radius: .45rem;
+    padding: .75rem;
+    /* Reduced */
+    flex: 1 1 12.5rem;
+    min-width: 12.5rem
 }
 
 .card h3 {
-    font-size: 15px;
-    margin-bottom: 6px
+    font-size: .9rem;
+    margin-bottom: .3rem
+}
+
+/* Dashboard / admin enhancements */
+.big-num {
+    font-size: 1.55rem;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.role-badge {
+    display: inline-block;
+    padding: .15rem .45rem;
+    border-radius: .5rem;
+    font-size: .65rem;
+    font-weight: 600;
+    background: #e5e9ef;
+    color: #123;
+    text-transform: capitalize;
+}
+
+.role-technician {
+    background: #e5f1ff;
+    color: #054b91;
+}
+
+.role-user {
+    background: #f1f5ff;
+    color: #314b7d;
+}
+
+.role-admin {
+    background: #ffe7cc;
+    color: #8a5200;
+}
+
+.status-text {
+    font-size: .65rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.status-pending {
+    color: #8a6d00;
+}
+
+.status-approved {
+    color: #067a36;
+}
+
+.status-rejected {
+    color: #b50000;
+}
+
+.status-paid {
+    color: #067a36;
+}
+
+.tabs .tab-link {
+    padding: .35rem .7rem;
+    border: 1px solid #c5d0d9;
+    border-radius: .4rem;
+    background: #fff;
+    font-size: .7rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.tabs .tab-link.active {
+    background: #0a6ecb;
+    color: #fff;
+    border-color: #0a6ecb;
+}
+
+.table.mini th,
+.table.mini td {
+    font-size: .68rem;
+    padding: .35rem .4rem;
+}
+
+.stat-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card:after {
+    content: "";
+    position: absolute;
+    right: -15px;
+    top: -15px;
+    width: 70px;
+    height: 70px;
+    background: radial-gradient(circle at center, #0a6ecb15, #0a6ecb00 70%);
+    border-radius: 50%;
 }
 
 small {
     color: #65707c
+}
+
+img,
+video,
+canvas {
+    max-width: 100%;
+    height: auto
+}
+
+/* Responsive adjustments */
+@media (max-width:64em) {
+
+    /* 1024px */
+    main.with-sidebar {
+        padding: 1.5rem 1.25rem 3rem
+    }
+
+    .card {
+        flex: 1 1 15rem
+    }
+}
+
+@media (max-width:56.25em) {
+
+    /* 900px */
+    .table th,
+    .table td {
+        font-size: .8125rem
+    }
+}
+
+@media (max-width:50em) {
+
+    /* 800px existing collapse */
+    nav.sidebar {
+        position: static;
+        width: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: .25rem
+    }
+
+    main.with-sidebar {
+        margin-left: 0;
+        padding: 1.25rem 1rem 2.5rem
+    }
+
+    nav.sidebar a {
+        font-size: .75rem
+    }
+}
+
+@media (max-width:37.5em) {
+
+    /* 600px */
+    form,
+    .card {
+        max-width: 100%
+    }
+
+    .container {
+        margin: 1.5rem auto
+    }
+
+    .flex {
+        gap: .75rem
+    }
+
+    nav.sidebar a {
+        padding: .4rem .5rem
+    }
 }
 
 @media (max-width:800px) {

@@ -7,5 +7,12 @@
   <li>Technician appointment scheduling &amp; status updates</li>
   <li>Basic reporting (counts by status, category)</li>
   <li>Simple appointment proposal by technicians</li>
+  <li>Simple appointment proposal by technicians</li>
+  <li>Simple appointment proposal by technicians</li>
+  <li>Simple appointment proposal by technicians</li>
+  <li>Simple appointment proposal by technicians</li>
+  <li>Simple appointment proposal by technicians</li>
+  
+  <li>Simple appointment proposal by technicians</li>
 </ul>
 <?php include __DIR__ . '/partials/footer.php'; ?>

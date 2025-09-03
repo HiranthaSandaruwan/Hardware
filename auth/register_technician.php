@@ -25,7 +25,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
         // Types: i (id), s (full_name), s (phone), s (email), s (specialization), i (experience_years), s (availability_notes)
         $stmt3->bind_param('issssis',$uid,$full_name,$phone,$email,$specialization,$experience,$availability);
         $stmt3->execute();
-        header('Location: login.php?registered=1');
+  header('Location: login.php?registered=1&type=technician');
         exit;
       } else {
         $err='Insert failed';
