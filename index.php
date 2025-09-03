@@ -4,11 +4,13 @@ $user = current_user();
 ?>
 <!doctype html>
 <html lang="en">
+
 <head>
 	<meta charset="utf-8">
 	<title>Welcome - <?= htmlspecialchars($APP_NAME) ?></title>
 	<link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
 	<div class="container center">
 		<h1><?= htmlspecialchars($APP_NAME) ?></h1>
@@ -26,9 +28,10 @@ $user = current_user();
 		<?php else: ?>
 			<p>
 				<a class="btn" href="auth/login.php">Login</a>
-				<a class="btn outline" href="auth/register.php">Register</a>
+				<a class="btn outline" href="auth/choose_role.php">Register</a>
 			</p>
 		<?php endif; ?>
 	</div>
 </body>
+
 </html>
