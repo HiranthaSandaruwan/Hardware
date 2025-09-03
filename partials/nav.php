@@ -4,8 +4,7 @@ $role = $u['role'] ?? null;
 $base = $BASE_URL;
 ?>
 <nav class="sidebar">
-  <h2>Tracker</h2>
-  <!-- <a href="<?= $base ?>/index.php">Home</a> -->
+  <h2><a href="<?= $base ?>/index.php">Tracker</a></h2>
   <?php if ($u): ?>
     <?php if ($role === 'admin'): ?>
       <a href="<?= $base ?>/admin/index.php">Admin Dashboard</a>
@@ -26,8 +25,8 @@ $base = $BASE_URL;
       <a href="<?= $base ?>/customer/completed.php">Completed</a>
     <?php endif; ?>
   <?php else: ?>
-    <a href="<?= $base ?>/auth/login.php">Login</a>
-    <a href="<?= $base ?>/auth/choose_role.php">Register</a>
+    <!-- <a href="<?= $base ?>/auth/login.php">Login</a>
+    <a href="<?= $base ?>/auth/choose_role.php">Register</a> -->
   <?php endif; ?>
   <a href="<?= $base ?>/features.php">Features</a>
   <a href="<?= $base ?>/help.php">Help</a>

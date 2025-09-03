@@ -28,7 +28,7 @@ $user = current_user();
 		<?php else: ?>
 			<p>
 				<a class="btn" href="auth/login.php">Login</a>
-				<a class="btn outline" href="auth/register.php">Register</a>
+				<a class="btn outline" href="auth/choose_role.php">Register</a>
 			</p>
 		<?php endif; ?>
 	</div>

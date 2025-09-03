@@ -215,7 +215,7 @@ nav.sidebar a {
     padding: .45rem .55rem;
     /* Slightly tighter */
     border-radius: .25rem;
-    font-size: .8rem;
+    font-size:1rem;
     background: transparent
 }
 
@@ -241,23 +241,11 @@ main.with-sidebar {
 }
 
 footer {
-        margin: 1.75rem 0 1rem;
-        /* Reduced top spacing */
-        text-align: center;
-        color: #666;
-        font-size: .75rem;
-        padding-left: 0;
-        padding-right: 0;
-        padding-bottom: 0;
-        padding-top: 0;
-        display: block;
-}
-
-@media (min-width: 600px) {
-    footer {
-        padding-left: 35vw;
-        padding-right: 35vw;
-    }
+    margin: 1.75rem 0 1rem;
+    /* Reduced top spacing */
+    text-align: center;
+    color: #666;
+    font-size: .75rem;
 }
 
 .badge {
