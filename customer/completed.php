@@ -60,19 +60,19 @@ $completed = $mysqli->query("SELECT $selectCols FROM requests r LEFT JOIN appoin
 			<td><?= $c['chosen_slot'] ?: '-' ?></td>
 			<td><?= $c['receipt_id'] ?? '-' ?></td>
 			<td><?= $c['total_amount'] ?? '-' ?></td>
-			<td>
+			<td class="action-cell">
 				<?php if ($c['receipt_id']): ?>
 					<?php $customerConfirmed = $hasConfirmCol ? (int)($c['customer_confirmed'] ?? 0) : 1; ?>
 					<?php if ($c['pay_status'] !== 'Paid'): ?>
 						<?php if (!$customerConfirmed): ?>
-							<form method="post" style="display:inline">
+							<form method="post" class="table-form">
 								<input type="hidden" name="action" value="pay">
 								<input type="hidden" name="receipt_id" value="<?= $c['receipt_id'] ?>">
-								<select name="method" style="font-size:.75rem">
+								<select name="method">
 									<option<?= $c['method'] === 'Cash' ? ' selected' : ''; ?>>Cash</option>
-										<option<?= $c['method'] === 'Online' ? ' selected' : ''; ?>>Online</option>
+									<option<?= $c['method'] === 'Online' ? ' selected' : ''; ?>>Online</option>
 								</select>
-								<button class="btn" style="padding:.3rem .6rem;margin-top:2px">Save Method</button>
+								<button class="save-method-btn" type="submit">Save Method</button>
 							</form>
 						<?php else: ?>
 							<strong><?= $c['method'] ?></strong><br><small style="font-size:.65rem;color:#555">Waiting technician confirmation</small>
@@ -84,17 +84,17 @@ $completed = $mysqli->query("SELECT $selectCols FROM requests r LEFT JOIN appoin
 					<?php else: ?>-
 				<?php endif; ?>
 			</td>
-			<td>
+			<td class="action-cell">
 				<?php if ($c['receipt_id']): ?>
 					<?php if ($c['fb_rating']): ?>
 						<strong><?= $c['fb_rating'] ?>/5</strong><br><small><?= htmlspecialchars($c['fb_comment']) ?></small>
 					<?php else: ?>
-						<form method="post" style="min-width:160px">
+						<form method="post" class="table-form feedback-form">
 							<input type="hidden" name="action" value="feedback">
 							<input type="hidden" name="request_id" value="<?= $rid ?>">
-							<input type="number" name="rating" min="1" max="5" placeholder="1-5" required style="width:55px">
-							<textarea name="comment" placeholder="Comment" style="width:100%;height:45px"></textarea>
-							<button class="btn" style="margin-top:4px">Send</button>
+							<input type="number" name="rating" min="1" max="5" placeholder="1-5" required>
+							<textarea name="comment" placeholder="Write your feedback here..."></textarea>
+							<button class="send-btn" type="submit">Send</button>
 						</form>
 					<?php endif; ?>
 					<?php else: ?>-

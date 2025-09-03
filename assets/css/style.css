@@ -207,11 +207,12 @@ button:hover,
 
 .table th,
 .table td {
-    padding: 1rem 1.2rem;
+    padding: 1.5rem 1.2rem;
     font-size: 0.9rem;
     text-align: left;
     border: none;
     border-bottom: 1px solid rgba(214, 221, 227, 0.3);
+    vertical-align: top;
 }
 
 .table tr:last-child td {
@@ -674,6 +675,40 @@ canvas {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
+/* Action cell styles */
+.action-cell {
+    min-width: 200px;
+    padding: 1.5rem !important;
+}
+
+/* Form in table cell */
+.table-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 0.5rem;
+    margin: 0.5rem 0;
+}
+
+.table-form select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #dfe3e8;
+    border-radius: 0.4rem;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    background: white;
+}
+
+.table-form button,
+.feedback-form button {
+    width: 100%;
+    margin-top: 0.75rem;
+    padding: 0.75rem;
+}
+
 .payment-section h2,
 .feedback-section h2 {
     font-size: 1.5rem;
@@ -683,7 +718,8 @@ canvas {
 
 /* Payment method select */
 .payment-method {
-    margin-bottom: 2rem;
+    margin: 3rem 0;
+    padding-top: 1rem;
 }
 
 .payment-method select {
@@ -694,8 +730,9 @@ canvas {
     border: 1px solid #dfe3e8;
     border-radius: 0.5rem;
     font-size: 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     background: white;
+    display: block;
 }
 
 /* Save method and Mark paid buttons */
@@ -714,6 +751,13 @@ canvas {
     letter-spacing: 1px;
     font-size: 0.9rem;
     box-shadow: 0 4px 15px rgba(10, 110, 203, 0.2);
+    margin-top: 1rem;
+}
+
+/* Container for payment actions */
+.payment-actions {
+    margin-top: 2rem;
+    padding-top: 1rem;
 }
 
 .save-method-btn:hover,
