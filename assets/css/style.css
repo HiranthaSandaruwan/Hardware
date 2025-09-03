@@ -18,6 +18,9 @@ body {
     align-items: center;
     min-height: 100vh;
     color: #222;
+    background:url("../assets/css/hardware.jpeg") no-repeat;
+    background-size: cover;
+    background-position: center;
 
 
     /* Slightly reduced */
