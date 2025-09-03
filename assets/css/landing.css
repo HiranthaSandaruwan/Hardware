@@ -2,25 +2,15 @@
 .hero-container {
     min-height: 100vh;
     position: relative;
-    overflow: visible;
     background-color: #f8f9fa;
-    background: url('../images/hardware-bg.jpg') center/cover fixed;
+    background-image: url('../images/hardware-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 2rem;
-}
-
-.hero-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('../images/circuit-pattern.svg') center/300px repeat;
-    opacity: 0.08;
-    z-index: 1;
 }
 
 .hero-content {
@@ -32,7 +22,7 @@
     background: rgba(255, 255, 255, 0.9);
     padding: 2rem;
     border-radius: 10px;
-    z-index: 2;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .hero-title {
@@ -58,6 +48,8 @@
     gap: 1rem;
     justify-content: center;
     margin-top: 2rem;
+    position: relative;
+    z-index: 10;
 }
 
 .hero-user-info {
