@@ -79,7 +79,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <form  method="post" data-validate>
 <div class="input-box">
       <label>Username
-      <input name="username" required value="<?= htmlspecialchars($_POST['username'] ?? '') ?>">
+      
+      <input name="username" placeholder="Username" required value="<?= htmlspecialchars($_POST['username'] ?? '') ?>">
     
    </label>
 </div>
@@ -88,9 +89,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <div class="input-box">
       <label>Password
      
-       <input type="password" name="password" required>
+   
+      <input type="password" name="password" placeholder="Password" required>
        
-       
+    
        </label>
   </div>
 
