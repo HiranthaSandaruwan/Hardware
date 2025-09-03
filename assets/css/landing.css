@@ -4,24 +4,11 @@
     position: relative;
     overflow: hidden;
     background-color: #f8f9fa;
+    background: url('../images/hardware-bg.jpg') center/cover fixed;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 2rem;
-}
-
-.hero-container::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.8)), url('../images/hardware-bg.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    z-index: 0;
 }
 
 .hero-container::before {
@@ -38,11 +25,13 @@
 
 .hero-content {
     position: relative;
-    z-index: 1;
     max-width: 1000px;
     text-align: center;
     margin: 0 auto;
     width: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: 10px;
 }
 
 .hero-title {
