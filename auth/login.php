@@ -57,6 +57,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <?php include __DIR__ . '/../partials/header.php'; ?>
+
+<head>
+  <style>
+    body{
+      background:url("../assets/css/hardware.jpeg") no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+</style>
+</head>
+
 <div class="wrapper">
 <h1>Login</h1>
 <?php if ($info): ?>
