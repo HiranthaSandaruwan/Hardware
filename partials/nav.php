@@ -30,6 +30,7 @@ $base = $BASE_URL;
   <?php endif; ?>
   <a href="<?= $base ?>/features.php">Features</a>
   <a href="<?= $base ?>/help.php">Help</a>
+  <a href="<?= $base ?>/contact.php">Contact Us</a>
   <?php if ($u): ?>
     <a class="logout-bottom" href="<?= $base ?>/auth/logout.php">Logout</a>
   <?php endif; ?>
