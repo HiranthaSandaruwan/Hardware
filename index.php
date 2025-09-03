@@ -16,7 +16,7 @@ $user = current_user();
 
 <body>
     <div class="hero-container">
-        <div class="hero-content">
+        <section class="hero-main">
             <h1 class="hero-title"><?= htmlspecialchars($APP_NAME) ?></h1>
             <p class="hero-subtitle">Your one-stop solution for hardware and software repair management. Get expert assistance for all your tech needs.</p>
 
@@ -41,26 +41,28 @@ $user = current_user();
                     <a class="btn outline" href="auth/choose_role.php">Register</a>
                 </div>
             <?php endif; ?>
+        </section>
 
-            <div class="hero-features">
+        <section class="features-section">
+            <div class="features-grid">
                 <div class="feature-card">
-                    <h3>🔧 Expert Repairs</h3>
+                    <h3><span class="feature-icon">🔧</span>Expert Repairs</h3>
                     <p>Professional technicians ready to help with your hardware and software issues.</p>
                 </div>
                 <div class="feature-card">
-                    <h3>📱 Easy Tracking</h3>
+                    <h3><span class="feature-icon">📱</span>Easy Tracking</h3>
                     <p>Track your repair requests in real-time with our user-friendly interface.</p>
                 </div>
                 <div class="feature-card">
-                    <h3>💬 Direct Communication</h3>
+                    <h3><span class="feature-icon">💬</span>Direct Communication</h3>
                     <p>Connect directly with technicians and get updates on your repairs.</p>
                 </div>
                 <div class="feature-card">
-                    <h3>⚡ Fast Service</h3>
+                    <h3><span class="feature-icon">⚡</span>Fast Service</h3>
                     <p>Quick response times and efficient repair processes to get you back up and running.</p>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
 </body>
 
