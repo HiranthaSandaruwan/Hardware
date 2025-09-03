@@ -1,0 +1,62 @@
+/* Background patterns and images */
+.bg-tools {
+    background-image: url('../images/tools-pattern.svg');
+    background-repeat: repeat;
+    background-size: 300px;
+    opacity: 0.1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.bg-wave {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../images/wave.svg') bottom no-repeat;
+    background-size: cover;
+    z-index: -1;
+    opacity: 0.1;
+}
+
+/* Hero section background */
+.hero-bg {
+    background: linear-gradient(135deg, rgba(10, 110, 203, 0.1) 0%, rgba(0, 180, 216, 0.1) 100%),
+                url('../images/hardware-hero.jpg') center/cover no-repeat;
+    height: 300px;
+    border-radius: 0 0 2rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-bg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    text-align: center;
+    padding: 4rem 2rem;
+}
+
+/* Section dividers */
+.section-divider {
+    height: 4px;
+    background: linear-gradient(90deg, #0a6ecb, #00b4d8);
+    margin: 2rem 0;
+    border-radius: 2px;
+}
