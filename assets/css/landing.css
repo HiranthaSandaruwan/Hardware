@@ -2,7 +2,7 @@
 .hero-container {
     min-height: 100vh;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     background-color: #f8f9fa;
     background: url('../images/hardware-bg.jpg') center/cover fixed;
     display: flex;
@@ -20,7 +20,7 @@
     bottom: 0;
     background: url('../images/circuit-pattern.svg') center/300px repeat;
     opacity: 0.08;
-    z-index: 0;
+    z-index: 1;
 }
 
 .hero-content {
@@ -32,6 +32,7 @@
     background: rgba(255, 255, 255, 0.9);
     padding: 2rem;
     border-radius: 10px;
+    z-index: 2;
 }
 
 .hero-title {
