@@ -22,10 +22,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <?php include __DIR__ . '/../partials/header.php'; ?>
-<h1>New Request</h1>
-<?php if ($err): ?><div class="error"><?= htmlspecialchars($err) ?></div><?php endif; ?>
-<?php if ($ok): ?><div class="success"><?= htmlspecialchars($ok) ?></div><?php endif; ?>
-<form method="post" data-validate>
+<div class="new-request-form">
+    <h1>New Request</h1>
+    <?php if ($err): ?><div class="error"><?= htmlspecialchars($err) ?></div><?php endif; ?>
+    <?php if ($ok): ?><div class="success"><?= htmlspecialchars($ok) ?></div><?php endif; ?>
+    <form method="post" data-validate>
   <label>Device Type<input name="device_type" required value="<?= htmlspecialchars($_POST['device_type'] ?? '') ?>"></label>
   <label>Model<input name="model" value="<?= htmlspecialchars($_POST['model'] ?? '') ?>"></label>
   <label>Serial No<input name="serial_no" value="<?= htmlspecialchars($_POST['serial_no'] ?? '') ?>"></label>

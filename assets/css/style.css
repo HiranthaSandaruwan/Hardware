@@ -31,10 +31,9 @@ a:hover {
 
 .container {
     max-width: 60rem;
-    /* 960px */
-    margin: 1.5rem auto;
-    /* Reduced vertical space */
-    padding: 0 1rem;
+    margin: 2.5rem auto;
+    padding: 0 2rem;
+    width: 100%;
 }
 
 .center {
@@ -43,14 +42,54 @@ a:hover {
 
 form {
     max-width: 28rem;
-    margin: 2rem auto;
-    padding: 2rem;
+    margin: 1rem auto;
+    padding: 1.75rem 2rem;
     background: rgba(255, 255, 255, 0.95);
     border: none;
     border-radius: 1rem;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
     backdrop-filter: blur(10px);
     transition: transform 0.3s ease;
+}
+
+/* Form fields spacing */
+form .form-group {
+    margin-bottom: 1rem;
+}
+
+form label {
+    margin-bottom: 0.35rem;
+    display: block;
+    font-weight: 500;
+    color: #2d3436;
+}
+
+form input,
+form select {
+    margin-bottom: 0.75rem;
+    height: 2.5rem;
+}
+
+form textarea {
+    margin-bottom: 0.75rem;
+    height: 5rem;
+    resize: vertical;
+}
+
+/* Specific styles for new request form */
+.new-request-form {
+    margin-top: 0.5rem;
+}
+
+.new-request-form h1 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+.new-request-form .error,
+.new-request-form .success {
+    margin: 0.5rem 0;
+    padding: 0.35rem 0.75rem;
 }
 
 form:hover {
@@ -152,11 +191,18 @@ button:hover,
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    margin: 1.5rem 0;
+    margin: 2rem 0;
     background: rgba(255, 255, 255, 0.95);
     border-radius: 1rem;
     overflow: hidden;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Table wrapper for better mobile handling */
+.table-wrapper {
+    margin: 2rem -1rem;
+    padding: 0 1rem;
+    overflow-x: auto;
 }
 
 .table th,
@@ -231,9 +277,34 @@ nav.sidebar {
 }
 
 nav.sidebar h2 {
-    font-size: .95rem;
-    margin-bottom: .45rem;
-    font-weight: 600
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+nav.sidebar h2 a {
+    font-size: 1.2rem;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center;
+    gap: 0.75rem;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+nav.sidebar h2 a:before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 32px;
+    background: url('../images/logo.svg') no-repeat center;
+    background-size: contain;
+}
+
+nav.sidebar h2 a:hover {
+    transform: none !important;
+    background: transparent !important;
 }
 
 nav.sidebar a {
@@ -279,13 +350,43 @@ nav.sidebar a:hover {
 
 main.with-sidebar {
     margin-left: 13rem;
-    padding: 2rem;
+    padding: 1.5rem 2.5rem;
+    min-height: calc(100vh - 4rem); /* Ensure minimum height for content */
 }
 
-/* Help page specific styles */
+/* Compact layout for new request page */
+.new-request-page main.with-sidebar {
+    padding-top: 1rem;
+}
+
+/* Global content spacing */
+main.with-sidebar h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #1a2a3a;
+}
+
+main.with-sidebar h2 {
+    font-size: 1.5rem;
+    margin: 2rem 0 1rem;
+    color: #2d3436;
+}
+
+main.with-sidebar h3 {
+    font-size: 1.25rem;
+    margin: 1.5rem 0 0.75rem;
+    color: #2d3436;
+}
+
+main.with-sidebar p {
+    margin-bottom: 1.25rem;
+    line-height: 1.7;
+}
+
+/* Lists spacing */
+main.with-sidebar ul,
 main.with-sidebar ol {
-    margin-left: 2rem;
-    margin-top: 1.5rem;
+    margin: 1.5rem 0 1.5rem 2rem;
     list-style-position: outside;
 }
 
@@ -314,16 +415,16 @@ footer {
 
 .flex {
     display: flex;
-    gap: .625rem;
-    /* Reduced gap */
-    flex-wrap: wrap
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
 }
 
 .card {
     background: rgba(255, 255, 255, 0.95);
     border: none;
     border-radius: 1rem;
-    padding: 1.5rem;
+    padding: 2rem;
     flex: 1 1 15rem;
     min-width: 15rem;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
@@ -331,6 +432,7 @@ footer {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    margin-bottom: 1.5rem;
 }
 
 .card::before {
@@ -459,14 +561,22 @@ canvas {
 
 /* Responsive adjustments */
 @media (max-width:64em) {
-
     /* 1024px */
     main.with-sidebar {
-        padding: 1.5rem 1.25rem 3rem
+        padding: 2rem 1.5rem;
+    }
+
+    .container {
+        padding: 0 1.5rem;
     }
 
     .card {
-        flex: 1 1 15rem
+        flex: 1 1 calc(50% - 1.5rem);
+        margin-bottom: 1.5rem;
+    }
+    
+    .flex {
+        gap: 1.5rem;
     }
 }
 
@@ -519,6 +629,113 @@ canvas {
     nav.sidebar a {
         padding: .4rem .5rem
     }
+}
+
+/* Payment and Feedback sections */
+.payment-section,
+.feedback-section {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.payment-section h2,
+.feedback-section h2 {
+    font-size: 1.5rem;
+    color: #1a2a3a;
+    margin-bottom: 1.5rem;
+}
+
+/* Payment method select */
+.payment-method {
+    margin-bottom: 2rem;
+}
+
+.payment-method select {
+    width: 100%;
+    max-width: 300px;
+    height: 3rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid #dfe3e8;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    background: white;
+}
+
+/* Save method and Mark paid buttons */
+.save-method-btn,
+.mark-paid-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #0a6ecb 0%, #0056b3 100%);
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 15px rgba(10, 110, 203, 0.2);
+}
+
+.save-method-btn:hover,
+.mark-paid-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(10, 110, 203, 0.3);
+    background: linear-gradient(135deg, #0056b3 0%, #003d82 100%);
+}
+
+/* Feedback form */
+.feedback-form {
+    max-width: 500px;
+}
+
+.feedback-form input[type="number"] {
+    width: 100px;
+    height: 3rem;
+    padding: 0.5rem;
+    border: 1px solid #dfe3e8;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.feedback-form textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 1rem;
+    border: 1px solid #dfe3e8;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    resize: vertical;
+}
+
+.feedback-form .send-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #0a6ecb 0%, #0056b3 100%);
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 15px rgba(10, 110, 203, 0.2);
+}
+
+.feedback-form .send-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(10, 110, 203, 0.3);
+    background: linear-gradient(135deg, #0056b3 0%, #003d82 100%);
 }
 
 /* Modern Additions */

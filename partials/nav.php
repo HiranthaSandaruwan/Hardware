@@ -4,7 +4,7 @@ $role = $u['role'] ?? null;
 $base = $BASE_URL;
 ?>
 <nav class="sidebar">
-  <h2><a href="<?= $base ?>/index.php">Tracker</a></h2>
+  <h2><a href="<?= $base ?>/index.php">Hardware Tracker</a></h2>
   <?php if ($u): ?>
     <?php if ($role === 'admin'): ?>
       <a href="<?= $base ?>/admin/index.php">Admin Dashboard</a>

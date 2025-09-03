@@ -17,6 +17,6 @@ $user = current_user();
 	<script src="<?= $BASE_URL ?>/assets/js/app.js" defer></script>
 </head>
 
-<body>
+<body class="<?= strpos($_SERVER['PHP_SELF'], 'request_new.php') !== false ? 'new-request-page' : '' ?>">
 	<?php include __DIR__ . '/nav.php'; ?>
 	<main class="with-sidebar">
