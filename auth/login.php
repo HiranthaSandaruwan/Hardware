@@ -70,6 +70,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <label>Password
     <input type="password" name="password" required>
   </label>
-  <button type="submit">Login</button>
+  <div class="button-container">
+    <button type="submit">Login</button>
+    <a href="choose_role.php" class="btn outline" style="margin:0;">Register</a>
+  </div>
 </form>
+<!-- Removed below-form register link; replaced with inline button -->
 <?php include __DIR__ . '/../partials/footer.php'; ?>

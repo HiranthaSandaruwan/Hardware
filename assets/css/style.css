@@ -219,6 +219,15 @@ nav.sidebar a {
     background: transparent
 }
 
+/* Push logout to bottom */
+nav.sidebar a.logout-bottom {
+    margin-top: auto;
+    background: #0d1a26;
+}
+nav.sidebar a.logout-bottom:hover {
+    background: #1e3952;
+}
+
 nav.sidebar a.active,
 nav.sidebar a:hover {
     background: #1e3952
@@ -232,11 +241,23 @@ main.with-sidebar {
 }
 
 footer {
-    margin: 1.75rem 0 1rem;
-    /* Reduced top spacing */
-    text-align: center;
-    color: #666;
-    font-size: .75rem;
+        margin: 1.75rem 0 1rem;
+        /* Reduced top spacing */
+        text-align: center;
+        color: #666;
+        font-size: .75rem;
+        padding-left: 0;
+        padding-right: 0;
+        padding-bottom: 0;
+        padding-top: 0;
+        display: block;
+}
+
+@media (min-width: 600px) {
+    footer {
+        padding-left: 35vw;
+        padding-right: 35vw;
+    }
 }
 
 .badge {

@@ -5,17 +5,13 @@ $base = $BASE_URL;
 ?>
 <nav class="sidebar">
   <h2>Tracker</h2>
-  <a href="<?= $base ?>/index.php">Home</a>
-  <a href="<?= $base ?>/features.php">Features</a>
-  <a href="<?= $base ?>/help.php">Help</a>
-
+  <!-- <a href="<?= $base ?>/index.php">Home</a> -->
   <?php if ($u): ?>
     <?php if ($role === 'admin'): ?>
       <a href="<?= $base ?>/admin/index.php">Admin Dashboard</a>
       <a href="<?= $base ?>/admin/users_pending.php">Pending Users</a>
       <a href="<?= $base ?>/admin/users_manage.php">Manage Users</a>
-      <!-- Removed request approval (v2 flow) -->
-      <!-- Reports & feedback links moved into Admin Dashboard -->
+      <a href="<?= $base ?>/admin/feedback.php">Feedback</a>
     <?php elseif ($role === 'technician'): ?>
       <a href="<?= $base ?>/technician/dashboard.php">Tech Dashboard</a>
       <a href="<?= $base ?>/technician/approved_requests.php">Requests</a>
@@ -29,9 +25,13 @@ $base = $BASE_URL;
       <a href="<?= $base ?>/customer/proposals.php">Proposals</a>
       <a href="<?= $base ?>/customer/completed.php">Completed</a>
     <?php endif; ?>
-    <a href="<?= $base ?>/auth/logout.php">Logout</a>
   <?php else: ?>
     <a href="<?= $base ?>/auth/login.php">Login</a>
     <a href="<?= $base ?>/auth/choose_role.php">Register</a>
+  <?php endif; ?>
+  <a href="<?= $base ?>/features.php">Features</a>
+  <a href="<?= $base ?>/help.php">Help</a>
+  <?php if ($u): ?>
+    <a class="logout-bottom" href="<?= $base ?>/auth/logout.php">Logout</a>
   <?php endif; ?>
 </nav>

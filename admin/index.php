@@ -113,7 +113,7 @@ $latestPayments = $mysqli->query("SELECT p.payment_id,p.method,p.status,p.paid_a
   <div class="card" style="flex:1 1 15rem;">
     <h3>Feedback</h3>
     <p style="font-size:.75rem;">Quality insights.</p>
-    <p><a href="feedback_customers.php">Customer → Tech</a><br><a href="feedback_technicians.php">Tech → Customer</a></p>
+  <p><a href="feedback.php">Open Feedback Overview &raquo;</a></p>
   </div>
   <div class="card" style="flex:1 1 15rem;">
     <h3>Payments</h3>

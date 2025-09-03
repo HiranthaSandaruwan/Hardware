@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Database connection bootstrap.
- * Plain mysqli (logic unchanged); includes minimal auto-migration for payment confirmation fields.
- */
-
 $dbhost = 'localhost';
 $dbuser = 'root';
 $dbpass = '2323';
