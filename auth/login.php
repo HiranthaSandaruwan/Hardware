@@ -23,7 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $stmt->bind_param('s', $username);
   $stmt->execute();
   $res = $stmt->get_result();
-
+  
+  
   if ($row = $res->fetch_assoc()) {
     if ($row['password'] === $password) { // Plain text comparison (per existing design)
       if ($row['is_disabled']) {
@@ -56,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <?php include __DIR__ . '/../partials/header.php'; ?>
+<div class="wrapper">
 <h1>Login</h1>
 <?php if ($info): ?>
   <div class="success"><?= htmlspecialchars($info) ?></div>
@@ -63,13 +65,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php if ($err): ?>
   <div class="error"><?= htmlspecialchars($err) ?></div>
 <?php endif; ?>
-<form method="post" data-validate>
-  <label>Username
-    <input name="username" required value="<?= htmlspecialchars($_POST['username'] ?? '') ?>">
-  </label>
-  <label>Password
-    <input type="password" name="password" required>
-  </label>
-  <button type="submit">Login</button>
+<form  method="post" data-validate>
+<div class="input-box">
+      <label>Username
+      <input name="username" required value="<?= htmlspecialchars($_POST['username'] ?? '') ?>">
+    
+   </label>
+</div>
+
+
+  <div class="input-box">
+      <label>Password
+     
+       <input type="password" name="password" required>
+       
+       
+       </label>
+  </div>
+
+  <button type="submit" class="btn">Login</button>
 </form>
+</div>
 <?php include __DIR__ . '/../partials/footer.php'; ?>

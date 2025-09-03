@@ -9,9 +9,12 @@ $user = current_user();
 	<meta charset="utf-8">
 	<title><?= htmlspecialchars($APP_NAME) ?></title>
 	<link rel="stylesheet" href="<?= $BASE_URL ?>/assets/css/style.css">
+	<link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+	
 	<script src="<?= $BASE_URL ?>/assets/js/app.js" defer></script>
 </head>
 
 <body>
+
 	<?php include __DIR__ . '/nav.php'; ?>
 	<main class="with-sidebar">

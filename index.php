@@ -9,9 +9,11 @@ $user = current_user();
 	<meta charset="utf-8">
 	<title>Welcome - <?= htmlspecialchars($APP_NAME) ?></title>
 	<link rel="stylesheet" href="assets/css/style.css">
+	
 </head>
 
 <body>
+	
 	<div class="container center">
 		<h1><?= htmlspecialchars($APP_NAME) ?></h1>
 		<p>Track and manage hardware/software repair requests.</p>
