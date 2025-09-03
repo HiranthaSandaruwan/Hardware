@@ -3,7 +3,11 @@
     min-height: 100vh;
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
 }
 
 .hero-container::before {
@@ -13,39 +17,36 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('../images/circuit-pattern.svg') center/500px repeat;
-    opacity: 0.3;
+    background: url('../images/circuit-pattern.svg') center/300px repeat;
+    opacity: 0.15;
     z-index: 0;
 }
 
 .hero-content {
     position: relative;
     z-index: 1;
-    max-width: 800px;
+    max-width: 1000px;
     text-align: center;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 3rem;
-    border-radius: 2rem;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 0 auto;
+    width: 100%;
 }
 
 .hero-title {
-    font-size: 3.5rem;
-    margin-bottom: 1.5rem;
-    background: linear-gradient(135deg, #1a2a3a 0%, #0a6ecb 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    font-size: 2.75rem;
+    margin-bottom: 1rem;
+    color: #1a2a3a;
     line-height: 1.2;
+    font-weight: 600;
 }
 
 .hero-subtitle {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     color: #495057;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
     line-height: 1.6;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .hero-actions {
@@ -56,32 +57,38 @@
 }
 
 .hero-user-info {
-    margin: 2rem 0;
-    padding: 1.5rem;
-    background: rgba(10, 110, 203, 0.1);
-    border-radius: 1rem;
+    margin: 2rem auto;
+    padding: 1rem 1.5rem;
+    background: rgba(10, 110, 203, 0.05);
+    border-radius: 6px;
     color: #1a2a3a;
+    max-width: 400px;
+    border: 1px solid rgba(10, 110, 203, 0.1);
 }
 
 .hero-features {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-top: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 4rem;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .feature-card {
-    background: rgba(255, 255, 255, 0.8);
+    background: white;
     padding: 1.5rem;
-    border-radius: 1rem;
+    border-radius: 8px;
     text-align: left;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
+    border: 1px solid #e9ecef;
 }
 
 .feature-card:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    transform: translateY(-3px);
+    border-color: #0a6ecb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .feature-card h3 {
