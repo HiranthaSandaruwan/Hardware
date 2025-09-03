@@ -37,16 +37,18 @@ $selectCols = "p.payment_id,r.receipt_id,r.request_id,r.total_amount,p.method,p.
 $pending = $mysqli->query("SELECT $selectCols FROM payments p JOIN receipts r ON p.receipt_id=r.receipt_id JOIN requests rq ON r.request_id=rq.request_id WHERE rq.user_id=$uid ORDER BY r.receipt_id DESC");
 ?>
 <?php include __DIR__ . '/../partials/header.php'; ?>
-<h1>Payments</h1>
-<table class="table">
-  <tr>
-    <th>Receipt</th>
-    <th>Request</th>
-    <th>Amount</th>
-    <th>Method</th>
-    <th>Status</th>
-    <th>Action</th>
-  </tr>
+<div class="payment-section">
+    <h1>Payments</h1>
+    <div class="table-wrapper">
+        <table class="table">
+            <tr>
+                <th>Receipt</th>
+                <th>Request</th>
+                <th>Amount</th>
+                <th>Method</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
   <?php while ($p = $pending->fetch_assoc()): ?>
     <tr>
       <td><?= $p['receipt_id'] ?></td>
@@ -54,19 +56,32 @@ $pending = $mysqli->query("SELECT $selectCols FROM payments p JOIN receipts r ON
       <td><?= $p['total_amount'] ?></td>
       <td><?= $p['method'] ?></td>
       <?php $customerConfirmed = $hasConfirmCol ? (int)$p['customer_confirmed'] : 1; ?>
-      <td><?= $p['status'] ?><?= $p['status'] === 'Paid' && $p['paid_at'] ? '<br><small>' . htmlspecialchars($p['paid_at']) . '</small>' : ''; ?><?= !$customerConfirmed && $p['status'] !== 'Paid' ? '<br><small style=\'color:#b55\'>Method not confirmed</small>' : ''; ?><?= $customerConfirmed && $p['status'] !== 'Paid' ? '<br><small style=\'color:#2a5\'>Waiting technician</small>' : ''; ?></td>
+      <td>
+        <span class="status-<?= $p['status'] ?>"><?= $p['status'] ?></span>
+        <?php if ($p['status'] === 'Paid' && $p['paid_at']): ?>
+            <div class="payment-date"><small><?= htmlspecialchars($p['paid_at']) ?></small></div>
+        <?php endif; ?>
+        <?php if (!$customerConfirmed && $p['status'] !== 'Paid'): ?>
+            <div class="payment-status warning"><small>Method not confirmed</small></div>
+        <?php endif; ?>
+        <?php if ($customerConfirmed && $p['status'] !== 'Paid'): ?>
+            <div class="payment-status pending"><small>Waiting technician</small></div>
+        <?php endif; ?>
+      </td>
       <td><?php if ($p['status'] !== 'Paid' && !$customerConfirmed): ?>
-          <form method="post" style="display:inline">
+          <form method="post" class="payment-method">
             <input type="hidden" name="receipt_id" value="<?= $p['receipt_id'] ?>">
             <select name="method">
               <option<?= $p['method'] === 'Cash' ? ' selected' : ''; ?>>Cash</option>
-                <option<?= $p['method'] === 'Online' ? ' selected' : ''; ?>>Online</option>
+              <option<?= $p['method'] === 'Online' ? ' selected' : ''; ?>>Online</option>
             </select>
-            <button class="btn" type="submit">Confirm Method</button>
+            <button class="save-method-btn" type="submit">Save Method</button>
           </form>
         <?php endif; ?>
       </td>
     </tr>
   <?php endwhile; ?>
-</table>
+        </table>
+    </div>
+</div>
 <?php include __DIR__ . '/../partials/footer.php'; ?>

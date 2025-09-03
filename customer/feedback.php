@@ -21,18 +21,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $eligible = $mysqli->query("SELECT r.request_id FROM receipts rc JOIN requests r ON rc.request_id=r.request_id WHERE r.user_id=$uid AND r.request_id NOT IN (SELECT request_id FROM feedback WHERE from_user=$uid AND role_view='customer_to_technician')");
 ?>
 <?php include __DIR__ . '/../partials/header.php'; ?>
-<h1>Feedback for Technicians</h1>
-<?php if ($msg): ?><div class="success"><?= htmlspecialchars($msg) ?></div><?php endif; ?>
-<form method="post">
-  <label>Request
-    <select name="request_id" required>
-      <?php while ($e = $eligible->fetch_assoc()): ?>
-        <option value="<?= $e['request_id'] ?>">Request #<?= $e['request_id'] ?></option>
-      <?php endwhile; ?>
-    </select>
-  </label>
-  <label>Rating (1-5)<input type="number" name="rating" min="1" max="5" required></label>
-  <label>Comment<textarea name="comment"></textarea></label>
-  <button class="btn" type="submit">Submit Feedback</button>
-</form>
+<div class="feedback-section">
+    <h1>Your Feedback</h1>
+    <?php if ($msg): ?><div class="success"><?= htmlspecialchars($msg) ?></div><?php endif; ?>
+    
+    <form method="post" class="feedback-form">
+        <div class="form-group">
+            <label>Select Request</label>
+            <select name="request_id" required>
+                <?php while ($e = $eligible->fetch_assoc()): ?>
+                    <option value="<?= $e['request_id'] ?>">Request #<?= $e['request_id'] ?></option>
+                <?php endwhile; ?>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label>Rating (1-5)</label>
+            <input type="number" name="rating" min="1" max="5" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Your Comment</label>
+            <textarea name="comment" placeholder="Share your experience with the technician..."></textarea>
+        </div>
+        
+        <button type="submit" class="send-btn">Send Feedback</button>
+    </form>
+</div>
 <?php include __DIR__ . '/../partials/footer.php'; ?>

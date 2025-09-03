@@ -236,7 +236,12 @@ button:hover,
 
 .status-Pending {
     background: #fff5d6;
-    color: #8a6d00
+    color: #8a6d00;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.5rem;
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 500;
 }
 
 .status-Approved {
@@ -632,6 +637,34 @@ canvas {
 }
 
 /* Payment and Feedback sections */
+
+/* Payment status styles */
+.payment-date {
+    margin-top: 0.5rem;
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.payment-status {
+    margin-top: 0.5rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 0.4rem;
+    font-size: 0.85rem;
+}
+
+.payment-status.warning {
+    background: #fff1f0;
+    color: #b55;
+}
+
+.payment-status.pending {
+    background: #e5f6ff;
+    color: #0a6ecb;
+}
+
+.payment-status small {
+    color: inherit;
+}
 .payment-section,
 .feedback-section {
     background: rgba(255, 255, 255, 0.95);
