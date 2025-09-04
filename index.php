@@ -9,10 +9,11 @@ $user = current_user();
 	<meta charset="utf-8">
 	<title>Welcome - <?= htmlspecialchars($APP_NAME) ?></title>
 	<link rel="stylesheet" href="assets/css/style.css">
+	</style>
 </head>
 
 <body>
-	<div class="container center">
+	<div class="container center div">
 		<h1><?= htmlspecialchars($APP_NAME) ?></h1>
 		<p>Track and manage hardware/software repair requests.</p>
 
@@ -32,6 +33,7 @@ $user = current_user();
 			</p>
 		<?php endif; ?>
 	</div>
+	
 </body>
 
 </html>
