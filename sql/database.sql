@@ -139,7 +139,18 @@ CREATE TABLE feedback (
   CONSTRAINT fk_feedback_to FOREIGN KEY (to_user) REFERENCES users(user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO users (username, password, role, status, is_disabled) VALUES ('admin','admin','admin','approved',0);
+-- Seed default accounts (plain text passwords – kept simple per current login fallback logic)
+INSERT INTO users (username, password, role, status, is_disabled) VALUES 
+ ('admin','admin','admin','approved',0),
+ ('uoc','uoc','user','approved',0),
+ ('tech','tech','technician','approved',0);
+
+-- Seed corresponding profiles (IDs assume fresh install with auto_increment starting at 1)
+INSERT INTO customer_profile (customer_id, full_name, phone, email, address)
+VALUES (2,'Demo Customer','0712345678','customer@example.com','Demo Address');
+
+INSERT INTO technician_profile (technician_id, full_name, phone, email, specialization, experience_years, availability_notes)
+VALUES (3,'Demo Technician','0712345678','technician@example.com','General Repair',5,'Weekdays');
 
 -- End
 

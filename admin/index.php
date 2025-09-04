@@ -107,17 +107,14 @@ $latestPayments = $mysqli->query("SELECT p.payment_id,p.method,p.status,p.paid_a
 <div style="margin-top:1.2rem;display:flex;gap:.75rem;flex-wrap:wrap;">
   <div class="card" style="flex:1 1 15rem;">
     <h3>Reports</h3>
-    <p style="font-size:.75rem;">Metrics & exports.</p>
     <p><a href="reports.php">Open Reports &raquo;</a></p>
   </div>
   <div class="card" style="flex:1 1 15rem;">
     <h3>Feedback</h3>
-    <p style="font-size:.75rem;">Quality insights.</p>
   <p><a href="feedback.php">Open Feedback Overview &raquo;</a></p>
   </div>
   <div class="card" style="flex:1 1 15rem;">
     <h3>Payments</h3>
-    <p style="font-size:.75rem;">Overview & status.</p>
     <p><a href="payments.php">View Payments &raquo;</a></p>
   </div>
 </div>
