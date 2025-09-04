@@ -21,7 +21,7 @@
       border: 1px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
-      background-color: #121619a3;
+      background-color: #12202e;
       /* background:linear-gradient(to right, #12202e, white); */
     }
     .help:hover{
@@ -32,7 +32,7 @@
       padding: 20px;
       border: 1px solid #333;
       border-radius: 5px;
-      background-color: 121619a3
+      background-color: #12202e;
       cursor: pointer;
     }
   </style>
