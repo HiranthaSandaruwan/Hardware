@@ -25,24 +25,6 @@ $user = current_user();
 				<?php endif; ?>
 			</div>
 		</div>
-		<div class="hero-features">
-			<div class="f-card">
-				<h3>🔧 Expert Repairs</h3>
-				<p>Professional technicians ready to help with your hardware and software issues.</p>
-			</div>
-			<div class="f-card">
-				<h3>📱 Easy Tracking</h3>
-				<p>Follow repair requests in real time with a simple interface.</p>
-			</div>
-			<div class="f-card">
-				<h3>💬 Direct Communication</h3>
-				<p>Stay updated by connecting directly with technicians.</p>
-			</div>
-			<div class="f-card">
-				<h3>⚡ Fast Service</h3>
-				<p>Quick response and efficient processes to get you running again.</p>
-			</div>
-		</div>
 	</div>
 </body>
 

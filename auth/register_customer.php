@@ -7,16 +7,30 @@ $err='';
 $ok='';
 
 if($_SERVER['REQUEST_METHOD']==='POST'){
-  $full_name = trim($_POST['full_name'] ?? '');
-  $phone     = trim($_POST['phone'] ?? '');
-  $email     = trim($_POST['email'] ?? '');
-  $address   = trim($_POST['address'] ?? '');
-  $username  = trim($_POST['username'] ?? '');
-  $password  = trim($_POST['password'] ?? '');
+    $full_name = trim($_POST['full_name'] ?? '');
+    $phone     = trim($_POST['phone'] ?? '');
+    $email     = trim($_POST['email'] ?? '');
+    $address   = trim($_POST['address'] ?? '');
+    $username  = trim($_POST['username'] ?? '');
+    $password  = trim($_POST['password'] ?? '');
 
-  if($full_name==='' || $phone==='' || $username==='' || $password==='') {
-    $err='Required fields missing';
-  } else {
+    // Validation rules
+    $usernameOk = preg_match('/^[A-Za-z0-9_]{3,16}$/',$username); // 3-16 chars letters/digits/_
+    $phoneOk    = preg_match('/^[0-9]{10}$/',$phone);             // exactly 10 digits
+    $emailOk    = ($email==='') ? true : filter_var($email,FILTER_VALIDATE_EMAIL);
+    $passOk     = preg_match('/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{1,8}$/',$password); // 1-8 chars, at least one letter & digit
+
+    if($full_name==='' || $phone==='' || $username==='' || $password==='') {
+      $err='Required fields missing';
+    } elseif(!$usernameOk){
+      $err='Invalid username (3-16 letters, numbers, underscore)';
+    } elseif(!$phoneOk){
+      $err='Invalid phone (10 digits required)';
+    } elseif(!$emailOk){
+      $err='Invalid email format';
+    } elseif(!$passOk){
+      $err='Password must be ≤8 chars incl. letters & numbers';
+    } else {
     // Uniqueness check
     $stmt=$mysqli->prepare('SELECT user_id FROM users WHERE username=?');
     $stmt->bind_param('s',$username);
@@ -27,8 +41,9 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     } else {
       $status='approved'; // Auto-approval for customers
       $role='user';
-      $stmt2=$mysqli->prepare('INSERT INTO users(username,password,role,status,created_at) VALUES(?,?,?,?,NOW())');
-      $stmt2->bind_param('ssss',$username,$password,$role,$status);
+        $hash = password_hash($password,PASSWORD_DEFAULT);
+        $stmt2=$mysqli->prepare('INSERT INTO users(username,password,role,status,created_at) VALUES(?,?,?,?,NOW())');
+        $stmt2->bind_param('ssss',$username,$hash,$role,$status);
       if($stmt2->execute()){
         $uid=$stmt2->insert_id;
         $stmt3=$mysqli->prepare('INSERT INTO customer_profile(customer_id,full_name,phone,email,address) VALUES(?,?,?,?,?)');

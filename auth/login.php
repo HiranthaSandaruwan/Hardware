@@ -25,7 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $res = $stmt->get_result();
 
   if ($row = $res->fetch_assoc()) {
-    if ($row['password'] === $password) { // Plain text comparison (per existing design)
+    // Support both hashed (new) and legacy plain text passwords
+    $valid = password_verify($password, $row['password']) || $row['password'] === $password;
+    if ($valid) {
       if ($row['is_disabled']) {
         $err = 'Account disabled by admin';
       } elseif ($row['role'] === 'technician' && $row['status'] !== 'approved') {
