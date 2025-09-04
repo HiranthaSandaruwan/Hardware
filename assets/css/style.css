@@ -521,6 +521,7 @@ body.landing-bg {
     max-width: 34ch;
     margin: 0 0 1.75rem;
     color: #24313d;
+    display: inline-block;
 }
 
 .hero-actions .btn {
