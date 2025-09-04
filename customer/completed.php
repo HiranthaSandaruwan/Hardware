@@ -72,7 +72,9 @@ $completed = $mysqli->query("SELECT $selectCols FROM requests r LEFT JOIN appoin
 									<option<?= $c['method'] === 'Cash' ? ' selected' : ''; ?>>Cash</option>
 										<option<?= $c['method'] === 'Online' ? ' selected' : ''; ?>>Online</option>
 								</select>
+								<div class="payment-action-box">
 								<button class="btn" style="padding:.3rem .6rem;margin-top:2px">Save Method</button>
+								</div>
 							</form>
 						<?php else: ?>
 							<strong><?= $c['method'] ?></strong><br><small style="font-size:.65rem;color:#555">Waiting technician confirmation</small>

@@ -1,3 +1,83 @@
+/* Payment action box for button and status */
+.payment-action-box select {
+    display: block;
+    margin-bottom: 45px;
+}
+
+.payment-action-box:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+table td .payment-action-box form {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
+    width: 100%;
+    max-width: 100%;
+}
+
+table td .payment-action-box select {
+    width: 100%;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    border: 1px solid #e0e4e8;
+    border-radius: 6px;
+    background-color: #fff;
+    font-size: 14px;
+    color: #2c3338;
+    transition: border-color 0.15s ease;
+    cursor: pointer;
+    padding-right: 12px;
+}
+
+.payment-action-box select:hover {
+    border-color: #0d6efd;
+}
+
+.payment-action-box select:focus {
+    outline: none;
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 3px rgba(13,110,253,0.1);
+}
+
+table td .payment-action-box .btn {
+    width: 100%;
+    padding: 11px;
+    margin: 0 0 12px 0;
+    background-color: #0d6efd;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.payment-action-box .btn:hover {
+    background-color: #0b5ed7;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(13,110,253,0.2);
+}
+
+.payment-action-box .btn:active {
+    transform: translateY(0);
+}
+
+table td .payment-action-box .status-text {
+    color: #6e7781;
+    font-size: 13px;
+    display: block;
+    text-align: left;
+    margin: 0;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+}
 * {
     box-sizing: border-box;
     font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
@@ -143,11 +223,11 @@ button:hover,
 
 .table th,
 .table td {
-    padding: .5rem .55rem;
-    /* Reduced */
-    border: 1px solid #d6dde3;
-    font-size: .82rem;
-    text-align: left
+    padding: 12px 15px;
+    border: 1px solid #e0e4e8;
+    font-size: 14px;
+    text-align: left;
+    vertical-align: top;
 }
 
 .table th {
@@ -245,7 +325,8 @@ nav.sidebar a.logout-bottom:hover {
 
 nav.sidebar a.active,
 nav.sidebar a:hover {
-    background: #1e3952
+    background: #1e3952;
+    text-decoration: none;
 }
 
 main.with-sidebar {

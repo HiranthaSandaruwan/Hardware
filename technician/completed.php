@@ -100,7 +100,9 @@ include __DIR__ . '/../partials/header.php'; ?>
 							<form method="post" style="display:inline;margin-top:4px;">
 								<input type="hidden" name="action" value="tech_mark_paid">
 								<input type="hidden" name="request_id" value="<?= $rid ?>">
+								<div class="payment-action-box">
 								<button class="btn" style="padding:.25rem .6rem">Mark Paid</button>
+								</div>
 							</form>
 						<?php endif; ?>
 						<div style="font-size:.65rem;color:#555">Status: <?= $c['status'] ?: 'Pending' ?></div>

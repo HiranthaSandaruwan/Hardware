@@ -56,14 +56,20 @@ $pending = $mysqli->query("SELECT $selectCols FROM payments p JOIN receipts r ON
       <?php $customerConfirmed = $hasConfirmCol ? (int)$p['customer_confirmed'] : 1; ?>
       <td><?= $p['status'] ?><?= $p['status'] === 'Paid' && $p['paid_at'] ? '<br><small>' . htmlspecialchars($p['paid_at']) . '</small>' : ''; ?><?= !$customerConfirmed && $p['status'] !== 'Paid' ? '<br><small style=\'color:#b55\'>Method not confirmed</small>' : ''; ?><?= $customerConfirmed && $p['status'] !== 'Paid' ? '<br><small style=\'color:#2a5\'>Waiting technician</small>' : ''; ?></td>
       <td><?php if ($p['status'] !== 'Paid' && !$customerConfirmed): ?>
-          <form method="post" style="display:inline">
-            <input type="hidden" name="receipt_id" value="<?= $p['receipt_id'] ?>">
-            <select name="method">
-              <option<?= $p['method'] === 'Cash' ? ' selected' : ''; ?>>Cash</option>
-                <option<?= $p['method'] === 'Online' ? ' selected' : ''; ?>>Online</option>
-            </select>
-            <button class="btn" type="submit">Confirm Method</button>
-          </form>
+          <div class="payment-action-box">
+            <form method="post">
+              <input type="hidden" name="receipt_id" value="<?= $p['receipt_id'] ?>">
+              <div style="margin-bottom: 45px;">
+                <select name="method">
+                  <option<?= $p['method'] === 'Cash' ? ' selected' : ''; ?>>Cash</option>
+                  <option<?= $p['method'] === 'Online' ? ' selected' : ''; ?>>Online</option>
+                </select>
+              </div>
+              <div>
+                <button class="btn" type="submit">Save Method</button>
+              </div>
+            </form>
+          </div>
         <?php endif; ?>
       </td>
     </tr>

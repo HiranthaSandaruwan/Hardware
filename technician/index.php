@@ -23,7 +23,7 @@ $assigned = $mysqli->query(
 <?php if (isset($_GET['status_updated'])): ?>
 	<div class="success">Status updated.</div>
 <?php endif; ?>
-<h1>Technician Dashboard</h1>
+<h1 style="margin-bottom: 1rem">Technician Dashboard</h1>
 <h2>Recent Assigned Requests</h2>
 <table class="table">
 	<tr>

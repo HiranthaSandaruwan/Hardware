@@ -18,7 +18,8 @@ $user = current_user();
 			<p class="hero-tag">Your one‑stop solution for hardware and software repair management. Get expert assistance for all your tech needs.</p>
 			<div class="hero-actions">
 				<?php if ($user): ?>
-					<a class="btn" href="auth/logout.php">Logout (<?= htmlspecialchars($user['username']) ?>)</a>
+					<a class="btn" href="<?= $user['role'] === 'admin' ? 'admin/index.php' : ($user['role'] === 'user' ? 'customer' : $user['role']) ?>/<?= $user['role'] === 'admin' ? '' : 'dashboard.php' ?>">Dashboard</a>
+					<a class="btn" href="auth/logout.php">Logout</a>
 				<?php else: ?>
 					<a class="btn" href="auth/login.php">Login</a>
 					<a class="btn outline" href="auth/choose_role.php">Register</a>
