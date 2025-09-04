@@ -131,7 +131,7 @@
         <div class="section-header">
           <h2 class="section-title">Let's Connect</h2>
           <p class="section-subtitle">
-            Ready to start your next project? Let's make it happen!
+            You have some issue?tell it!
           </p>
         </div>
         <div class="contact-content">
