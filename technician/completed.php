@@ -63,8 +63,8 @@ if ($colRes = $mysqli->query("SHOW COLUMNS FROM payments LIKE 'customer_confirme
 	$hasConfirmCol = $colRes->num_rows > 0;
 }
 
-$selectCols = "r.request_id,r.state,rc.receipt_id,rc.total_amount,p.method,p.status,p.paid_at" . ($hasConfirmCol ? ",p.customer_confirmed" : "");
-$list = $mysqli->query("SELECT $selectCols FROM requests r LEFT JOIN receipts rc ON rc.request_id=r.request_id AND rc.technician_id=$tid LEFT JOIN payments p ON p.receipt_id=rc.receipt_id WHERE r.assigned_to=$tid AND r.state IN('Completed','Cannot Fix','Returned') ORDER BY r.updated_at DESC");
+$selectCols = "r.request_id,r.state,rc.receipt_id,rc.total_amount,p.method,p.status,p.paid_at" . ($hasConfirmCol ? ",p.customer_confirmed" : "") . ",fb.rating fb_rating,fb.comment fb_comment";
+$list = $mysqli->query("SELECT $selectCols FROM requests r LEFT JOIN receipts rc ON rc.request_id=r.request_id AND rc.technician_id=$tid LEFT JOIN payments p ON p.receipt_id=rc.receipt_id LEFT JOIN feedback fb ON fb.request_id=r.request_id AND fb.from_user=$tid AND fb.role_view='technician_to_customer' WHERE r.assigned_to=$tid AND r.state IN('Completed','Cannot Fix','Returned') ORDER BY r.updated_at DESC");
 
 include __DIR__ . '/../partials/header.php'; ?>
 <h1>Completed Work</h1>
@@ -91,25 +91,28 @@ include __DIR__ . '/../partials/header.php'; ?>
 			<td><?= $c['total_amount'] !== null ? $c['total_amount'] : '&mdash;' ?></td>
 			<td>
 				<?php if ($c['receipt_id']): ?>
+				<div class="cell-box pay-box">
 					<?php if ($c['status'] !== 'Paid'): ?>
 						<?php $customerConfirmed = $hasConfirmCol ? (int)$c['customer_confirmed'] : 1; ?>
 						<?php if (!$customerConfirmed): ?>
-							<div style="font-size:.65rem;color:#b55">Waiting customer method</div>
+							<span class="mini-note" style="color:#b55">Waiting customer method</span>
 						<?php else: ?>
-							<div><strong><?= htmlspecialchars($c['method'] ?? '-') ?></strong></div>
-							<form method="post" style="display:inline;margin-top:4px;">
+							<strong><?= htmlspecialchars($c['method'] ?? '-') ?></strong>
+							<form method="post" style="margin-top:.4rem;">
 								<input type="hidden" name="action" value="tech_mark_paid">
 								<input type="hidden" name="request_id" value="<?= $rid ?>">
 								<div class="payment-action-box">
 								<button class="btn" style="padding:.25rem .6rem">Mark Paid</button>
 								</div>
+								<button class="btn mini-btn" style="margin:0;">Mark Paid</button>
 							</form>
 						<?php endif; ?>
-						<div style="font-size:.65rem;color:#555">Status: <?= $c['status'] ?: 'Pending' ?></div>
+						<span class="mini-note">Status: <?= $c['status'] ?: 'Pending' ?></span>
 					<?php else: ?>
-						<span class="status-tag status-Approved">Paid</span><br><small><?= $c['method'] ?></small><br><small style="font-size:.6rem;color:#666;"><?= $c['paid_at'] ?></small>
+						<span class="status-tag status-Approved">Paid</span><br><small><?= $c['method'] ?></small><br><small class="mini-note" style="display:block;"><?= $c['paid_at'] ?></small>
 					<?php endif; ?>
-					<?php else: ?>&mdash;<?php endif; ?>
+				</div>
+				<?php else: ?>&mdash;<?php endif; ?>
 			</td>
 			<td>
 				<?php if (!$hasReceipt && $c['state'] === 'Completed'): ?>
@@ -126,17 +129,22 @@ include __DIR__ . '/../partials/header.php'; ?>
 			</td>
 			<td>
 				<?php if ($hasReceipt): ?>
-					<?php $fb = $mysqli->query("SELECT 1 FROM feedback WHERE request_id=$rid AND from_user=$tid AND role_view='technician_to_customer' LIMIT 1")->num_rows; ?>
-					<?php if (!$fb): ?>
-						<form method="post" style="min-width:160px">
+				<div class="cell-box fb-box">
+					<?php if ($c['fb_rating']): ?>
+						<strong><?= $c['fb_rating'] ?>/5</strong><br><small><?= htmlspecialchars($c['fb_comment']) ?></small>
+					<?php else: ?>
+						<form method="post" class="fb-form" style="min-width:160px">
 							<input type="hidden" name="action" value="feedback_tech_to_customer">
 							<input type="hidden" name="request_id" value="<?= $rid ?>">
-							<input type="number" name="rating" min="1" max="5" placeholder="1-5" required style="width:55px">
-							<textarea name="comment" placeholder="Comment" style="width:100%;height:45px"></textarea>
-							<button class="btn" style="margin-top:4px">Send</button>
+							<div style="display:flex;gap:.4rem;align-items:flex-start;margin-bottom:.35rem;flex-wrap:wrap;">
+								<input type="number" name="rating" min="1" max="5" placeholder="1-5" required class="rating-input">
+								<textarea name="comment" placeholder="Comment" class="fb-comment"></textarea>
+							</div>
+							<button class="btn mini-btn" style="margin:0;">Send</button>
 						</form>
-						<?php else: ?>Sent<?php endif; ?>
-						<?php else: ?>&mdash;<?php endif; ?>
+					<?php endif; ?>
+				</div>
+				<?php else: ?>&mdash;<?php endif; ?>
 			</td>
 		</tr>
 	<?php endwhile; ?>

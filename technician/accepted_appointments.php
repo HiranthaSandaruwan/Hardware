@@ -29,13 +29,12 @@ if (isset($_GET['noshow'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status_update'])) {
   $rid = (int)$_POST['request_id'];
   $status = $_POST['status'];
-  $note = trim($_POST['note'] ?? '');
   $row = $mysqli->query("SELECT a.device_received FROM appointments a WHERE a.request_id=$rid AND a.technician_id=$tid LIMIT 1")->fetch_assoc();
   if ($status !== 'Pending' && (!$row || !$row['device_received'])) {
     $msg = 'Device must be received first';
   } else {
-    $stmt = $mysqli->prepare('INSERT INTO repair_updates(request_id,technician_id,status,note,created_at) VALUES(?,?,?,?,NOW())');
-    $stmt->bind_param('iiss', $rid, $tid, $status, $note);
+  $stmt = $mysqli->prepare('INSERT INTO repair_updates(request_id,technician_id,status,created_at) VALUES(?,?,?,NOW())');
+  $stmt->bind_param('iis', $rid, $tid, $status);
     if ($stmt->execute()) {
       $newState = $status === 'Pending' ? 'Device Received' : $status;
       if ($status === 'Pending' && !$row['device_received']) { /* fallback already handled above */
@@ -52,14 +51,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status_update'])) {
   }
 }
 
-$apps = $mysqli->query("SELECT a.appointment_id,a.request_id,a.chosen_slot,a.device_received,a.no_show,r.state FROM appointments a JOIN requests r ON r.request_id=a.request_id WHERE a.technician_id=$tid ORDER BY a.created_at DESC");
+$apps = $mysqli->query("SELECT a.appointment_id,a.request_id,a.chosen_slot,a.device_received,a.no_show,r.state,r.description FROM appointments a JOIN requests r ON r.request_id=a.request_id WHERE a.technician_id=$tid ORDER BY a.created_at DESC");
 include __DIR__ . '/../partials/header.php'; ?>
 <h1>Accepted Appointments</h1>
 <?php if ($msg): ?><div class="success"><?= htmlspecialchars($msg) ?></div><?php endif; ?>
 <table class="table">
   <tr>
-    <th>ID</th>
+    <th>Appt</th>
     <th>Request</th>
+    <th>Description</th>
     <th>Slot</th>
     <th>Device / Attendance</th>
     <th>State</th>
@@ -69,6 +69,13 @@ include __DIR__ . '/../partials/header.php'; ?>
     <tr>
       <td><?= $a['appointment_id'] ?></td>
       <td><?= $a['request_id'] ?></td>
+      <td style="max-width:260px;white-space:normal;">
+        <?php 
+          $d = trim($a['description']);
+          if (strlen($d) > 180) { $d = substr($d,0,177).'...'; }
+          echo nl2br(htmlspecialchars($d));
+        ?>
+      </td>
       <td><?= $a['chosen_slot'] ?></td>
       <td>
         <?php if ($a['device_received']): ?>Received<?php elseif ($a['no_show']): ?>No-Show<?php else: ?>
@@ -87,7 +94,6 @@ include __DIR__ . '/../partials/header.php'; ?>
                 <option value="<?= $s ?>" <?= $s === $a['state'] ? 'selected' : '' ?>><?= $s ?></option>
               <?php endforeach; ?>
             </select>
-            <textarea name="note" placeholder="Note" style="width:100%;height:40px"></textarea>
             <button class="btn" type="submit">Save</button>
           </form>
           <?php else: ?>—<?php endif; ?>

@@ -62,44 +62,51 @@ $completed = $mysqli->query("SELECT $selectCols FROM requests r LEFT JOIN appoin
 			<td><?= $c['total_amount'] ?? '-' ?></td>
 			<td>
 				<?php if ($c['receipt_id']): ?>
+				<div class="cell-box pay-box">
 					<?php $customerConfirmed = $hasConfirmCol ? (int)($c['customer_confirmed'] ?? 0) : 1; ?>
 					<?php if ($c['pay_status'] !== 'Paid'): ?>
 						<?php if (!$customerConfirmed): ?>
-							<form method="post" style="display:inline">
+							<form method="post">
 								<input type="hidden" name="action" value="pay">
 								<input type="hidden" name="receipt_id" value="<?= $c['receipt_id'] ?>">
-								<select name="method" style="font-size:.75rem">
+								<select name="method" class="mini-select">
 									<option<?= $c['method'] === 'Cash' ? ' selected' : ''; ?>>Cash</option>
-										<option<?= $c['method'] === 'Online' ? ' selected' : ''; ?>>Online</option>
+									<option<?= $c['method'] === 'Online' ? ' selected' : ''; ?>>Online</option>
 								</select>
 								<div class="payment-action-box">
 								<button class="btn" style="padding:.3rem .6rem;margin-top:2px">Save Method</button>
 								</div>
+								<button class="btn mini-btn">Save Method</button>
 							</form>
 						<?php else: ?>
-							<strong><?= $c['method'] ?></strong><br><small style="font-size:.65rem;color:#555">Waiting technician confirmation</small>
+							<strong><?= $c['method'] ?></strong><span class="mini-note">Waiting technician confirmation</span>
 						<?php endif; ?>
-						<div style="font-size:.7rem;color:#555;margin-top:2px;">Status: <?= $c['pay_status'] ?: 'Pending' ?></div>
+						<span class="mini-note">Status: <?= $c['pay_status'] ?: 'Pending' ?></span>
 					<?php else: ?>
-						<span class="status-tag status-Approved">Paid</span><br><small><?= $c['method'] ?></small><br><small style="font-size:.65rem;color:#666;"><?= $c['paid_at'] ?></small>
+						<span class="status-tag status-Approved">Paid</span><br><small><?= $c['method'] ?></small><br><small class="mini-note" style="display:block;"><?= $c['paid_at'] ?></small>
 					<?php endif; ?>
-					<?php else: ?>-
+				</div>
+				<?php else: ?>-
 				<?php endif; ?>
 			</td>
 			<td>
 				<?php if ($c['receipt_id']): ?>
+				<div class="cell-box fb-box">
 					<?php if ($c['fb_rating']): ?>
 						<strong><?= $c['fb_rating'] ?>/5</strong><br><small><?= htmlspecialchars($c['fb_comment']) ?></small>
 					<?php else: ?>
-						<form method="post" style="min-width:160px">
+						<form method="post" class="fb-form">
 							<input type="hidden" name="action" value="feedback">
 							<input type="hidden" name="request_id" value="<?= $rid ?>">
-							<input type="number" name="rating" min="1" max="5" placeholder="1-5" required style="width:55px">
-							<textarea name="comment" placeholder="Comment" style="width:100%;height:45px"></textarea>
-							<button class="btn" style="margin-top:4px">Send</button>
+							<div style="display:flex;gap:.4rem;align-items:flex-start;margin-bottom:.35rem;">
+								<input type="number" name="rating" min="1" max="5" placeholder="1-5" required class="rating-input">
+								<textarea name="comment" placeholder="Comment" class="fb-comment"></textarea>
+							</div>
+							<button class="btn mini-btn" style="margin:0;">Send</button>
 						</form>
 					<?php endif; ?>
-					<?php else: ?>-
+				</div>
+				<?php else: ?>-
 				<?php endif; ?>
 			</td>
 		</tr>

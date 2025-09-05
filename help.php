@@ -1,6 +1,7 @@
 <?php include __DIR__ . '/partials/header.php'; ?>
   <style>
     .help {
+      margin-top: 2rem; 
       margin-bottom: 2rem;
       padding: 2rem;
       border-radius: 12px;
@@ -11,6 +12,27 @@
 
     .help:hover {
       transform: translateY(-2px);
+    }
+
+    .help h1, .help h2 {
+      color: #ffffff;
+      margin-bottom: 1.2rem;
+    }
+
+    .help h3, .help h4 {
+      color: #ade6ff;
+      margin: 1.5rem 0 1rem;
+    }
+
+    .help p, .help li {
+      color: #ffffff;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+    }
+
+    .help ul, .help ol {
+      padding-left: 1.5rem;
+      margin-bottom: 1.5rem;
     }
 
     .help h1, .help h2 {
@@ -51,18 +73,20 @@
     .contact-icon {
       color: #ade6ff;
       margin-bottom: 0.5rem;
+      cursor: pointer;
     }
+    
   </style>
   <div class="help">
     <div style="padding-left:10px;">
       <h1>Hardware Repair Service Help Center</h1>
       <p>Welcome to our Hardware Repair Service platform. This comprehensive guide will help you navigate through the system based on your role.</p>
-      <div style="margin: 20px 0; padding: 15px; border-radius: 5px;">
+      <div style="margin: 20px 0; padding: 0px; border-radius: 5px;">
         <h3 style="color: #ade6ffff;">Getting Started</h3>
         <ol>
           <li>Register an account as either a Customer or Technician</li>
-          <li>Wait for Admin approval of your account</li>
-          <li>Once approved, log in and start using the platform based on your role</li>
+          <li>Wait for Admin approval of your account (Technician)</li>
+          <li>Once approved, log in and start using the platform (Technician)</li>
         </ol>
       </div>
   </div>
@@ -148,7 +172,7 @@
         <div class="section-header">
           <h2 class="section-title">Let's Connect</h2>
           <p class="section-subtitle">
-            You have some issue?tell it!
+            You have some issue? Contact Us!
           </p>
         </div>
         <div class="contact-content">

@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <?php include __DIR__ . '/../partials/header.php'; ?>
-<h1>New Request</h1>
+<h1>New Requests</h1>
 <?php if ($err): ?><div class="error"><?= htmlspecialchars($err) ?></div><?php endif; ?>
 <?php if ($ok): ?><div class="success"><?= htmlspecialchars($ok) ?></div><?php endif; ?>
 <form method="post" data-validate>

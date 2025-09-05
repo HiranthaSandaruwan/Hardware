@@ -16,6 +16,7 @@ $latestPayments = $mysqli->query("SELECT p.payment_id,p.method,p.status,p.paid_a
 ?>
 <?php include __DIR__ . '/../partials/header.php'; ?>
 <h1 style="margin-bottom: 1rem">Admin Dashboard</h1>
+<h1 style = "margin-bottom:1rem">Admin Dashboard</h1>
 <div class="flex" style="margin-bottom:1rem;">
   <div class="card stat-card">
     <h3>Pending Registrations</h3>
@@ -111,7 +112,7 @@ $latestPayments = $mysqli->query("SELECT p.payment_id,p.method,p.status,p.paid_a
   </div>
   <div class="card" style="flex:1 1 15rem;">
     <h3>Feedback</h3>
-  <p><a href="feedback.php">Open Feedback Overview &raquo;</a></p>
+    <p><a href="feedback.php">Open Feedback Overview &raquo;</a></p>
   </div>
   <div class="card" style="flex:1 1 15rem;">
     <h3>Payments</h3>

@@ -43,27 +43,10 @@ CREATE TABLE requests (
   description TEXT NOT NULL,
   state ENUM('New','Assigned','Scheduled','Device Received','In Progress','Completed','Returned','Cannot Fix','On Hold','No-Show','Rejected') NOT NULL DEFAULT 'New',
   assigned_to INT NULL,
-  status ENUM('Pending','Approved','In Progress','Completed','Rejected') NOT NULL DEFAULT 'Pending',
-  admin_status ENUM('Pending','Approved','Rejected') DEFAULT 'Pending',
-  technician_id INT NULL,
-  tech_assigned INT NULL,
-  appointment_time DATETIME NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT fk_requests_user FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-  CONSTRAINT fk_requests_technician FOREIGN KEY (technician_id) REFERENCES users(user_id) ON DELETE SET NULL,
-  CONSTRAINT fk_requests_tech_assigned FOREIGN KEY (tech_assigned) REFERENCES users(user_id) ON DELETE SET NULL,
   CONSTRAINT fk_requests_assigned_to FOREIGN KEY (assigned_to) REFERENCES users(user_id) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE comments (
-  comment_id INT AUTO_INCREMENT PRIMARY KEY,
-  request_id INT NOT NULL,
-  user_id INT NOT NULL,
-  comment_text TEXT NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  CONSTRAINT fk_comments_request FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE,
-  CONSTRAINT fk_comments_user FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE appointment_proposals (
@@ -97,7 +80,6 @@ CREATE TABLE repair_updates (
   request_id INT NOT NULL,
   technician_id INT NOT NULL,
   status ENUM('Pending','In Progress','Completed','Cannot Fix','On Hold') NOT NULL,
-  note VARCHAR(255),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT fk_updates_request FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE,
   CONSTRAINT fk_updates_technician FOREIGN KEY (technician_id) REFERENCES users(user_id) ON DELETE CASCADE

@@ -17,13 +17,14 @@ $base = $BASE_URL;
       <a href="<?= $base ?>/admin/feedback.php">Feedback</a>
     <?php elseif ($role === 'technician'): ?>
       <a href="<?= $base ?>/technician/dashboard.php">Dashboard</a>
+      <a href="<?= $base ?>/technician/index.php">Dashboard</a>
       <a href="<?= $base ?>/technician/approved_requests.php">Requests</a>
       <a href="<?= $base ?>/technician/proposals_sent.php">Proposals Sent</a>
       <a href="<?= $base ?>/technician/accepted_appointments.php">Accepted Appointments</a>
       <a href="<?= $base ?>/technician/completed.php">Completed</a>
     <?php else: ?>
       <a href="<?= $base ?>/customer/dashboard.php">Dashboard</a>
-      <a href="<?= $base ?>/customer/request_new.php">New Request</a>
+      <a href="<?= $base ?>/customer/request_new.php">New Requests</a>
       <a href="<?= $base ?>/customer/my_requests.php">My Requests</a>
       <a href="<?= $base ?>/customer/proposals.php">Proposals</a>
       <a href="<?= $base ?>/customer/completed.php">Completed</a>

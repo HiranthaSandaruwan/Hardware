@@ -1,142 +1,57 @@
 Hardware Repair Request Tracker
 
-A simple web-based application to manage hardware/software repair requests between Users, Admins, and Technicians.
+A simple web-based application to manage hardware/software repair requests between Customers (Users), Admins, and Technicians.
 
-Built using ONLY: HTML, CSS, JavaScript, PHP, MySQL (no frameworks, no libraries, no external APIs) — per university project rules
+Built using only: HTML, CSS, JavaScript, PHP, MySQL (no frameworks or external services) — intended as an educational project.
 
-.
-🎯 Project Overview
+Overview
+--------
+This project implements a lightweight repair tracking system where:
+- Customers submit repair requests and accept technician proposals.
+- Technicians propose appointment slots, create receipts, and update repair status.
+- Admins manage users and review high-level reports.
 
-The system allows:
+This repository is intended for educational/demo use only. Passwords in the seeded database are plain text for convenience; do not deploy this code as-is to a public environment.
 
-    Users (customers) to register, log in, and submit repair requests.
+Roles & common flows
+--------------------
+- Customer (user): register -> wait for admin approval -> create requests -> accept proposals -> view receipts & give feedback.
+- Technician: register -> admin approves -> propose appointment slots -> update repair progress -> create receipts.
+- Admin: approve user registrations, manage users, and view system reports.
 
-    Admins to approve registrations and requests, and oversee the system.
+Current schema notes (high level)
+---------------------------------
+The authoritative schema is provided in `sql/database.sql`. Key points:
+- `users` stores basic accounts (user_id, username, password, role, status, is_disabled, created_at).
+- Profile tables split role-specific data:
+  - `customer_profile` (customer_id FK → users): full_name, phone, email, address.
+  - `technician_profile` (technician_id FK → users): full_name, phone, email, specialization, experience_years, availability_notes.
+- `requests` now uses a `state` column (several workflow states) and `assigned_to` to reference the technician; legacy per-request columns were removed.
+- `repair_updates` contains status entries (no free-text technician "note" field — that column was removed).
+- The legacy `comments` table was removed from the schema during cleanup and is no longer used.
 
-    Technicians to view approved repair jobs, assign appointment times, and update repair progress.
+Files and layout (important files)
+----------------------------------
+- `assets/css/style.css` — main stylesheet (site-wide UI and recently centralized scrollbar rules).
+- `auth/` — login / register / logout pages.
+- `admin/` — admin dashboards and user management (e.g., `users_manage.php`).
+- `customer/` and `technician/` — role-specific pages (requests, completed work, proposals).
+- `partials/` — shared header, footer, and navigation.
+- `sql/database.sql` — canonical schema + sample seed data (import this into your local MySQL to create the DB).
 
-This project is educational only — passwords are stored in plain text, minimal validation is applied. Do not deploy publicly.
-👥 Roles & Workflows
-User
+Important changes since earlier drafts
+-------------------------------------
+- Removed the legacy `comments` table and associated UI.
+- Removed the `note` column from `repair_updates` and updated server-side code accordingly.
+- Unified payments/feedback UI into consistent boxed components for customer and technician views.
+- Re-themed `help.php` and `features.php` to match site UI and moved scrollbar hiding into `assets/css/style.css` (site-wide behavior).
+- Reworked `requests` schema to use `state` and `assigned_to` instead of older per-request columns.
 
-    Register with username + password (choosing role: User or Technician).
+Database connection snippet (`db.php`)
+-------------------------------------
+Edit credentials as needed for your environment.
 
-    Wait until Admin approves registration.
-
-    Login after approval.
-
-    Submit a repair request (hardware/software issues).
-
-    View pending/approved requests in dashboard.
-
-    Accept/reject technician’s proposed appointment times.
-
-    Track repair progress in dashboard.
-
-Admin
-
-    Login with default account: admin / admin.
-
-    Approve/reject new user registrations.
-
-    View all repair requests.
-
-    Approve/reject user requests before technicians see them.
-
-    Manage users (create/delete).
-
-    View simple reports.
-
-Technician
-
-    Login after registration is approved by Admin.
-
-    View assigned repair requests.
-
-    Propose available appointment times to Users.
-
-    Update repair progress/status in dashboard.
-
-🗄 Database Schema (Updated)
-
-users
-
-    user_id INT PK AUTO_INCREMENT
-
-    username VARCHAR(50) UNIQUE
-
-    password VARCHAR(255) (plain text per rules)
-
-    role ENUM('admin','user','technician')
-
-    status ENUM('pending','approved') DEFAULT 'pending'
-
-    created_at TIMESTAMP
-
-requests
-
-    request_id INT PK AUTO_INCREMENT
-
-    user_id FK → users
-
-    device_type, model, serial_no
-
-    category ENUM('Hardware','Software','Other')
-
-    description TEXT
-
-    status ENUM('Pending','Approved','In Progress','Completed','Rejected')
-
-    technician_id FK → users (nullable)
-
-    appointment_time DATETIME NULL
-
-    created_at, updated_at TIMESTAMP
-
-comments (optional, for discussion logs)
-
-    comment_id INT PK
-
-    request_id FK → requests
-
-    user_id FK → users
-
-    comment_text TEXT
-
-    created_at TIMESTAMP
-
-📂 Folder Structure
-
-/assets
-  /css/style.css        # all UI styling
-  /js/app.js            # form validation + UI interactivity
-/auth
-  register.php          # registration form
-  login.php             # login page
-  logout.php
-/admin
-  index.php             # admin dashboard
-  users.php             # manage users (approve/reject)
-  requests.php          # approve/reject requests
-  reports.php           # simple tables
-/technician
-  index.php             # technician dashboard
-  requests.php          # assigned requests + status updates
-/user
-  dashboard.php         # user dashboard
-  request_new.php       # new request form
-  my_requests.php       # track progress
-/partials
-  header.php, footer.php, nav.php
-config.php              # base paths + DB setup
-db.php                  # database connection
-database.sql            # schema + seed data
-index.php               # landing (login/register links)
-features.php
-help.php
-
-🔌 Database Connection (db.php)
-
+```php
 <?php
 $dbhost='localhost';
 $dbuser='root';
@@ -148,49 +63,35 @@ if($mysqli->connect_errno){
 }
 $mysqli->set_charset('utf8mb4');
 ?>
+```
 
-▶️ Setup & Run
+Setup & run (local)
+-------------------
+1. Install XAMPP/WAMP (Windows) or a LAMP stack (Linux).
+2. Place this project folder in your web server root (e.g., `htdocs/Hardware`).
+3. Import `sql/database.sql` into MySQL to create the schema and seed data.
+4. Adjust `db.php` if your DB credentials differ.
+5. Open `http://localhost/<your-path>/auth/login.php` in your browser.
 
-    Install XAMPP/WAMP (Windows) or LAMP (Linux).
+Seeded accounts (for testing)
+-----------------------------
+- Admin: `admin` / `admin`
+- Demo User: `uoc` / `uoc` (customer profile seeded)
+- Demo Technician: `tech` / `tech` (technician profile seeded)
 
-    Place folder in htdocs/ (XAMPP) or www/.
+UI notes & limitations
+----------------------
+- The UI is deliberately small and dependency-free (no Bootstrap). Styling is centralized in `assets/css/style.css`.
+- Scrollbars are visually hidden site-wide (CSS in `assets/css/style.css`) while keeping scrolling functional; consider restoring visible scrollbars for accessibility if desired.
+- Passwords in the seed file are plain-text to simplify testing; secure hashing is strongly recommended before any public deployment.
 
-    Create DB repair_tracker and import database.sql.
+Suggested next steps for production hardening
+--------------------------------------------
+- Migrate passwords to bcrypt/password_hash and update login logic.
+- Add server-side validation and stronger input sanitization.
+- Add pagination and server-side filtering to large admin tables (e.g., `users_manage.php`).
+- Consider adding a migration script under `sql/migrations/` to document schema changes for deployments.
 
-    Update db.php credentials if needed.
-
-    Visit: http://localhost/repair_tracker/auth/login.php.
-
-Seed Accounts:
-
-    Admin: admin / admin
-
-    User: uoc / uoc (default, per spec
-
-    )
-
-🎨 UI Notes
-
-    Clean simple forms (no Bootstrap, no JS libs).
-
-    Sidebar navigation (PHP partial).
-
-    Light UI with CSS-only styling.
-
-    Minimal JavaScript (form validation + interactivity).
-
-🚧 Limitations
-
-    Plain-text passwords (rule requirement).
-
-    No advanced validation (only required fields).
-
-    Registration approval required by Admin.
-
-    Reports basic (tables only).
-
-👥 Credits
-
-Built by Group X – UCSC IS1207 (2025)
-University of Colombo School of Computing
-Fully hand-coded with pure PHP, MySQL, JS, HTML, CSS.
+Credits
+-------
+Built as an educational project.

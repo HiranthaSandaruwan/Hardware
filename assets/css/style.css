@@ -90,6 +90,11 @@ html {
     /* Slightly smaller base to compact overall scale */
 }
 
+/* Hide native scrollbars site-wide but preserve scrolling (cross-browser) */
+/* Note: keep this if you want no visible scrollbars on the entire site. */
+html, body { -ms-overflow-style: none; /* IE and Edge */ scrollbar-width: none; /* Firefox */ }
+body::-webkit-scrollbar { display: none; } /* Chrome, Safari, Opera */
+
 body {
     background: #f5f7fa;
     color: #222;
@@ -101,10 +106,6 @@ body {
 a {
     color: #0a6ecb;
     text-decoration: none
-}
-
-a:hover {
-    text-decoration: underline
 }
 
 .container {
@@ -228,6 +229,12 @@ button:hover,
     font-size: 14px;
     text-align: left;
     vertical-align: top;
+    padding: .5rem .55rem;
+    /* Reduced */
+    border: 1px solid #d6dde3;
+    font-size: .82rem;
+    text-align: left;
+    vertical-align: top
 }
 
 .table th {
@@ -332,7 +339,7 @@ nav.sidebar a:hover {
 main.with-sidebar {
     margin-left: 12.4rem;
     /* Match reduced sidebar */
-    padding: 1.25rem 1.25rem 2.5rem;
+    padding: 1.25rem 2.5rem 2.5rem;
     /* Reduced */
 }
 
@@ -478,6 +485,16 @@ canvas {
     max-width: 100%;
     height: auto
 }
+
+/* Payment & Feedback cell layout enhancements */
+.cell-box {background:#fff;border:1px solid #dfe3e8;padding:.45rem .55rem;border-radius:.5rem;max-width:265px;box-shadow:0 1px 2px rgba(0,0,0,.05);position:relative;}
+.cell-box form {margin:0;}
+.cell-box .mini-select {width:100%;font-size:.7rem;padding:.35rem .45rem;margin-bottom:.35rem;}
+.cell-box .mini-btn {padding:.35rem .65rem;font-size:.7rem;margin-top:.15rem;}
+.cell-box textarea.fb-comment {width:100%;height:48px;resize:vertical;font-size:.7rem;padding:.4rem .45rem;}
+.cell-box input.rating-input {width:55px;padding:.35rem .4rem;font-size:.7rem;}
+.cell-box .mini-note {font-size:.62rem;color:#555;display:block;margin-top:.25rem;line-height:1.2;}
+.fb-form div {flex-wrap:wrap;}
 
 /* Responsive adjustments */
 @media (max-width:64em) {
