@@ -1,39 +1,56 @@
 <?php include __DIR__ . '/partials/header.php'; ?>
   <style>
-    body {
-      background-color: #f7f5f5ff;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
-      margin: 20px; 
-    }
-    h1 {
-      color: #fffffeff;
-    }
-    p, li {
-      line-height: 1.6;
-    }
-    ol {
-      margin-left: 20px;
-    }
     .help {
-      margin-top: 20px;
-      padding: 15px 10px 20px 20px;
-      border: 1px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      background-color: #12202eda;
-      /* background:linear-gradient(to right, #12202e, white); */
+      margin-bottom: 2rem;
+      padding: 2rem;
+      border-radius: 12px;
+      background-color: #12202e;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s ease;
     }
-    .help:hover{
-      transform:scale(1.01);
+
+    .help:hover {
+      transform: translateY(-2px);
     }
+
+    .help h1, .help h2 {
+      color: #ffffff;
+      margin-bottom: 1.2rem;
+    }
+
+    .help h3, .help h4 {
+      color: #ade6ff;
+      margin: 1.5rem 0 1rem;
+    }
+
+    .help p, .help li {
+      color: #ffffff;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+    }
+
+    .help ul, .help ol {
+      padding-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
     .contact-section {
-      /* margin-top: 40px; */
-      padding: 20px;
-      border: 1px solid #333;
-      border-radius: 5px;
-      background-color: #12202ef7;
-      cursor: pointer;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .contact-section .section-title {
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-section .section-subtitle {
+      color: #cccccc;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-icon {
+      color: #ade6ff;
+      margin-bottom: 0.5rem;
     }
   </style>
   <div class="help">
