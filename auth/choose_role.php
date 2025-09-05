@@ -1,6 +1,6 @@
 <?php require_once __DIR__.'/../config.php'; ?>
 <?php include __DIR__.'/../partials/header.php'; ?>
-<h1>Choose Registration Type</h1>
+<h1 style="margin-bottom: 1rem;">Choose Registration Type</h1>
 <div class="flex">
   <div class="card">
     <h3>Customer</h3>

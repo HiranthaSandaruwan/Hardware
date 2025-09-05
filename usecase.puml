@@ -1,0 +1,41 @@
+@startuml Hardware Repair Process
+|Customer|
+start
+:Create Hardware Repair Request;
+:Submit Device Details & Description;
+
+|Administrator|
+:Review Request;
+if (Request Valid?) then (yes)
+  :Assign to Technician;
+else (no)
+  :Reject Request;
+  stop
+endif
+
+|Technician|
+:Review Assignment;
+:Propose Time Slots;
+
+|Customer|
+:Select Preferred Time Slot;
+:Confirm Appointment;
+
+|Technician|
+:Perform Repair;
+:Update Repair Status;
+:Add Repair Notes;
+
+|Administrator|
+:Generate Invoice;
+:Set Payment Status;
+
+|Customer|
+:View Invoice;
+:Make Payment;
+:Provide Feedback;
+
+|Administrator|
+:Close Request;
+stop
+@enduml

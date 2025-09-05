@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $slot2 = $_POST['slot2'] ?: null;
   $slot3 = $_POST['slot3'] ?: null;
   if ($slot1) {
-    // assign request to this technician if still New
+    // Assign request to this technician if status is New
     $mysqli->query("UPDATE requests SET assigned_to=$tid, state='Assigned', updated_at=NOW() WHERE request_id=$rid AND state='New'");
     $stmt = $mysqli->prepare('INSERT INTO appointment_proposals(request_id,technician_id,slot1,slot2,slot3,created_at) VALUES(?,?,?,?,?,NOW())');
     $stmt->bind_param('iisss', $rid, $tid, $slot1, $slot2, $slot3);

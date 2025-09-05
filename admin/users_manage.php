@@ -37,7 +37,7 @@ if (isset($_GET['delete'])) {
 }
 
 $tab = $_GET['tab'] ?? 'active';
-// Optional role filter when viewing active users from dashboard cards
+// Optional role filter for active users in dashboard cards
 $roleFilter = null;
 if (isset($_GET['filter'])) {
   if ($_GET['filter'] === 'active_customers') {

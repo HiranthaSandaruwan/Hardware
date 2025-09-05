@@ -13,7 +13,7 @@ if (isset($_GET['reject'])) {
   header('Location: users_pending.php');
   exit;
 }
-// Only technicians now require approval; join profile for detail display
+// Only technicians need approval; join profile for details
 $pending = $mysqli->query("SELECT u.user_id,u.username,u.role,u.created_at,tp.full_name,tp.phone,tp.email,tp.specialization,tp.experience_years,tp.availability_notes FROM users u LEFT JOIN technician_profile tp ON tp.technician_id=u.user_id WHERE u.status='pending' AND u.role='technician' ORDER BY u.created_at ASC");
 ?>
 <?php include __DIR__ . '/../partials/header.php'; ?>

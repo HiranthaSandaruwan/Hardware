@@ -1,8 +1,7 @@
 <?php
 
 /**
- * Global configuration & auth helpers.
- * NOTE: Logic unchanged – formatting & comments only.
+ ** Global configuration & auth helpers.
  */
 
 // App meta

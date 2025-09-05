@@ -3,7 +3,7 @@ require_once __DIR__ . '/../config.php';
 require_role('admin');
 require_once __DIR__ . '/../db.php';
 
-// Approvals workflow deprecated; provide read-only state view.
+// Approvals removed — read-only view
 $res = $mysqli->query("SELECT r.request_id,u.username,r.device_type,r.category,r.state,r.created_at FROM requests r JOIN users u ON r.user_id=u.user_id ORDER BY r.created_at DESC");
 ?>
 <?php include __DIR__ . '/../partials/header.php'; ?>
