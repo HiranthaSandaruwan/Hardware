@@ -1,7 +1,7 @@
 <?php include __DIR__ . '/partials/header.php'; ?>
   <style>
   .help {
-      margin-top: 2.5rem; 
+      margin-top: 2rem; 
       margin-bottom: 2rem;
       padding: 2rem;
       border-radius: 12px;
@@ -52,6 +52,7 @@
     .contact-icon {
       color: #ade6ff;
       margin-bottom: 0.5rem;
+      cursor: pointer;
     }
   </style>
   <div class="help">
