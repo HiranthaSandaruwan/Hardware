@@ -6,6 +6,8 @@ if (isset($_GET['accept'])) {
   $pid = (int)$_GET['accept'];
   $slotIndex = (int)($_GET['slot'] ?? 1);
   if ($slotIndex < 1 || $slotIndex > 3) $slotIndex = 1;
+
+  
   // fetch only required fields with distinct aliasing to avoid name collision
   $stmt = $mysqli->prepare("SELECT ap.request_id, ap.technician_id AS proposal_technician_id, ap.slot1, ap.slot2, ap.slot3 FROM appointment_proposals ap JOIN requests r ON ap.request_id=r.request_id WHERE ap.proposal_id=? AND r.user_id=? AND ap.status='Waiting' LIMIT 1");
   $stmt->bind_param('ii', $pid, $uid);
