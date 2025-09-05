@@ -3,10 +3,6 @@ require_once __DIR__ . '/../config.php';
 require_role('technician');
 require_once __DIR__ . '/../db.php';
 
-// NOTE: Legacy columns (status, technician_id, appointment_time) have been superseded by
-// state + assigned_to + appointments table. This dashboard was still querying the old
-// fields, so everything appeared 'Pending'. We now query the canonical state and latest
-// scheduled appointment slot.
 $uid = current_user()['id'];
 $assigned = $mysqli->query(
 	"SELECT r.request_id, r.device_type, r.state, 
@@ -23,8 +19,8 @@ $assigned = $mysqli->query(
 <?php if (isset($_GET['status_updated'])): ?>
 	<div class="success">Status updated.</div>
 <?php endif; ?>
-<h1>Technician Dashboard</h1>
-<h2>Recent Assigned Requests</h2>
+<h1 style="margin-bottom:1rem">Technician Dashboard</h1>
+<h2>Assigned Requests</h2>
 <table class="table">
 	<tr>
 		<th>ID</th>

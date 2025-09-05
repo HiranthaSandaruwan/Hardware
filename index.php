@@ -15,7 +15,7 @@ $user = current_user();
 	<div class="landing-wrapper">
 		<div class="hero-box">
 			<h1 class="hero-title">Hardware Repair<br>Request Tracker</h1>
-			<p class="hero-tag">Your one‑stop solution for hardware and software repair management. Get expert assistance for all your tech needs.</p>
+			<p class="hero-tag">Easily manage hardware and software repairs with our all-in-one tracker keeping you connected every step of the way</p>
 			<div class="hero-actions">
 				<?php if ($user): ?>
 					<?php
@@ -23,7 +23,7 @@ $user = current_user();
 					if ($user['role'] === 'admin') {
 						$dash = 'admin/index.php';
 					} elseif ($user['role'] === 'technician') {
-						$dash = 'technician/dashboard.php';
+						$dash = 'technician/index.php';
 					} else {
 						$dash = 'customer/dashboard.php';
 					}

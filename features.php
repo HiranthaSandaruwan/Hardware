@@ -12,7 +12,7 @@
     border: 1px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    background-color: #273e56ff;
+    background-color: #12202e;
   }
   .section:hover{
     transform:scale(1.01);

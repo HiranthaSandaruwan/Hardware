@@ -10,6 +10,11 @@ html {
     /* Slightly smaller base to compact overall scale */
 }
 
+/* Hide native scrollbars site-wide but preserve scrolling (cross-browser) */
+/* Note: keep this if you want no visible scrollbars on the entire site. */
+html, body { -ms-overflow-style: none; /* IE and Edge */ scrollbar-width: none; /* Firefox */ }
+body::-webkit-scrollbar { display: none; } /* Chrome, Safari, Opera */
+
 body {
     background: #f5f7fa;
     color: #222;
@@ -21,10 +26,6 @@ body {
 a {
     color: #0a6ecb;
     text-decoration: none
-}
-
-a:hover {
-    text-decoration: underline
 }
 
 .container {
@@ -252,7 +253,7 @@ nav.sidebar a:hover {
 main.with-sidebar {
     margin-left: 12.4rem;
     /* Match reduced sidebar */
-    padding: 1.25rem 1.25rem 2.5rem;
+    padding: 1.25rem 2.5rem 2.5rem;
     /* Reduced */
 }
 
@@ -532,6 +533,7 @@ body.landing-bg {
     max-width: 34ch;
     margin: 0 0 1.75rem;
     color: #24313d;
+    display:inline-block;
 }
 
 .hero-actions .btn {
