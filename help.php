@@ -1,38 +1,57 @@
 <?php include __DIR__ . '/partials/header.php'; ?>
   <style>
-    body {
-      background-color: #f7f5f5ff;
+  .help {
+      margin-top: 2rem; 
+      margin-bottom: 2rem;
+      padding: 2rem;
+      border-radius: 12px;
+      background-color: #12202e;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s ease;
+    }
+
+    .help:hover {
+      transform: translateY(-2px);
+    }
+
+    .help h1, .help h2 {
       color: #ffffff;
-      font-family: Arial, sans-serif;
-      margin: 20px; 
+      margin-bottom: 1.2rem;
     }
-    h1 {
-      color: #fffffeff;
+
+    .help h3, .help h4 {
+      color: #ade6ff;
+      margin: 1.5rem 0 1rem;
     }
-    p, li {
+
+    .help p, .help li {
+      color: #ffffff;
       line-height: 1.6;
+      margin-bottom: 0.5rem;
     }
-    ol {
-      margin-left: 20px;
+
+    .help ul, .help ol {
+      padding-left: 1.5rem;
+      margin-bottom: 1.5rem;
     }
-    .help {
-      margin-top: 20px;
-      padding: 15px 10px 20px 20px;
-      border: 1px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      background-color: #12202e;
-      /* background:linear-gradient(to right, #12202e, white); */
-    }
-    .help:hover{
-      transform:scale(1.01);
-    }
+
     .contact-section {
-      /* margin-top: 40px; */
-      padding: 20px;
-      border: 1px solid #333;
-      border-radius: 5px;
-      background-color: #12202e;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .contact-section .section-title {
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-section .section-subtitle {
+      color: #cccccc;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-icon {
+      color: #ade6ff;
+      margin-bottom: 0.5rem;
       cursor: pointer;
     }
   </style>
@@ -40,12 +59,12 @@
     <div style="padding-left:10px;">
       <h1>Hardware Repair Service Help Center</h1>
       <p>Welcome to our Hardware Repair Service platform. This comprehensive guide will help you navigate through the system based on your role.</p>
-      <div style="margin: 20px 0; padding: 15px; border-radius: 5px;">
+      <div style="margin: 20px 0; padding: 0px; border-radius: 5px;">
         <h3 style="color: #ade6ffff;">Getting Started</h3>
         <ol>
           <li>Register an account as either a Customer or Technician</li>
-          <li>Wait for Admin approval of your account</li>
-          <li>Once approved, log in and start using the platform based on your role</li>
+          <li>Wait for Admin approval of your account (Technician)</li>
+          <li>Once approved, log in and start using the platform (Technician)</li>
         </ol>
       </div>
   </div>
@@ -131,7 +150,7 @@
         <div class="section-header">
           <h2 class="section-title">Let's Connect</h2>
           <p class="section-subtitle">
-            You have some issue?tell it!
+            You have some issue? Contact Us!
           </p>
         </div>
         <div class="contact-content">

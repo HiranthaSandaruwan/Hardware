@@ -17,16 +17,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $msg = 'Slots proposed';
   }
 }
-$approved = $mysqli->query("SELECT request_id,device_type,category FROM requests WHERE state='New' ORDER BY created_at DESC LIMIT 30");
+$approved = $mysqli->query("SELECT request_id,device_type,category,description FROM requests WHERE state='New' ORDER BY created_at DESC LIMIT 30");
 ?>
 <?php include __DIR__ . '/../partials/header.php'; ?>
-<h1>Requests (Assign & Propose Slots)</h1>
+<h1>Handle Requests (Assign & Propose)</h1>
 <?php if ($msg): ?><div class="success"><?= htmlspecialchars($msg) ?></div><?php endif; ?>
 <table class="table">
   <tr>
     <th>ID</th>
     <th>Device</th>
     <th>Category</th>
+    <th>Description</th>
     <th>Propose</th>
   </tr>
   <?php while ($r = $approved->fetch_assoc()): ?>
@@ -34,6 +35,13 @@ $approved = $mysqli->query("SELECT request_id,device_type,category FROM requests
       <td><?= $r['request_id'] ?></td>
       <td><?= htmlspecialchars($r['device_type']) ?></td>
       <td><?= $r['category'] ?></td>
+      <td style="max-width:260px;white-space:normal;">
+        <?php 
+          $desc = trim($r['description']);
+          if (strlen($desc) > 180) { $desc = substr($desc,0,177).'...'; }
+          echo nl2br(htmlspecialchars($desc));
+        ?>
+      </td>
       <td>
         <form method="post" style="display:inline-block;min-width:300px">
           <input type="hidden" name="request_id" value="<?= $r['request_id'] ?>">

@@ -1,4 +1,4 @@
--- Hardware Repair Tracker schema (clean install)
+-- Hardware Repair Tracker schema
 
 CREATE DATABASE IF NOT EXISTS repair_tracker CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE repair_tracker;
@@ -43,27 +43,10 @@ CREATE TABLE requests (
   description TEXT NOT NULL,
   state ENUM('New','Assigned','Scheduled','Device Received','In Progress','Completed','Returned','Cannot Fix','On Hold','No-Show','Rejected') NOT NULL DEFAULT 'New',
   assigned_to INT NULL,
-  status ENUM('Pending','Approved','In Progress','Completed','Rejected') NOT NULL DEFAULT 'Pending',
-  admin_status ENUM('Pending','Approved','Rejected') DEFAULT 'Pending',
-  technician_id INT NULL,
-  tech_assigned INT NULL,
-  appointment_time DATETIME NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT fk_requests_user FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-  CONSTRAINT fk_requests_technician FOREIGN KEY (technician_id) REFERENCES users(user_id) ON DELETE SET NULL,
-  CONSTRAINT fk_requests_tech_assigned FOREIGN KEY (tech_assigned) REFERENCES users(user_id) ON DELETE SET NULL,
   CONSTRAINT fk_requests_assigned_to FOREIGN KEY (assigned_to) REFERENCES users(user_id) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE comments (
-  comment_id INT AUTO_INCREMENT PRIMARY KEY,
-  request_id INT NOT NULL,
-  user_id INT NOT NULL,
-  comment_text TEXT NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  CONSTRAINT fk_comments_request FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE,
-  CONSTRAINT fk_comments_user FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE appointment_proposals (
@@ -97,7 +80,6 @@ CREATE TABLE repair_updates (
   request_id INT NOT NULL,
   technician_id INT NOT NULL,
   status ENUM('Pending','In Progress','Completed','Cannot Fix','On Hold') NOT NULL,
-  note VARCHAR(255),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT fk_updates_request FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE,
   CONSTRAINT fk_updates_technician FOREIGN KEY (technician_id) REFERENCES users(user_id) ON DELETE CASCADE
@@ -139,7 +121,16 @@ CREATE TABLE feedback (
   CONSTRAINT fk_feedback_to FOREIGN KEY (to_user) REFERENCES users(user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO users (username, password, role, status, is_disabled) VALUES ('admin','admin','admin','approved',0);
+-- Seed default accounts
+INSERT INTO users (username, password, role, status, is_disabled) VALUES 
+ ('admin','admin','admin','approved',0),
+ ('uoc','uoc','user','approved',0),
+ ('tech','tech','technician','approved',0);
 
--- End
+-- Seed corresponding profiles
+INSERT INTO customer_profile (customer_id, full_name, phone, email, address)
+VALUES (2,'Demo Customer','0712345678','customer@example.com','Demo Address');
+
+INSERT INTO technician_profile (technician_id, full_name, phone, email, specialization, experience_years, availability_notes)
+VALUES (3,'Demo Technician','0712345678','technician@example.com','General Repair',5,'Weekdays');
 

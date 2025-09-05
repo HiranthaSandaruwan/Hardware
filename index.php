@@ -12,26 +12,31 @@ $user = current_user();
 	</style>
 </head>
 
-<body>
-	<div class="container center div">
-		<h1><?= htmlspecialchars($APP_NAME) ?></h1>
-		<p>Track and manage hardware/software repair requests.</p>
-
-		<?php if ($user): ?>
-			<p>
-				Signed in as
-				<strong><?= htmlspecialchars($user['username']) ?></strong>
-				(<?= htmlspecialchars($user['role']) ?>)
-			</p>
-			<p>
-				<a class="btn" href="auth/logout.php">Logout</a>
-			</p>
-		<?php else: ?>
-			<p>
-				<a class="btn" href="auth/login.php">Login</a>
-				<a class="btn outline" href="auth/choose_role.php">Register</a>
-			</p>
-		<?php endif; ?>
+<body class="landing-bg">
+	<div class="landing-wrapper">
+		<div class="hero-box">
+			<h1 class="hero-title">Hardware Repair<br>Request Tracker</h1>
+			<p class="hero-tag">Easily manage hardware and software repairs with our all-in-one tracker keeping you connected every step of the way</p>
+			<div class="hero-actions">
+				<?php if ($user): ?>
+					<?php
+					$dash = '';
+					if ($user['role'] === 'admin') {
+						$dash = 'admin/index.php';
+					} elseif ($user['role'] === 'technician') {
+						$dash = 'technician/index.php';
+					} else {
+						$dash = 'customer/dashboard.php';
+					}
+					?>
+					<a class="btn" href="<?= $dash ?>">Go to Dashboard</a>
+					<a class="btn outline" href="auth/logout.php">Logout (<?= htmlspecialchars($user['username']) ?>)</a>
+				<?php else: ?>
+					<a class="btn" href="auth/login.php">Login</a>
+					<a class="btn outline" href="auth/choose_role.php">Register</a>
+				<?php endif; ?>
+			</div>
+		</div>
 	</div>
 	
 </body>

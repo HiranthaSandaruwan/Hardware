@@ -4,7 +4,11 @@ $role = $u['role'] ?? null;
 $base = $BASE_URL;
 ?>
 <nav class="sidebar">
-  <h2><a href="<?= $base ?>/index.php">Tracker</a></h2>
+  <h2 style="margin:0 0 .75rem;">
+    <a href="<?= $base ?>/index.php" class="app-logo" style="display:inline-block;font-size:1.05rem;font-weight:700;letter-spacing:.5px;">
+      <span style="display:inline-block;padding:.35rem .6rem;border:2px solid #1e3952;border-radius:.5rem;">Tracker</span>
+    </a>
+  </h2>
   <?php if ($u): ?>
     <?php if ($role === 'admin'): ?>
       <a href="<?= $base ?>/admin/index.php">Admin Dashboard</a>
@@ -12,14 +16,14 @@ $base = $BASE_URL;
       <a href="<?= $base ?>/admin/users_manage.php">Manage Users</a>
       <a href="<?= $base ?>/admin/feedback.php">Feedback</a>
     <?php elseif ($role === 'technician'): ?>
-      <a href="<?= $base ?>/technician/dashboard.php">Tech Dashboard</a>
+      <a href="<?= $base ?>/technician/index.php">Dashboard</a>
       <a href="<?= $base ?>/technician/approved_requests.php">Requests</a>
       <a href="<?= $base ?>/technician/proposals_sent.php">Proposals Sent</a>
       <a href="<?= $base ?>/technician/accepted_appointments.php">Accepted Appointments</a>
       <a href="<?= $base ?>/technician/completed.php">Completed</a>
     <?php else: ?>
-      <a href="<?= $base ?>/customer/dashboard.php">Customer Dashboard</a>
-      <a href="<?= $base ?>/customer/request_new.php">New Request</a>
+      <a href="<?= $base ?>/customer/dashboard.php">Dashboard</a>
+      <a href="<?= $base ?>/customer/request_new.php">New Requests</a>
       <a href="<?= $base ?>/customer/my_requests.php">My Requests</a>
       <a href="<?= $base ?>/customer/proposals.php">Proposals</a>
       <a href="<?= $base ?>/customer/completed.php">Completed</a>

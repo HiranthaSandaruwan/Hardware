@@ -7,8 +7,7 @@ require_once __DIR__ . '/../db.php';
 $res = $mysqli->query("SELECT r.request_id,u.username,r.device_type,r.category,r.state,r.created_at FROM requests r JOIN users u ON r.user_id=u.user_id ORDER BY r.created_at DESC");
 ?>
 <?php include __DIR__ . '/../partials/header.php'; ?>
-<h1>All Requests (Read‑Only)</h1>
-<p>State-driven flow active. Approval/rejection controls removed.</p>
+<h1>All Requests</h1>
 <table class="table">
   <tr>
     <th>ID</th>
