@@ -26,11 +26,10 @@ if (isset($_GET['accept'])) {
         $rej = $mysqli->prepare("UPDATE appointment_proposals SET status='Rejected' WHERE request_id=? AND proposal_id<>? AND status='Waiting'");
         $rej->bind_param('ii', $p['request_id'], $pid);
         $rej->execute();
-        // update request core fields for quick reference (optional)
-        $reqUpd = $mysqli->prepare('UPDATE requests SET technician_id=?, tech_assigned=?, appointment_time=? WHERE request_id=?');
-        $tid = $p['proposal_technician_id'];
-        $reqUpd->bind_param('iisi', $tid, $tid, $chosen, $p['request_id']);
-        $reqUpd->execute();
+  // legacy inline fields (technician_id, tech_assigned, appointment_time) removed from schema
+  // we now set assigned_to for quick reference only
+  $tid = $p['proposal_technician_id'];
+  $mysqli->query("UPDATE requests SET assigned_to=$tid, updated_at=NOW() WHERE request_id=" . (int)$p['request_id']);
       }
     }
   }

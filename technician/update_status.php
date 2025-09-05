@@ -6,14 +6,13 @@ $msg = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $rid = (int)$_POST['request_id'];
   $status = $_POST['status'];
-  $note = trim($_POST['note'] ?? '');
   // ensure device received first (except Pending)
   $row = $mysqli->query("SELECT a.device_received FROM appointments a WHERE a.request_id=$rid LIMIT 1")->fetch_assoc();
   if ($status !== 'Pending' && (!$row || !$row['device_received'])) {
     $msg = 'Device must be received first';
   } else {
-    $stmt = $mysqli->prepare('INSERT INTO repair_updates(request_id,technician_id,status,note,created_at) VALUES(?,?,?,?,NOW())');
-    $stmt->bind_param('iiss', $rid, $tid, $status, $note);
+  $stmt = $mysqli->prepare('INSERT INTO repair_updates(request_id,technician_id,status,created_at) VALUES(?,?,?,NOW())');
+  $stmt->bind_param('iis', $rid, $tid, $status);
     if ($stmt->execute()) {
       // Map repair update status to request.state transitions
       $newState = $status;
@@ -55,7 +54,6 @@ $my = $mysqli->query("SELECT a.request_id FROM appointments a JOIN requests r ON
       <?php endforeach; ?>
     </select>
   </label>
-  <label>Note<textarea name="note"></textarea></label>
   <button class="btn" type="submit">Add Update</button>
 </form>
 <?php include __DIR__ . '/../partials/footer.php'; ?>
