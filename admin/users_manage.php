@@ -49,7 +49,12 @@ if (isset($_GET['filter'])) {
   }
 }
 
-$baseQuery = "SELECT user_id,username,role,status,is_disabled,created_at FROM users";
+$baseQuery = "SELECT u.user_id,u.username,u.role,u.status,u.is_disabled,u.created_at,
+  cp.full_name AS c_full_name, cp.phone AS c_phone, cp.email AS c_email, cp.address AS c_address,
+  tp.full_name AS t_full_name, tp.phone AS t_phone, tp.email AS t_email, tp.specialization, tp.experience_years, tp.availability_notes
+  FROM users u
+  LEFT JOIN customer_profile cp ON u.user_id = cp.customer_id
+  LEFT JOIN technician_profile tp ON u.user_id = tp.technician_id";
 switch ($tab) {
   case 'pending':
     $q = $baseQuery . " WHERE status='pending' ORDER BY created_at ASC";
@@ -86,8 +91,12 @@ $cntDisabled = $mysqli->query("SELECT COUNT(*) c FROM users WHERE is_disabled=1"
     <th>ID</th>
     <th>User</th>
     <th>Role</th>
-    <th>Status</th>
-    <th>Disabled</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Specialization</th>
+    <th>Experience</th>
+    <th>Address</th>
     <th>Created</th>
     <th>Actions</th>
   </tr>
@@ -96,8 +105,20 @@ $cntDisabled = $mysqli->query("SELECT COUNT(*) c FROM users WHERE is_disabled=1"
       <td><?= $u['user_id'] ?></td>
       <td><?= htmlspecialchars($u['username']) ?></td>
       <td><span class="role-badge role-<?= $u['role'] ?>"><?= $u['role'] ?></span></td>
-      <td><span class="status-text status-<?= $u['status'] ?>"><?= $u['status'] ?></span></td>
-      <td><?= $u['is_disabled'] ? 'Yes' : 'No' ?></td>
+      <td><?php
+          if ($u['role'] === 'user') {
+            echo htmlspecialchars($u['c_full_name'] ?? '-');
+          } elseif ($u['role'] === 'technician') {
+            echo htmlspecialchars($u['t_full_name'] ?? '-');
+          } else {
+            echo '-';
+          }
+        ?></td>
+      <td><?= htmlspecialchars($u['c_email'] ?? $u['t_email'] ?? '-') ?></td>
+      <td><?= htmlspecialchars($u['c_phone'] ?? $u['t_phone'] ?? '-') ?></td>
+      <td><?= htmlspecialchars($u['specialization'] ?? '-') ?></td>
+      <td><?= $u['experience_years'] !== null ? (int)$u['experience_years'] : '-' ?></td>
+  <td><?= htmlspecialchars($u['c_address'] ?? '-') ?></td>
       <td><?= substr($u['created_at'], 0, 10) ?></td>
       <td style="white-space:nowrap;">
         <?php if ($u['role'] != 'admin'): ?>
