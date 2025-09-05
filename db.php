@@ -2,7 +2,7 @@
 
 $dbhost = 'localhost';
 $dbuser = 'root';
-$dbpass = '2323';
+$dbpass = '';
 $dbname = 'repair_tracker';
 
 $mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
