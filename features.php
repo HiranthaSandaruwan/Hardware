@@ -31,10 +31,22 @@
   <div class="content">
     <h1>Admin Features</h1>
     <ul>
-        <li>Approve or reject new customer registrations.</li>
-        <li>Create and manage technician accounts.</li>
-        <li>Monitor all repair workflows from request to receipt.</li>
-        <li>Role-based secure access control.</li>
+      <li><b>User Management</b></li>
+    <ul>
+<li>Approve or reject new customer/technician registrations.</li>
+<li>Disable, or delete customer/technician accounts.</li>
+<li>Manage role-based secure access (Admin, Technician, Customer).</li>
+    </ul> 
+<li><b>Repair Workflow Monitoring</b></li>
+<ul>
+<li>Track repair requests from initial submission to final receipt.</li>  
+<li>View system-wide dashboards with pending, ongoing, and completed repairs.</li>
+</ul>      
+<li><b>Financial Oversight</b></li>
+<ul>
+<li>Monitor payment transactions (Online / Cash).</li>
+<li>View pending, completed, and confirmed payments.</li>
+</ul>
     </ul>
 
   </div>
@@ -43,23 +55,62 @@
   <div class="content">
     <h1>Technician Features</h1>
     <ul>
-        <li>Use default account tech / tech for first login.</li>
-        <li>Access personalized schedules and appointments.</li>
-        <li>Update repair status in real time.</li>
-        <li>Ensure receipts are auto-generated upon repair completion.</li>
+  <li><b>Account Access</b>
+    <ul>
+      <li>Login with default account credentials (username: <code>tech</code>, password: <code>tech</code>) at first use.</li>
     </ul>
+  </li>
+
+  <li><b>Task Management</b>
+    <ul>
+      <li>Access personalized schedules and assigned appointments.</li>
+      <li>Receive notifications about new repair requests.</li>
+      <li>Update and log repair status in real time (Pending, In Progress, Completed).</li>
+    </ul>
+  </li>
+
+  <li><b>Customer Interaction</b>
+    <ul>
+      <li>Provide repair feedback and confirmations after task completion.</li>
+    </ul>
+  </li>
+</ul>
+
   </div>
 </div>
 <div class="section">
   <div class="content">
     <h1>Customer Features</h1>
     <ul>
-        <li>Use default account uoc / uoc for first login</li>
-        <li>Submit repair requests with device details.</li>
-        <li>Book appointment slots for drop-off.</li>
-        <li>Track request progress online.</li>
-        <li>Download or print receipts after service.</li>
+  <li><b>Account Access</b>
+    <ul>
+      <li>Login with default account credentials (username: <code>uoc</code>, password: <code>uoc</code>) at first use.</li>
     </ul>
+  </li>
+
+  <li><b>Repair Requests</b>
+    <ul>
+      <li>Submit new repair requests with detailed device information.</li>
+      <li>Attach optional notes or issues for better diagnosis.</li>
+      <li>Book appointment slots as per convenience.</li>
+    </ul>
+  </li>
+
+  <li><b>Tracking & Transparency</b>
+    <ul>
+      <li>Track request progress online (Pending → In Progress → Completed).</li>
+      <li>Receive real-time status updates and notifications.</li>
+    </ul>
+  </li>
+
+  <li><b>Payments</b>
+    <ul>
+      <li>Choose between Online or Cash payments.</li>
+      <li>View payment history and pending bills.</li>
+    </ul>
+  </li>
+</ul>
+
 
   </div>
 </div>

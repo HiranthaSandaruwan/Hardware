@@ -61,8 +61,8 @@
         <h3 style="color: #ade6ffff;">Getting Started</h3>
         <ol>
           <li>Register an account as either a Customer or Technician</li>
-          <li>Wait for Admin approval of your account</li>
-          <li>Once approved, log in and start using the platform based on your role</li>
+          <li>Wait for Admin approval of your account (Technician)</li>
+          <li>Once approved, log in and start using the platform (Technician)</li>
         </ol>
       </div>
   </div>
