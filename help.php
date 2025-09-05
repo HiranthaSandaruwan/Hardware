@@ -52,6 +52,7 @@
     .contact-icon {
       color: #ade6ff;
       margin-bottom: 0.5rem;
+      cursor: pointer;
     }
   </style>
   <div class="help">
