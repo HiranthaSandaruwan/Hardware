@@ -15,7 +15,7 @@ $latestRequests = $mysqli->query("SELECT r.request_id,u.username,r.device_type,r
 $latestPayments = $mysqli->query("SELECT p.payment_id,p.method,p.status,p.paid_at,rc.receipt_id,r.request_id,u.username cust,t.username tech,rc.total_amount FROM payments p JOIN receipts rc ON p.receipt_id=rc.receipt_id JOIN requests r ON rc.request_id=r.request_id JOIN users u ON r.user_id=u.user_id LEFT JOIN users t ON rc.technician_id=t.user_id ORDER BY COALESCE(p.paid_at, rc.created_at) DESC LIMIT 5");
 ?>
 <?php include __DIR__ . '/../partials/header.php'; ?>
-<h1>Admin Dashboard</h1>
+<h1 style = "margin-bottom:1rem">Admin Dashboard</h1>
 <div class="flex" style="margin-bottom:1rem;">
   <div class="card stat-card">
     <h3>Pending Registrations</h3>
@@ -111,7 +111,7 @@ $latestPayments = $mysqli->query("SELECT p.payment_id,p.method,p.status,p.paid_a
   </div>
   <div class="card" style="flex:1 1 15rem;">
     <h3>Feedback</h3>
-  <p><a href="feedback.php">Open Feedback Overview &raquo;</a></p>
+    <p><a href="feedback.php">Open Feedback Overview &raquo;</a></p>
   </div>
   <div class="card" style="flex:1 1 15rem;">
     <h3>Payments</h3>
