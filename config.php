@@ -2,7 +2,6 @@
 
 /**
  * Global configuration & auth helpers.
- * NOTE: Logic unchanged – formatting & comments only.
  */
 
 // App meta

@@ -1,6 +1,6 @@
 <?php
 
-/** Technician completed work list; create receipt, mark paid, give feedback (logic unchanged). */
+/** Technician completed work list; create receipt, mark paid, give feedback */
 require_once __DIR__ . '/../config.php';
 require_role('technician');
 require_once __DIR__ . '/../db.php';
