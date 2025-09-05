@@ -1,6 +1,7 @@
 <?php include __DIR__ . '/partials/header.php'; ?>
   <style>
   .help {
+      margin-top: 2.5rem; 
       margin-bottom: 2rem;
       padding: 2rem;
       border-radius: 12px;
@@ -148,7 +149,7 @@
         <div class="section-header">
           <h2 class="section-title">Let's Connect</h2>
           <p class="section-subtitle">
-            You have some issue?tell it!
+            You have some issue? Contact Us!
           </p>
         </div>
         <div class="contact-content">
