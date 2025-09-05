@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Global configuration & auth helpers.
+ ** Global configuration & auth helpers.
  */
 
 // App meta
