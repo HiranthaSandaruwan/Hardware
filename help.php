@@ -149,7 +149,7 @@
         <div class="section-header">
           <h2 class="section-title">Let's Connect</h2>
           <p class="section-subtitle">
-            You have some issue?tell it!
+            You have some issue? Contact Us!
           </p>
         </div>
         <div class="contact-content">
