@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $approved = $mysqli->query("SELECT request_id,device_type,category,description FROM requests WHERE state='New' ORDER BY created_at DESC LIMIT 30");
 ?>
 <?php include __DIR__ . '/../partials/header.php'; ?>
-<h1>Requests (Assign & Propose Slots)</h1>
+<h1>Handle Requests (Assign & Propose)</h1>
 <?php if ($msg): ?><div class="success"><?= htmlspecialchars($msg) ?></div><?php endif; ?>
 <table class="table">
   <tr>
