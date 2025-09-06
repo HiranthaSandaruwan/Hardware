@@ -17,22 +17,22 @@ $latestPayments = $mysqli->query("SELECT p.payment_id,p.method,p.status,p.paid_a
 <?php include __DIR__ . '/../partials/header.php'; ?>
 <h1 style = "margin-bottom:1rem">Admin Dashboard</h1>
 <div class="flex" style="margin-bottom:1rem;">
-  <div class="card stat-card">
+  <div class="card">
     <h3>Pending Registrations</h3>
     <p class="big-num"><?= $pendingTech ?></p>
     <p><a href="users_pending.php">Review &raquo;</a></p>
   </div>
-  <div class="card stat-card">
+  <div class="card">
     <h3>Active Customers</h3>
     <p class="big-num"><?= $activeCustomers ?></p>
     <p><a href="users_manage.php?filter=active_customers">View &raquo;</a></p>
   </div>
-  <div class="card stat-card">
+  <div class="card">
     <h3>Active Technicians</h3>
     <p class="big-num"><?= $activeTechs ?></p>
     <p><a href="users_manage.php?filter=active_techs">View &raquo;</a></p>
   </div>
-  <div class="card stat-card">
+  <div class="card">
     <h3>Completed Repairs</h3>
     <p class="big-num"><?= $completedRepairs ?></p>
     <p><a href="requests.php?state=Completed">Browse &raquo;</a></p>
@@ -55,7 +55,7 @@ $latestPayments = $mysqli->query("SELECT p.payment_id,p.method,p.status,p.paid_a
           <tr>
             <td><?= htmlspecialchars($u['username']) ?></td>
             <td><span class="role-badge role-<?= $u['role'] ?>"><?= $u['role'] ?></span></td>
-            <td><span class="status-text status-<?= $u['status'] ?>"><?= $u['status'] ?></span></td>
+            <td><span class="status-text status-<?= strtolower($u['status']) ?>"><?= $u['status'] ?></span></td>
             <td><?= substr($u['created_at'], 0, 10) ?></td>
           </tr>
         <?php endwhile; ?>
@@ -75,7 +75,7 @@ $latestPayments = $mysqli->query("SELECT p.payment_id,p.method,p.status,p.paid_a
             <td>#<?= $r['request_id'] ?></td>
             <td><?= htmlspecialchars($r['username']) ?></td>
             <td><?= htmlspecialchars($r['device_type']) ?></td>
-            <td><span class="status-text status-<?= str_replace(' ', '-', $r['state']) ?>"><?= $r['state'] ?></span></td>
+            <td><span class="status-text status-<?= strtolower(str_replace(' ', '-', $r['state'])) ?>"><?= $r['state'] ?></span></td>
           </tr>
         <?php endwhile; ?>
       </table>
@@ -96,7 +96,7 @@ $latestPayments = $mysqli->query("SELECT p.payment_id,p.method,p.status,p.paid_a
             <td><?= htmlspecialchars($p['cust']) ?></td>
             <td><?= htmlspecialchars($p['tech']) ?></td>
             <td><?= htmlspecialchars($p['method']) ?></td>
-            <td><span class="status-text status-<?= $p['status'] ?>"><?= $p['status'] ?></span></td>
+            <td><span class="status-text status-<?= strtolower($p['status']) ?>"><?= $p['status'] ?></span></td>
           </tr>
         <?php endwhile; ?>
       </table>
