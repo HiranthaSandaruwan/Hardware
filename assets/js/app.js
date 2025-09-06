@@ -1,12 +1,5 @@
-// Minimal JS (validation + small helpers)
-function q(sel, ctx) { return (ctx || document).querySelector(sel); }
+/// Minimal JS (validation + small helpers)
 function qa(sel, ctx) { return [...(ctx || document).querySelectorAll(sel)]; }
-
-// Simple confirm links
-addEventListener('click', e => {
-  const a = e.target.closest('a[data-confirm]');
-  if (a && !confirm(a.getAttribute('data-confirm'))) { e.preventDefault(); }
-});
 
 // Basic front-end validation fallback
 addEventListener('submit', e => {

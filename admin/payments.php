@@ -18,15 +18,15 @@ FROM payments p JOIN receipts rc ON p.receipt_id=rc.receipt_id JOIN requests r O
 <?php include __DIR__ . '/../partials/header.php'; ?>
 <h1>Payments Overview</h1>
 <div class="flex" style="margin-bottom:.9rem;">
-  <div class="card stat-card">
+  <div class="card">
     <h3>Paid Online</h3>
     <p class="big-num"><?= number_format($aggRow['online_total'] ?? 0, 2) ?></p>
   </div>
-  <div class="card stat-card">
+  <div class="card">
     <h3>Paid Cash</h3>
     <p class="big-num"><?= number_format($aggRow['cash_total'] ?? 0, 2) ?></p>
   </div>
-  <div class="card stat-card">
+  <div class="card">
     <h3>Pending Amount</h3>
     <p class="big-num"><?= number_format($aggRow['pending_total'] ?? 0, 2) ?></p><small><?= (int)$aggRow['pending_count'] ?> pending</small>
   </div>
@@ -51,7 +51,7 @@ FROM payments p JOIN receipts rc ON p.receipt_id=rc.receipt_id JOIN requests r O
       <td><?= htmlspecialchars($p['tech']) ?></td>
       <td><?= number_format($p['total_amount'], 2) ?></td>
       <td><?= htmlspecialchars($p['method']) ?></td>
-      <td><span class="status-text status-<?= $p['status'] ?>"><?= $p['status'] ?></span></td>
+  <td><span class="status-text status-<?= strtolower($p['status']) ?>"><?= $p['status'] ?></span></td>
       <td><?= $p['customer_confirmed'] ? 'Yes' : 'No' ?></td>
       <td><?= $p['paid_at'] ?: '-' ?></td>
     </tr>
