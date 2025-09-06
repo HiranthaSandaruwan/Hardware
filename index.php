@@ -1,12 +1,12 @@
 <?php
 require __DIR__ . '/config.php';
 $user = current_user();
+header('Content-Type: text/html; charset=utf-8');
 ?>
 <!doctype html>
 <html lang="en">
 
 <head>
-	<meta charset="utf-8">
 	<title>Welcome - <?= htmlspecialchars($APP_NAME) ?></title>
 	<link rel="stylesheet" href="assets/css/style.css">
 </head>
