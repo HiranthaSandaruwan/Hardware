@@ -10,4 +10,3 @@ addEventListener('submit', e => {
     if (!ok) { e.preventDefault(); alert('Please fill required fields'); }
   }
 });
-//edited by haritha
