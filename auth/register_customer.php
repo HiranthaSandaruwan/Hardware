@@ -18,7 +18,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     $usernameOk = preg_match('/^[A-Za-z0-9_]{3,16}$/',$username); // 3-16 chars letters/digits/_
     $phoneOk    = preg_match('/^[0-9]{10}$/',$phone);             // exactly 10 digits
     $emailOk    = ($email==='') ? true : filter_var($email,FILTER_VALIDATE_EMAIL);
-    $passOk     = preg_match('/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{1,8}$/',$password); // 1-8 chars, at least one letter & digit
+    $passOk     = preg_match('/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,8}$/',$password); // 6-8 chars, at least one letter & digit
 
     if($full_name==='' || $phone==='' || $username==='' || $password==='') {
       $err='Required fields missing';
@@ -29,7 +29,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     } elseif(!$emailOk){
       $err='Invalid email format';
     } elseif(!$passOk){
-      $err='Password must be ≤8 chars incl. letters & numbers';
+      $err='Password must be 6-8 chars incl. letters & numbers';
     } else {
     // Uniqueness check
     $stmt=$mysqli->prepare('SELECT user_id FROM users WHERE username=?');
