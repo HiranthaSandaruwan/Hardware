@@ -3,7 +3,7 @@ require_once __DIR__.'/../config.php';
 require_role('admin');
 require_once __DIR__.'/../db.php';
 
-// Fetch both directions in simple separate queries (limit to reasonable size)
+// Fetch both directions separately 
 $cust = $mysqli->query("SELECT f.feedback_id,f.request_id,u.username AS from_user,u2.username AS to_user,f.rating,f.comment,f.created_at FROM feedback f JOIN users u ON f.from_user=u.user_id JOIN users u2 ON f.to_user=u2.user_id WHERE f.role_view='customer_to_technician' ORDER BY f.created_at DESC LIMIT 200");
 $tech = $mysqli->query("SELECT f.feedback_id,f.request_id,u.username AS from_user,u2.username AS to_user,f.rating,f.comment,f.created_at FROM feedback f JOIN users u ON f.from_user=u.user_id JOIN users u2 ON f.to_user=u2.user_id WHERE f.role_view='technician_to_customer' ORDER BY f.created_at DESC LIMIT 200");
 // Removed average calculations per request

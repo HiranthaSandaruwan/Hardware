@@ -10,8 +10,7 @@ html {
     /* Slightly smaller base to compact overall scale */
 }
 
-/* Hide native scrollbars site-wide but preserve scrolling (cross-browser) */
-/* Note: keep this if you want no visible scrollbars on the entire site. */
+/* Hide scrollbars but keep scrolling */
 html, body { -ms-overflow-style: none; /* IE and Edge */ scrollbar-width: none; /* Firefox */ }
 body::-webkit-scrollbar { display: none; } /* Chrome, Safari, Opera */
 
@@ -20,9 +19,6 @@ body {
     color: #222;
     line-height: 1.45;
     font-size: .9rem;
-    
-    
-    /* Slightly reduced */
 }
 
 a {
@@ -32,9 +28,7 @@ a {
 
 .container {
     max-width: 60rem;
-    /* 960px */
     margin: 1.5rem auto;
-    /* Reduced vertical space */
     padding: 0 1rem;
 }
 
@@ -44,11 +38,8 @@ a {
 
 form {
     max-width: 23.75rem;
-    /* 380px */
     margin: 1.25rem auto;
-    /* Reduced */
     padding: 1.05rem;
-    /* Reduced */
     background: #fff;
     border: 1px solid #dfe3e8;
     border-radius: .45rem;
@@ -57,14 +48,12 @@ form {
 
 form h1 {
     font-size: 1.3rem;
-    /* Slightly smaller */
     margin-bottom: .6rem;
 }
 
 label {
     display: block;
     margin: .5rem 0 .2rem;
-    /* Tighter */
     font-weight: 600
 }
 
@@ -73,7 +62,6 @@ select,
 textarea {
     width: 100%;
     padding: .5rem .6rem;
-    /* Reduced */
     border: 1px solid #b9c2cc;
     border-radius: .275rem;
     font-size: .85rem;
@@ -93,7 +81,6 @@ button,
     color: #fff;
     border: none;
     padding: .5rem .9rem;
-    /* Reduced */
     border-radius: .28rem;
     font-size: .82rem;
     font-weight: 600;
@@ -140,14 +127,12 @@ button:hover,
     width: 100%;
     border-collapse: collapse;
     margin: .9rem 0;
-    /* Reduced */
     background: #fff
 }
 
 .table th,
 .table td {
     padding: .5rem .55rem;
-    /* Reduced */
     border: 1px solid #d6dde3;
     font-size: .82rem;
     text-align: left;
@@ -197,15 +182,12 @@ nav.sidebar {
     top: 0;
     bottom: 0;
     width: 11.25rem;
-    /* Narrower */
     background: #12202e;
     color: #fff;
     padding: .9rem;
-    /* Reduced */
     display: flex;
     flex-direction: column;
     gap: .4rem;
-    /* Reduced gap */
 }
 
 nav.sidebar h2 {
@@ -231,7 +213,6 @@ nav.sidebar h2 {
 nav.sidebar a {
     color: #fff;
     padding: .45rem .55rem;
-    /* Slightly tighter */
     border-radius: .25rem;
     font-size: 1rem;
     background: transparent
@@ -254,14 +235,11 @@ nav.sidebar a:hover {
 
 main.with-sidebar {
     margin-left: 12.4rem;
-    /* Match reduced sidebar */
     padding: 1.25rem 2.5rem 2.5rem;
-    /* Reduced */
 }
 
 footer {
     margin: 1.75rem 0 1rem;
-    /* Reduced top spacing */
     text-align: center;
     color: #666;
     font-size: .75rem;
@@ -279,7 +257,6 @@ footer {
 .flex {
     display: flex;
     gap: .625rem;
-    /* Reduced gap */
     flex-wrap: wrap
 }
 
@@ -288,7 +265,6 @@ footer {
     border: 1px solid #dfe3e8;
     border-radius: .45rem;
     padding: .75rem;
-    /* Reduced */
     flex: 1 1 12.5rem;
     min-width: 12.5rem
 }
@@ -402,7 +378,7 @@ canvas {
     height: auto
 }
 
-/* Payment & Feedback cell layout enhancements */
+/* Payment & Feedback cell layout */
 .cell-box {background:#fff;border:1px solid #dfe3e8;padding:.45rem .55rem;border-radius:.5rem;max-width:265px;box-shadow:0 1px 2px rgba(0,0,0,.05);position:relative;}
 .cell-box form {margin:0;}
 .cell-box .mini-select {width:100%;font-size:.7rem;padding:.35rem .45rem;margin-bottom:.35rem;}

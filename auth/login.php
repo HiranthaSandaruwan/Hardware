@@ -1,5 +1,5 @@
 <?php
-/** Login (logic unchanged). */
+/** Login */
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../db.php';
 
@@ -77,5 +77,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <a href="choose_role.php" class="btn outline" style="margin:0;">Register</a>
   </div>
 </form>
-<!-- Removed below-form register link; replaced with inline button -->
 <?php include __DIR__ . '/../partials/footer.php'; ?>

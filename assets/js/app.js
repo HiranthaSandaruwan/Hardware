@@ -8,7 +8,7 @@ addEventListener('click', e => {
   if (a && !confirm(a.getAttribute('data-confirm'))) { e.preventDefault(); }
 });
 
-// Basic front-end required validation fallback
+// Basic front-end validation fallback
 addEventListener('submit', e => {
   const f = e.target;
   if (f.matches('[data-validate]')) {

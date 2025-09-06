@@ -9,7 +9,6 @@ $user = current_user();
 	<meta charset="utf-8">
 	<title>Welcome - <?= htmlspecialchars($APP_NAME) ?></title>
 	<link rel="stylesheet" href="assets/css/style.css">
-	</style>
 </head>
 
 <body class="landing-bg">
@@ -38,7 +37,6 @@ $user = current_user();
 			</div>
 		</div>
 	</div>
-	
 </body>
 
 </html>

@@ -8,7 +8,7 @@ if (isset($_GET['accept'])) {
   if ($slotIndex < 1 || $slotIndex > 3) $slotIndex = 1;
 
   
-  // fetch only required fields with distinct aliasing to avoid name collision
+  // Select required fields, avoid name conflicts
   $stmt = $mysqli->prepare("SELECT ap.request_id, ap.technician_id AS proposal_technician_id, ap.slot1, ap.slot2, ap.slot3 FROM appointment_proposals ap JOIN requests r ON ap.request_id=r.request_id WHERE ap.proposal_id=? AND r.user_id=? AND ap.status='Waiting' LIMIT 1");
   $stmt->bind_param('ii', $pid, $uid);
   $stmt->execute();
@@ -28,8 +28,8 @@ if (isset($_GET['accept'])) {
         $rej = $mysqli->prepare("UPDATE appointment_proposals SET status='Rejected' WHERE request_id=? AND proposal_id<>? AND status='Waiting'");
         $rej->bind_param('ii', $p['request_id'], $pid);
         $rej->execute();
-  // legacy inline fields (technician_id, tech_assigned, appointment_time) removed from schema
-  // we now set assigned_to for quick reference only
+
+  // assigned_to now used for quick reference only
   $tid = $p['proposal_technician_id'];
   $mysqli->query("UPDATE requests SET assigned_to=$tid, updated_at=NOW() WHERE request_id=" . (int)$p['request_id']);
       }
