@@ -7,14 +7,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $phone = trim($_POST['phone'] ?? '');
   $email = trim($_POST['email'] ?? '');
   $specialization = trim($_POST['specialization'] ?? '');
-  $experience = (int)($_POST['experience'] ?? 0);
+  $experience = max(0, (int)($_POST['experience'] ?? 0));
   $availability = trim($_POST['availability'] ?? '');
   $username = trim($_POST['username'] ?? '');
   $password = trim($_POST['password'] ?? '');
   $usernameOk = preg_match('/^[A-Za-z0-9_]{3,16}$/', $username);
   $phoneOk    = preg_match('/^[0-9]{10}$/', $phone); // exactly 10 digits
   $emailOk    = ($email === '') ? true : filter_var($email, FILTER_VALIDATE_EMAIL);
-  $passOk     = preg_match('/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{1,8}$/', $password);
+  $passOk     = preg_match('/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,8}$/', $password);
   if ($full_name === '' || $phone === '' || $username === '' || $password === '') {
     $err = 'Required fields missing';
   } elseif (!$usernameOk) {
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   } elseif (!$emailOk) {
     $err = 'Invalid email format';
   } elseif (!$passOk) {
-    $err = 'Password must be ≤8 chars incl. letters & numbers';
+    $err = 'Password must be at 6-8 chars incl. letters & numbers';
   } else {
     $stmt = $mysqli->prepare('SELECT user_id FROM users WHERE username=?');
     $stmt->bind_param('s', $username);
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <label>Phone<input name="phone" required value="<?= htmlspecialchars($_POST['phone'] ?? '') ?>"></label>
   <label>Email<input type="email" name="email" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>"></label>
   <label>Specialization / Skills<input name="specialization" value="<?= htmlspecialchars($_POST['specialization'] ?? '') ?>"></label>
-  <label>Experience (years)<input type="number" name="experience" value="<?= htmlspecialchars($_POST['experience'] ?? '0') ?>"></label>
+  <label>Experience (years)<input type="number" name="experience" min="0" step="1" value="<?= htmlspecialchars($_POST['experience'] ?? '0') ?>"></label>
   <label>Availability Notes<textarea name="availability"><?= htmlspecialchars($_POST['availability'] ?? '') ?></textarea></label>
   <label>Username<input name="username" required value="<?= htmlspecialchars($_POST['username'] ?? '') ?>"></label>
   <label>Password<input type="password" name="password" required></label>
