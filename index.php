@@ -24,8 +24,8 @@ header('Content-Type: text/html; charset=utf-8');
 						$dash = 'admin/index.php';
 					} elseif ($user['role'] === 'technician') {
 						$dash = 'technician/index.php';
-					} else {
-						$dash = 'customer/dashboard.php';
+								} else {
+									$dash = 'customer/index.php';
 					}
 					?>
 					<a class="btn" href="<?= $dash ?>">Go to Dashboard</a>

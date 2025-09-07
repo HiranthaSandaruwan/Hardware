@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } elseif ($row['role'] === 'technician') {
           header('Location: ../technician/index.php');
         } else {
-          header('Location: ../customer/dashboard.php');
+          header('Location: ../customer/index.php');
         }
         exit;
       }
