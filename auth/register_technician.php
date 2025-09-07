@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   } elseif (!$emailOk) {
     $err = 'Invalid email format';
   } elseif (!$passOk) {
-    $err = 'Password must be at 6-8 chars incl. letters & numbers';
+    $err = 'Password must be at 6-8 characters including letters and numbers';
   } else {
     $stmt = $mysqli->prepare('SELECT user_id FROM users WHERE username=?');
     $stmt->bind_param('s', $username);
