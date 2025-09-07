@@ -51,7 +51,7 @@ FROM payments p JOIN receipts rc ON p.receipt_id=rc.receipt_id JOIN requests r O
       <td><?= htmlspecialchars($p['tech']) ?></td>
       <td><?= number_format($p['total_amount'], 2) ?></td>
       <td><?= htmlspecialchars($p['method']) ?></td>
-  <td><span class="status-text status-<?= strtolower($p['status']) ?>"><?= $p['status'] ?></span></td>
+      <td><span class="status-text status-<?= strtolower($p['status']) ?>"><?= $p['status'] ?></span></td>
       <td><?= $p['customer_confirmed'] ? 'Yes' : 'No' ?></td>
       <td><?= $p['paid_at'] ?: '-' ?></td>
     </tr>
