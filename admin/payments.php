@@ -5,15 +5,19 @@ require_once __DIR__ . '/../db.php';
 
 // Aggregates
 $agg = $mysqli->query("SELECT 
-  SUM(CASE WHEN status='Paid' AND method='Online' THEN rc.total_amount ELSE 0 END) online_total,
-  SUM(CASE WHEN status='Paid' AND method='Cash' THEN rc.total_amount ELSE 0 END) cash_total,
-  SUM(CASE WHEN status!='Paid' THEN rc.total_amount ELSE 0 END) pending_total,
-  COUNT(CASE WHEN status!='Paid' THEN 1 END) pending_count
-FROM payments p JOIN receipts rc ON p.receipt_id=rc.receipt_id");
+                       SUM(CASE WHEN status='Paid' AND method='Online' THEN rc.total_amount ELSE 0 END) online_total,
+                       SUM(CASE WHEN status='Paid' AND method='Cash' THEN rc.total_amount ELSE 0 END) cash_total,
+                       SUM(CASE WHEN status!='Paid' THEN rc.total_amount ELSE 0 END) pending_total,
+                       COUNT(CASE WHEN status!='Paid' THEN 1 END) pending_count
+                       FROM payments p JOIN receipts rc ON p.receipt_id=rc.receipt_id");
 $aggRow = $agg->fetch_assoc();
 
 $list = $mysqli->query("SELECT p.payment_id,r.request_id,rc.total_amount,p.method,p.status,p.paid_at,u.username cust,t.username tech, p.confirmed_at,p.customer_confirmed 
-FROM payments p JOIN receipts rc ON p.receipt_id=rc.receipt_id JOIN requests r ON rc.request_id=r.request_id JOIN users u ON r.user_id=u.user_id LEFT JOIN users t ON rc.technician_id=t.user_id ORDER BY COALESCE(p.paid_at, rc.created_at) DESC LIMIT 200");
+                        FROM payments p JOIN receipts rc ON p.receipt_id=rc.receipt_id 
+                        JOIN requests r ON rc.request_id=r.request_id 
+                        JOIN users u ON r.user_id=u.user_id 
+                        LEFT JOIN users t ON rc.technician_id=t.user_id 
+                        ORDER BY COALESCE(p.paid_at, rc.created_at) DESC LIMIT 200");
 ?>
 <?php include __DIR__ . '/../partials/header.php'; ?>
 <h1>Payments Overview</h1>
