@@ -2,7 +2,7 @@
 
 $dbhost = 'localhost';
 $dbuser = 'root';
-$dbpass = '';
+$dbpass = '2323';
 $dbname = 'repair_tracker';
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
