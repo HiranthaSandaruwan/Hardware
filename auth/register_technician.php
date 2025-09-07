@@ -2,6 +2,8 @@
 require_once __DIR__ . '/../db.php';
 $err = '';
 $ok = '';
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $full_name = trim($_POST['full_name'] ?? '');
   $phone = trim($_POST['phone'] ?? '');
@@ -15,6 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $phoneOk    = preg_match('/^[0-9]{10}$/', $phone); // exactly 10 digits
   $emailOk    = ($email === '') ? true : filter_var($email, FILTER_VALIDATE_EMAIL);
   $passOk     = preg_match('/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,8}$/', $password);
+
+
   if ($full_name === '' || $phone === '' || $username === '' || $password === '') {
     $err = 'Required fields missing';
   } elseif (!$usernameOk) {
@@ -41,6 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if ($stmt2->execute()) {
         $uid = $stmt2->insert_id;
         $stmt3 = $mysqli->prepare('INSERT INTO technician_profile(technician_id,full_name,phone,email,specialization,experience_years,availability_notes) VALUES(?,?,?,?,?,?,?)');
+
+
         // Types: i (id), s (full_name), s (phone), s (email), s (specialization), i (experience_years), s (availability_notes)
         $stmt3->bind_param('issssis', $uid, $full_name, $phone, $email, $specialization, $experience, $availability);
         $stmt3->execute();

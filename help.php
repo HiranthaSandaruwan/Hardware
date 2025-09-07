@@ -109,7 +109,7 @@
           <li>Track your accepted appointments</li>
           <li>Update repair status as you progress</li>
         </ul>
-        
+
         <h4 style="color: #ade6ffff;">Completing Repairs</h4>
         <ul>
           <li>Document repair details and parts used</li>
@@ -132,7 +132,7 @@
           <li>Review repair proposals from technicians</li>
           <li>Accept preferred repair proposals</li>
         </ul>
-        
+
         <h4 style="color: #ade6ffff;">Managing Your Repairs</h4>
         <ul>
           <li>Track the status of your repair requests</li>
@@ -144,38 +144,37 @@
   </div>
   </div>
 
-<div id="contact" class="contact-section help">
-  <div style="padding-left:10px;">
-      <div class="container center">
-        <div class="section-header">
-          <h2 class="section-title">Let's Connect</h2>
-          <p class="section-subtitle">
-            You have some issue? Contact Us!
-          </p>
+  <div id="contact" class="contact-section help">
+    <div style="padding-left:10px;">
+        <div class="container center">
+          <div>
+              <h2 class="section-title">Let's Connect</h2>
+              <p class="section-subtitle">
+                You have some issue? Contact Us!
+              </p>
+          </div>
+          <div>
+              <div onclick="window.open('mailto:hardwaretraker@gmail.com')">
+                  <div class="contact-icon">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path
+                        d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+                      />
+                    </svg>
+                  </div>
+                  <div style="font-weight: 600; color: #ffffff; margin-top: 10px">
+                    Email
+                  </div>
+                  <div style="color: #cccccc; font-size: 0.9em">Click to mail</div>
+              </div>
+          </div>
         </div>
-        <div class="contact-content">
-          <div class="contact-info">
-            <div
-              class="contact-item"
-              onclick="window.open('mailto:hardwaretraker@gmail.com')"
-            >
-              <div class="contact-icon">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path
-                    d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
-                  />
-                </svg>
-              </div>
-              <div style="font-weight: 600; color: #ffffff; margin-top: 10px">
-                Email
-              </div>
-              <div style="color: #cccccc; font-size: 0.9em">Click to mail</div>
+    </div>
   </div>
-            </div>
 
 <?php include __DIR__ . '/partials/footer.php'; ?>
