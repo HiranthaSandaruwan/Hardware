@@ -31,11 +31,15 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     } elseif(!$passOk){
       $err='Password must be 6-8 chars incl. letters & numbers';
     } else {
-    // Uniqueness check
+    
+    
+      // Uniqueness check
     $stmt=$mysqli->prepare('SELECT user_id FROM users WHERE username=?');
     $stmt->bind_param('s',$username);
     $stmt->execute();
     $stmt->store_result();
+
+    
     if($stmt->num_rows>0){
       $err='Username taken';
     } else {
