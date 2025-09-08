@@ -14,9 +14,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 	$rid = (int)$_POST['receipt_id'];
 	$method = $_POST['method'] === 'Online' ? 'Online' : 'Cash';
 	if ($hasConfirmCol) {
-		$mysqli->query("UPDATE payments p JOIN receipts r ON p.receipt_id=r.receipt_id JOIN requests rq ON r.request_id=rq.request_id SET p.method='$method', p.customer_confirmed=1, p.confirmed_at=NOW() WHERE p.receipt_id=$rid AND rq.user_id=$uid");
+		$mysqli->query("UPDATE payments p 
+						JOIN receipts r ON p.receipt_id=r.receipt_id 
+						JOIN requests rq ON r.request_id=rq.request_id 
+						SET p.method='$method', p.customer_confirmed=1, p.confirmed_at=NOW() 
+						WHERE p.receipt_id=$rid AND rq.user_id=$uid");
 	} else {
-		$mysqli->query("UPDATE payments p JOIN receipts r ON p.receipt_id=r.receipt_id JOIN requests rq ON r.request_id=rq.request_id SET p.method='$method' WHERE p.receipt_id=$rid AND rq.user_id=$uid");
+		$mysqli->query("UPDATE payments p 
+						JOIN receipts r ON p.receipt_id=r.receipt_id 
+						JOIN requests rq ON r.request_id=rq.request_id 
+						SET p.method='$method' 
+						WHERE p.receipt_id=$rid AND rq.user_id=$uid");
 	}
 	$msgPay = 'Payment method saved (awaiting technician confirmation).';
 }
@@ -25,7 +33,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 	$req = (int)$_POST['request_id'];
 	$rating = (int)$_POST['rating'];
 	$comment = trim($_POST['comment'] ?? '');
-	$ok = $mysqli->query("SELECT r.request_id,a.technician_id FROM receipts rc JOIN requests r ON rc.request_id=r.request_id JOIN appointments a ON a.request_id=r.request_id WHERE r.request_id=$req AND r.user_id=$uid LIMIT 1")->fetch_assoc();
+	$ok = $mysqli->query("SELECT r.request_id,a.technician_id 
+						  FROM receipts rc 
+						  JOIN requests r ON rc.request_id=r.request_id 
+						  JOIN appointments a ON a.request_id=r.request_id 
+						  WHERE r.request_id=$req AND r.user_id=$uid LIMIT 1")->fetch_assoc();
 	if ($ok && !$mysqli->query("SELECT 1 FROM feedback WHERE request_id=$req AND from_user=$uid AND role_view='customer_to_technician' LIMIT 1")->num_rows) {
 		$tech = $ok['technician_id'];
 		$stmt = $mysqli->prepare('INSERT INTO feedback(request_id,from_user,to_user,role_view,rating,comment,created_at) VALUES(?,?,?,?,?,?,NOW())');
@@ -37,7 +49,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 }
 // completed requests with receipt/payment + existing feedback
 $selectCols = "r.request_id,r.state,a.chosen_slot,rc.receipt_id,rc.total_amount,p.method,p.status pay_status,p.paid_at" . ($hasConfirmCol ? ",p.customer_confirmed,p.confirmed_at" : "") . ",fb.rating fb_rating,fb.comment fb_comment";
-$completed = $mysqli->query("SELECT $selectCols FROM requests r LEFT JOIN appointments a ON a.request_id=r.request_id LEFT JOIN receipts rc ON rc.request_id=r.request_id LEFT JOIN payments p ON p.receipt_id=rc.receipt_id LEFT JOIN feedback fb ON fb.request_id=r.request_id AND fb.role_view='customer_to_technician' AND fb.from_user=$uid WHERE r.user_id=$uid AND r.state IN('Completed','Cannot Fix','Returned') ORDER BY r.updated_at DESC");
+$completed = $mysqli->query("SELECT $selectCols 
+						     FROM requests r 
+							 LEFT JOIN appointments a ON a.request_id=r.request_id 
+							 LEFT JOIN receipts rc ON rc.request_id=r.request_id 
+							 LEFT JOIN payments p ON p.receipt_id=rc.receipt_id 
+							 LEFT JOIN feedback fb ON fb.request_id=r.request_id AND fb.role_view='customer_to_technician' AND fb.from_user=$uid 
+							 WHERE r.user_id=$uid AND r.state IN('Completed','Cannot Fix','Returned') 
+							 ORDER BY r.updated_at DESC");
 ?>
 <?php include __DIR__ . '/../partials/header.php'; ?>
 <h1>Completed / Payments & Feedback</h1>

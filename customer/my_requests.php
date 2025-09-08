@@ -2,7 +2,10 @@
 require_role('user');
 require_once __DIR__ . '/../db.php';
 $uid = current_user()['id'];
-$res = $mysqli->query("SELECT request_id,device_type,state,created_at,updated_at FROM requests WHERE user_id=$uid AND state NOT IN('Completed','Cannot Fix','Returned') ORDER BY created_at DESC");
+$res = $mysqli->query("SELECT request_id,device_type,state,created_at,updated_at 
+                       FROM requests 
+                       WHERE user_id=$uid AND state NOT IN('Completed','Cannot Fix','Returned') 
+                       ORDER BY created_at DESC");
 ?>
 <?php include __DIR__ . '/../partials/header.php'; ?>
 <h1>My Requests</h1>

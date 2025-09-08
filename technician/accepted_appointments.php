@@ -51,7 +51,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status_update'])) {
   }
 }
 
-$apps = $mysqli->query("SELECT a.appointment_id,a.request_id,a.chosen_slot,a.device_received,a.no_show,r.state,r.description FROM appointments a JOIN requests r ON r.request_id=a.request_id WHERE a.technician_id=$tid ORDER BY a.created_at DESC");
+$apps = $mysqli->query("SELECT a.appointment_id,a.request_id,a.chosen_slot,a.device_received,a.no_show,r.state,r.description 
+                        FROM appointments a 
+                        JOIN requests r ON r.request_id=a.request_id 
+                        WHERE a.technician_id=$tid 
+                        ORDER BY a.created_at DESC");
 include __DIR__ . '/../partials/header.php'; ?>
 <h1>Accepted Appointments</h1>
 <?php if ($msg): ?><div class="success"><?= htmlspecialchars($msg) ?></div><?php endif; ?>

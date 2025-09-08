@@ -9,7 +9,10 @@ if (isset($_GET['accept'])) {
 
   
   // Select required fields, avoid name conflicts
-  $stmt = $mysqli->prepare("SELECT ap.request_id, ap.technician_id AS proposal_technician_id, ap.slot1, ap.slot2, ap.slot3 FROM appointment_proposals ap JOIN requests r ON ap.request_id=r.request_id WHERE ap.proposal_id=? AND r.user_id=? AND ap.status='Waiting' LIMIT 1");
+  $stmt = $mysqli->prepare("SELECT ap.request_id, ap.technician_id AS proposal_technician_id, ap.slot1, ap.slot2, ap.slot3 
+                            FROM appointment_proposals ap 
+                            JOIN requests r ON ap.request_id=r.request_id 
+                            WHERE ap.proposal_id=? AND r.user_id=? AND ap.status='Waiting' LIMIT 1");
   $stmt->bind_param('ii', $pid, $uid);
   $stmt->execute();
   $res = $stmt->get_result();
@@ -38,7 +41,12 @@ if (isset($_GET['accept'])) {
   header('Location: proposals.php');
   exit;
 }
-$waiting = $mysqli->query("SELECT ap.proposal_id,ap.request_id,ap.slot1,ap.slot2,ap.slot3,u.username tech FROM appointment_proposals ap JOIN requests r ON ap.request_id=r.request_id JOIN users u ON ap.technician_id=u.user_id WHERE r.user_id=$uid AND ap.status='Waiting' ORDER BY ap.created_at ASC");
+$waiting = $mysqli->query("SELECT ap.proposal_id,ap.request_id,ap.slot1,ap.slot2,ap.slot3,u.username tech 
+                           FROM appointment_proposals ap 
+                           JOIN requests r ON ap.request_id=r.request_id 
+                           JOIN users u ON ap.technician_id=u.user_id 
+                           WHERE r.user_id=$uid AND ap.status='Waiting' 
+                           ORDER BY ap.created_at ASC");
 ?>
 <?php include __DIR__ . '/../partials/header.php'; ?>
 <h1>Proposed Time Slots</h1>

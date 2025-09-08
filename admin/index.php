@@ -11,8 +11,17 @@ $completedRepairs = $mysqli->query("SELECT COUNT(*) c FROM requests WHERE state=
 
 // Latest activity (limit 5 each)
 $latestUsers = $mysqli->query("SELECT user_id,username,role,status,created_at FROM users ORDER BY created_at DESC LIMIT 5");
-$latestRequests = $mysqli->query("SELECT r.request_id,u.username,r.device_type,r.state,r.created_at FROM requests r JOIN users u ON r.user_id=u.user_id ORDER BY r.created_at DESC LIMIT 5");
-$latestPayments = $mysqli->query("SELECT p.payment_id,p.method,p.status,p.paid_at,rc.receipt_id,r.request_id,u.username cust,t.username tech,rc.total_amount FROM payments p JOIN receipts rc ON p.receipt_id=rc.receipt_id JOIN requests r ON rc.request_id=r.request_id JOIN users u ON r.user_id=u.user_id LEFT JOIN users t ON rc.technician_id=t.user_id ORDER BY COALESCE(p.paid_at, rc.created_at) DESC LIMIT 5");
+$latestRequests = $mysqli->query("SELECT r.request_id,u.username,r.device_type,r.state,r.created_at 
+                                  FROM requests r 
+                                  JOIN users u ON r.user_id=u.user_id 
+                                  ORDER BY r.created_at DESC LIMIT 5");
+$latestPayments = $mysqli->query("SELECT p.payment_id,p.method,p.status,p.paid_at,rc.receipt_id,r.request_id,u.username cust,t.username tech,rc.total_amount 
+                                  FROM payments p 
+                                  JOIN receipts rc ON p.receipt_id=rc.receipt_id 
+                                  JOIN requests r ON rc.request_id=r.request_id 
+                                  JOIN users u ON r.user_id=u.user_id 
+                                  LEFT JOIN users t ON rc.technician_id=t.user_id 
+                                  ORDER BY COALESCE(p.paid_at, rc.created_at) DESC LIMIT 5");
 ?>
 <?php include __DIR__ . '/../partials/header.php'; ?>
 <h1 style = "margin-bottom:1rem">Admin Dashboard</h1>

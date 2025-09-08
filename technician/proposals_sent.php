@@ -2,7 +2,10 @@
 require_role('technician');
 require_once __DIR__ . '/../db.php';
 $tid = current_user()['id'];
-$sent = $mysqli->query("SELECT ap.proposal_id,ap.request_id,ap.status,ap.slot1,ap.slot2,ap.slot3 FROM appointment_proposals ap WHERE ap.technician_id=$tid ORDER BY ap.created_at DESC");
+$sent = $mysqli->query("SELECT ap.proposal_id,ap.request_id,ap.status,ap.slot1,ap.slot2,ap.slot3 
+                        FROM appointment_proposals ap 
+                        WHERE ap.technician_id=$tid 
+                        ORDER BY ap.created_at DESC");
 ?>
 <?php include __DIR__ . '/../partials/header.php'; ?>
 <h1>Proposals Sent</h1>

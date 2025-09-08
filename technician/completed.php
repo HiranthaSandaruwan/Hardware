@@ -33,7 +33,10 @@ if (isset($_POST['action']) && $_POST['action'] === 'create_receipt') {
 // Mark payment as paid
 if (isset($_POST['action']) && $_POST['action'] === 'tech_mark_paid') {
 	$rid = (int)$_POST['request_id'];
-	$mysqli->query("UPDATE payments p JOIN receipts rc ON p.receipt_id=rc.receipt_id SET p.status='Paid', p.paid_at=NOW() WHERE rc.request_id=$rid AND rc.technician_id=$tid");
+	$mysqli->query("UPDATE payments p 
+					JOIN receipts rc ON p.receipt_id=rc.receipt_id 
+					SET p.status='Paid', p.paid_at=NOW() 
+					WHERE rc.request_id=$rid AND rc.technician_id=$tid");
 	$msgPay = 'Payment marked as Paid';
 }
 
@@ -42,7 +45,10 @@ if (isset($_POST['action']) && $_POST['action'] === 'feedback_tech_to_customer')
 	$rid = (int)$_POST['request_id'];
 	$rating = (int)$_POST['rating'];
 	$comment = trim($_POST['comment'] ?? '');
-	$ok = $mysqli->query("SELECT rq.user_id FROM receipts rc JOIN requests rq ON rc.request_id=rq.request_id WHERE rc.request_id=$rid AND rc.technician_id=$tid LIMIT 1")->fetch_assoc();
+	$ok = $mysqli->query("SELECT rq.user_id 
+					      FROM receipts rc 
+						  JOIN requests rq ON rc.request_id=rq.request_id 
+						  WHERE rc.request_id=$rid AND rc.technician_id=$tid LIMIT 1")->fetch_assoc();
 	if ($ok) {
 		if (!$mysqli->query("SELECT 1 FROM feedback WHERE request_id=$rid AND from_user=$tid AND role_view='technician_to_customer' LIMIT 1")->num_rows) {
 			$cust = $ok['user_id'];
@@ -64,7 +70,13 @@ if ($colRes = $mysqli->query("SHOW COLUMNS FROM payments LIKE 'customer_confirme
 }
 
 $selectCols = "r.request_id,r.state,rc.receipt_id,rc.total_amount,p.method,p.status,p.paid_at" . ($hasConfirmCol ? ",p.customer_confirmed" : "") . ",fb.rating fb_rating,fb.comment fb_comment";
-$list = $mysqli->query("SELECT $selectCols FROM requests r LEFT JOIN receipts rc ON rc.request_id=r.request_id AND rc.technician_id=$tid LEFT JOIN payments p ON p.receipt_id=rc.receipt_id LEFT JOIN feedback fb ON fb.request_id=r.request_id AND fb.from_user=$tid AND fb.role_view='technician_to_customer' WHERE r.assigned_to=$tid AND r.state IN('Completed','Cannot Fix','Returned') ORDER BY r.updated_at DESC");
+$list = $mysqli->query("SELECT $selectCols 
+						FROM requests r 
+						LEFT JOIN receipts rc ON rc.request_id=r.request_id AND rc.technician_id=$tid 
+						LEFT JOIN payments p ON p.receipt_id=rc.receipt_id 
+						LEFT JOIN feedback fb ON fb.request_id=r.request_id AND fb.from_user=$tid AND fb.role_view='technician_to_customer' 
+						WHERE r.assigned_to=$tid AND r.state IN('Completed','Cannot Fix','Returned') 
+						ORDER BY r.updated_at DESC");
 
 include __DIR__ . '/../partials/header.php'; ?>
 <h1>Completed Work</h1>

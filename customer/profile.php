@@ -9,8 +9,8 @@ $ok  = '';
 
 // Current details
 $stmt = $mysqli->prepare('SELECT u.username, u.password, cp.full_name, cp.phone, cp.email, cp.address 
-                            FROM users u LEFT JOIN customer_profile cp ON cp.customer_id = u.user_id 
-                            WHERE u.user_id = ? LIMIT 1');
+                          FROM users u LEFT JOIN customer_profile cp ON cp.customer_id = u.user_id 
+                          WHERE u.user_id = ? LIMIT 1');
 
 $stmt->bind_param('i', $uid);
 $stmt->execute();
