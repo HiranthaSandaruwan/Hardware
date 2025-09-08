@@ -22,6 +22,7 @@ $base = $BASE_URL;
       <a href="<?= $base ?>/technician/accepted_appointments.php">Accepted Appointments</a>
       <a href="<?= $base ?>/technician/completed.php">Completed</a>
     <?php else: ?>
+      <a href="<?= $base ?>/customer/profile.php">Profile</a>
       <a href="<?= $base ?>/customer/index.php">Dashboard</a>
       <a href="<?= $base ?>/customer/request_new.php">New Requests</a>
       <a href="<?= $base ?>/customer/my_requests.php">My Requests</a>

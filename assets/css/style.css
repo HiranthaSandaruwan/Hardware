@@ -287,18 +287,18 @@ footer {
 }
 
 .role-technician {
-    background: #e5f1ff;
-    color: #054b91;
+    background: #010b153c;
+    color: #0d73d8;
 }
 
 .role-user {
-    background: #f1f5ff;
-    color: #314b7d;
+    background: #00b0124e;
+    color: #3e7d31;
 }
 
 .role-admin {
-    background: #ffe7cc;
-    color: #8a5200;
+    background: #e4c7c189;
+    color: #b6450cf4;
 }
 
 .status-text {
