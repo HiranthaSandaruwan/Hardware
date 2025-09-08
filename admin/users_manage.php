@@ -3,12 +3,12 @@ require_role('admin');
 require_once __DIR__ . '/../db.php';
 
 // Actions
-if (isset($_GET['toggle'])) {
-  $id = (int)$_GET['toggle'];
-  $mysqli->query("UPDATE users SET is_disabled = IF(is_disabled=1,0,1) WHERE user_id=$id AND role!='admin'");
-  header('Location: users_manage.php');
-  exit;
-}
+// if (isset($_GET['toggle'])) {
+//   $id = (int)$_GET['toggle'];
+//   $mysqli->query("UPDATE users SET is_disabled = IF(is_disabled=1,0,1) WHERE user_id=$id AND role!='admin'");
+//   header('Location: users_manage.php');
+//   exit;
+// }
 if (isset($_GET['approve'])) {
   $id = (int)$_GET['approve'];
   $mysqli->query("UPDATE users SET status='approved' WHERE user_id=$id AND status='pending'");
@@ -109,6 +109,7 @@ $cntDisabled = $mysqli->query("SELECT COUNT(*) c FROM users WHERE is_disabled=1"
           <?php else: ?>
             <a class="btn" href="?enable=<?= $u['user_id'] ?>">Enable ↺</a>
           <?php endif; ?>
+          <a class="btn" style="background:#e3f7ff;border-color:#339;color:#036" href="edit_user.php?id=<?= $u['user_id'] ?>">Edit ✎</a>
           <a class="btn outline" style="background:#fff3f3;border-color:#d33;color:#b00" href="?delete=<?= $u['user_id'] ?>" onclick="return confirm('Delete user?');">Delete</a>
         <?php endif; ?>
       </td>
