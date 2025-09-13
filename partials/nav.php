@@ -16,6 +16,7 @@ $base = $BASE_URL;
       <a href="<?= $base ?>/admin/users_manage.php">Manage Users</a>
       <a href="<?= $base ?>/admin/feedback.php">Feedback</a>
     <?php elseif ($role === 'technician'): ?>
+      <a href="<?= $base ?>/technician/profile.php">Profile</a>
       <a href="<?= $base ?>/technician/index.php">Dashboard</a>
       <a href="<?= $base ?>/technician/approved_requests.php">Requests</a>
       <a href="<?= $base ?>/technician/proposals_sent.php">Proposals Sent</a>
