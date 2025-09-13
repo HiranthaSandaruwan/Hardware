@@ -12,6 +12,7 @@ A lightweight PHP + MySQL web app for managing customer hardware repair requests
 	- See approved/assigned requests, send appointment proposals
 	- Accept appointments, post repair updates, issue receipts
 	- Mark jobs Completed/Returned/Cannot Fix
+	- Profile page to update contact details and availability
 - Admin
 	- Approve/reject technicians, manage users, view reports
 - Feedback system (customer ↔ technician)
@@ -54,7 +55,7 @@ If you enabled extra demo seeds in `database.sql`, you’ll also have:
 Hardware/
 ├─ auth/                # login, register (customer/technician), logout
 ├─ customer/            # customer dashboard, requests, proposals, profile
-├─ technician/          # technician dashboard, approved/completed, proposals
+├─ technician/          # technician dashboard, approved/completed, proposals, profile
 ├─ admin/               # admin dashboard, manage users, reports
 ├─ partials/            # header, sidebar, footer
 ├─ assets/
